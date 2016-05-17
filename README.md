@@ -1,4 +1,4 @@
-This package is designed to help with reproducible R workflows.
+This package is designed to help with large reproducible R workflows. The main use of this package is to do what Makefiles do: namely, provide a way to compute output only if dependencies have changed. But unlike Makefiles, this package provides a way to weave output-generation rules directly alongside the respective blocks of R code without needing to maintain an overall Makefile. In addition, future versions of this package will integrate with workflows implemented as separate R packages, so that output generation responds intelligently to package updates.
 
 # Installation
 
@@ -24,7 +24,7 @@ where `...` is replaced by the name of the tarball produced by `R CMD build`.
 
 # Function `run_if_outdated(expr, dep, out)`
 
-Similar to Makefiles, the funciton `run_if_outdated(expr, dep, out)` runs the R code in `expr` if the dependency files and installed packages listed in `dep` exist and were modified prior to the files in `out`. In the future, this function will factor in timestamps of individual components of packages that depends on `workflowHelper`. Here are some examples.
+Similar to Makefiles, the function `run_if_outdated(expr, dep, out)` runs the R code in `expr` if the dependency files and installed packages listed in `dep` exist and any were modified prior to the files listed in `out`. In the future, this function will optionally factor in timestamps of individual components of packages that use `workflowHelper`. That way, workflows implemented as packages can still generate all required output while avoiding redundant work. Here are some examples.
 
 ```
 library(workflowHelper)
