@@ -1,0 +1,12 @@
+Package: workflowHelper
+Title: workflowHelper
+Type: Package
+Version: 0.0
+Date: 2016-05-17
+Author: Will Landau
+Maintainer: <will.landau@gmail.com>
+Description: This package helps with workflows.
+License: GPL (>= 3)
+Depends:
+    R (>= 3.0.0)
+RoxygenNote: 5.0.1
