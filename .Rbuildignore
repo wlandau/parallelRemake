@@ -1,0 +1,14 @@
+.DS_Store
+.git
+.gitignore
+.Rapp.history
+.Rbuildignore
+.Rhistory
+Rbuildignore
+README.md
+vignettes/model.html
+vignettes/model.log
+vignettes/tutorial.html
+vignettes/tutorial.log
+^.*\.Rproj$
+^\.Rproj\.user$
