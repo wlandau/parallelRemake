@@ -1,0 +1,60 @@
+# Install from https://github.com/wlandau/workflowhelper
+# Also requires the remake package at https://github.com/richfitz/remake
+library(workflowHelper) 
+
+# Number of datasets to generate with generate_data().
+reps = 4
+
+# Encode remake/YAML instructions to generate multiple datasets
+# and take the column means of each dataset.
+for(rep in 1:reps){ 
+  dataset = paste0("dataset", rep)  
+  column_means = paste0("column_means", rep, ".rds") 
+
+  # Initialize YAML fields.
+  fields = list(
+    sources = "code.R",
+    targets = list(
+      all = list(depends = column_means)
+    )
+  )
+
+  # Add a target to create the data.
+  fields$targets[[dataset]] = list(command = "generate_data()")
+
+  # Add a target to take the column means of a dataset.
+  my_command = paste0("save_column_means(dataset = dataset", rep, ", rep = ", rep, ")")
+  fields$targets[[column_means]] = list(command = my_command)
+
+  # Write the YAML file for remake.
+  write_step(fields, paste0("step", rep, ".yml"))
+}
+
+# Write the remake/YAML file for plotting the column means of the datasets
+# initialize YAML fields
+fields = list(
+  sources = "code.R",
+  targets = list(
+    all = list(depends = "my_plot.pdf"),
+    my_plot.pdf = list(
+      command = paste0("my_plot(reps = ", reps, ")"),
+      plot = "TRUE"
+    )
+  )
+)
+
+# Write the plotting YAML file
+write_step(fields, "my_plot.yml")
+
+# Organize the steps of analysis into parallelizable stages.
+stages = list(
+  stage1 = paste0("step", 1:reps, ".yml"),
+  stage2 = "my_plot.yml"
+)
+
+# Write the overarching Makefile for the workflow.
+write_workflow(stages)
+
+# Now, open a command line program run the workflow with `make`. 
+# To run the steps in stage 1 in parallel, try `make -j 4`.
+# To clean up, run `make clean`.
