@@ -4,6 +4,7 @@
 .Rapp.history
 .Rbuildignore
 .Rhistory
+examples
 Rbuildignore
 README.md
 vignettes/model.html

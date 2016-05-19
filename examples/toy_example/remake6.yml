@@ -1,0 +1,16 @@
+sources:
+  - code.R
+
+targets:
+  all:
+    depends: plot6.pdf
+
+  data6.csv:
+    command: wrapper_function("data6.csv")
+
+  processed6:
+    command: process_data("data6.csv")
+
+  plot6.pdf:
+    command: myplot(processed6)
+    plot: true
