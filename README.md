@@ -90,7 +90,7 @@ targets:
     plot: true
 ```
 
- I want to run `remake1.yml`, `remake2.yml`, and `remake3.yml` in parallel and then run `remake4.yml`, `remake5.yml`, and `remake6.yml` in parallel. First, I group the remake files into 2 parallel stages.
+ I want to run `remake1.yml`, `remake2.yml`, and `remake3.yml` in parallel and then run `remake4.yml`, `remake5.yml`, and `remake6.yml` in parallel. First, I group the remake files into 2 sequential stages made up of (possibly) parallel steps.
 
 ```
 stages = list(
@@ -99,7 +99,7 @@ stages = list(
 )
 ```
 
-Then, I create a Makefile to run them in parallel.
+Then, I create an overarching Makefile to endocode the workflow.
 
 ```
 write_workflow(stages)
@@ -152,7 +152,7 @@ Now, using a shell program like BASH, I can run the whole workflow over 3 parall
 make -j 3
 ```
 
-and clean up with
+Here, each of the 2 stages divides its 3 steps among the available 3 parallel processes. To clean up, just call
 
 ```
 make clean
