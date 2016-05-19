@@ -12,6 +12,7 @@
 *.toc
 *.vrb
 .DS_Store
+.remake
 .Rapp.history
 .Rhistory
 Rbuildignore/*.pdf
