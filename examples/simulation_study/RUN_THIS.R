@@ -109,5 +109,5 @@ my_stages = list(
 # Write the Makefile that organizes the workflow into stages
 write_workflow(my_stages)
 
-# Next, try running `make` or `make -j 3` from the command line.
+# Next, try running `make` or `make -j 4` from the command line.
 # Run `make clean` to get rid of everything generated except the YAML files.

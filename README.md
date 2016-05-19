@@ -163,9 +163,9 @@ make clean
 
 Frequently, a workflow consists of generating some datasets, analyzing each dataset with a collection of statistical methods, computing summaries of each analysis, and making some plots. If you need no parallel computing, I highly recommend using [`remake`](https://github.com/richfitz/remake) to avoid redundant computation if you have to redo parts of your work. However, if you want to use parallel processes to speed up each stage of your workflow, this package can help. 
 
-The idea is to divide each piece of the workflow into a step. A step could be the generation of a single dataset, the analysis of a single dataset with a single method, generating some plots, etc. For any one of these steps, I generate a [`remake`](https://github.com/richfitz/remake)-style YAML file to encode the work. With all those YAML files, you can arrange steps into parallelizable stages. For example, you can simulate all the datasets in parallel, then run all the analyses in parallel, then compute all the summaries in parallel, and then make all the plots in parallel. 
+The idea is to divide the workflow into atomic steps. A step could be the generation of a single dataset, the analysis of a single dataset with a single method, generating some plots, etc. For any one of these steps, I generate a [`remake`](https://github.com/richfitz/remake)-style YAML file to encode the work. With all those YAML files, I generate an overarching Makefile to arrange the steps into parallelizable stages. For example, I could simulate all the datasets in parallel, then run all the analyses in parallel, then compute all the summaries in parallel, and then make all the plots in parallel. 
 
-In a big simulation study with a lot of different datasets and modes of analysis, several  YAML files will be needed. So here, we will use `write_step` to generate them from lists. That way, more of the grunt work and repetition is automated. For example, suppose I have a list of fields defined below.
+In a big simulation study with a lot of different datasets and modes of analysis, several  YAML files will be needed. So here, I use `write_step` to generate the YAML files from R lists. That way, more of the grunt work and repetition is automated. For example, suppose I have a list of fields defined below.
 
 ```
 fields = list(
@@ -215,7 +215,7 @@ targets:
 ```
 
 
-With `write_step` defined, let's begin the example in earnest. Data generation, data analysis, etc. is encoded in `code.R` below.
+With `write_step` defined, let's begin the example in earnest. Functions to generate data, analyze data, etc. are encoded in `code.R` below.
 
 ```
 # Functions to generate datasets
@@ -296,7 +296,7 @@ my_datasets = function(){
 
 ```
 
-Similarly, I create `my_analyses` to generate YAML files to analyze each dataset with each of the functions `my_ols` and `my_rpart` and return a predictions from each fitted model.
+Similarly, I create `my_analyses` to generate YAML files to analyze each dataset with the functions `my_ols` and `my_rpart` and generate predictions.
 
 ```
 my_analyses = function(){
@@ -336,7 +336,7 @@ my_analyses = function(){
 
 ```
 
-Next, I make a function to generate a YAML file for a plot.
+Next, I make a function to write YAML instructions for a plot.
 
 ```
 my_plot = function(){
@@ -359,7 +359,7 @@ my_plot = function(){
 
 ``` 
 
-Now, I load the package and actually generate these YAML files.
+Now, I load the `workflowHelper` and actually generate these YAML files.
 
 ```
 library(workflowHelper)
@@ -386,7 +386,7 @@ my_stages = list(
 )
 ```
 
-I write an overarching `Makefile` to run everything.
+I use `write_workflow` to write an overarching `Makefile` to run everything.
 
 ```
 write_workflow(my_stages)
@@ -444,6 +444,5 @@ my_plot:
 Lastly, I run the analysis with as many parallel processes as I want.
 
 ```
-make -j 3
+make -j 4
 ```
-
