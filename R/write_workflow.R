@@ -6,6 +6,10 @@ NULL
 #' and creates an overarching Makefile to run them all in parallelizable stages 
 #' (with \code{make -j} on the command line).
 #' @export
+#' @param stages List of character vectors. Organizes the steps of a 
+#' workflow into parallelizable stages. Each character string is a 
+#' path to a \code{remake}/YAML file encoding a step in the workflow.
+#' The ".yml" file extension is optional.
 #' @param file Path to output Makefile.
 write_workflow = function(stages, file = "Makefile"){
   stages = clean_stages(stages)

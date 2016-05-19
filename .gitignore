@@ -11,10 +11,12 @@
 *.synctex.gz
 *.toc
 *.vrb
+*.yml
 .DS_Store
 .remake
 .Rapp.history
 .Rhistory
+Makefile
 Rbuildignore/*.pdf
 Rbuildignore/local/
 .Rproj.user
