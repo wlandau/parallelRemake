@@ -13,7 +13,7 @@ Imports:
     remake
 RoxygenNote: 5.0.1
 Collate:
-    'name_stages.R'
+    'clean_stages.R'
     'namespace.R'
     'single_field.R'
     'write_step.R'
