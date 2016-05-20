@@ -6,7 +6,7 @@ Ensure that [R](https://www.r-project.org/) is installed. Open an R session and 
 
 ```
 library(devtools)
-install_github("wlandau/workflowHelper")
+install_github("wlandau/parallelRemake")
 ```
 
 Alternatively, you can build the package from the source and install it by hand.
@@ -14,8 +14,8 @@ Alternatively, you can build the package from the source and install it by hand.
 Open a command line program such as Terminal in Mac/Linux and enter the following commands.
 
 ```
-git clone git@github.com:wlandau/workflowHelper.git
-R CMD build workflowHelper
+git clone git@github.com:wlandau/parallelRemake.git
+R CMD build parallelRemake
 R CMD INSTALL ...
 ```
 
@@ -25,13 +25,13 @@ To fully utilize this package, you will need to install [GNU make](https://www.g
 
 # Example
 
-The [code in this example](https://github.com/wlandau/workflowHelper/tree/master/example) is available for download. In this workflow, I
+The [code in this example](https://github.com/wlandau/parallelRemake/tree/master/example) is available for download. In this workflow, I
 
 1. Generate four data frames.
 2. Take the column means of each data frame.
 3. Plot the column means.
 
-Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `workflowHelper` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake).
+Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `parallelRemake` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake).
 
 First, let's define the functions for generating data, saving column means, and plotting. I keep them in `code.R` below.
 
@@ -58,12 +58,12 @@ my_plot = function(reps){
 }
 ```
 
-Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file (i.e., step) per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I automate the production of the [YAML](http://yaml.org/) files. Specifically, I use `write_step` to produce each [YAML](http://yaml.org/) file from a named list.
+Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file (i.e., step) per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I automate the production of the [YAML](http://yaml.org/) files. Specifically, I use `write_yaml` to produce each [YAML](http://yaml.org/) file from a named list.
 
 ```
-# Install from https://github.com/wlandau/workflowhelper
+# Install from https://github.com/wlandau/parallelRemake
 # Also requires the remake package at https://github.com/richfitz/remake
-library(workflowHelper) 
+library(parallelRemake) 
 
 # Number of datasets to generate with generate_data().
 reps = 4
@@ -90,7 +90,7 @@ for(rep in 1:reps){
   fields$targets[[column_means]] = list(command = my_command)
 
   # Write the [YAML](http://yaml.org/) file for remake.
-  write_step(fields, paste0("step", rep, ".yml"))
+  write_yaml(fields, paste0("step", rep, ".yml"))
 }
 
 # Write the remake/[YAML](http://yaml.org/) file for plotting the column means of the datasets
@@ -107,7 +107,7 @@ fields = list(
 )
 
 # Write the plotting [YAML](http://yaml.org/) file
-write_step(fields, "my_plot.yml")
+write_yaml(fields, "my_plot.yml")
 ```
 
 Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes.
@@ -119,10 +119,12 @@ stages = list(
 )
 ```
 
-This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_workflow`.
+This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
 
 ```
-write_workflow(stages)
+write_makefile(stages)
 ```
 
-With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). To run the workflow with 4 parallel processes, I type `make -j 4`. I could have changed the number of processes by substituting a different integer in place of 4 or simply typed `make` to run the workflow steps sequentially in a single process. Typing `make clean` removes the files produced by `make`.
+With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). To run the workflow with 4 parallel processes, I type `make -j 4`. I could have changed the number of processes by substituting a different integer in place of 4 or simply typed `make` to run the workflow steps sequentially in a single process. 
+
+There are several ways to clean up the output. Typing `make clean` removes the files produced by `make`. Similarly, `make clean_yaml` removes the [YAML](http://yaml.org/) files produced by `write_yaml`, `make clean_make` removes the [Makefile](https://www.gnu.org/software/make/), and `make clean_all` is equivalent to `make clean clean_yaml clean_make`.

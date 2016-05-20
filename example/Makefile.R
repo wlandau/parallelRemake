@@ -1,6 +1,6 @@
-# Install from https://github.com/wlandau/workflowhelper
+# Install from https://github.com/wlandau/parallelRemake
 # Also requires the remake package at https://github.com/richfitz/remake
-library(workflowHelper) 
+library(parallelRemake) 
 
 # Number of datasets to generate with generate_data().
 reps = 4
@@ -27,7 +27,7 @@ for(rep in 1:reps){
   fields$targets[[column_means]] = list(command = my_command)
 
   # Write the YAML file for remake.
-  write_step(fields, paste0("step", rep, ".yml"))
+  write_yaml(fields, paste0("step", rep, ".yml"))
 }
 
 # Write the remake/YAML file for plotting the column means of the datasets
@@ -44,7 +44,7 @@ fields = list(
 )
 
 # Write the plotting YAML file
-write_step(fields, "my_plot.yml")
+write_yaml(fields, "my_plot.yml")
 
 # Organize the steps of analysis into parallelizable stages.
 stages = list(
@@ -53,7 +53,7 @@ stages = list(
 )
 
 # Write the overarching Makefile for the workflow.
-write_workflow(stages)
+write_makefile(stages)
 
 # Now, open a command line program run the workflow with `make`. 
 # To run the steps in stage 1 in parallel, try `make -j 4`.

@@ -1,11 +1,11 @@
-Package: workflowHelper
-Title: workflowHelper
+Package: parallelRemake
+Title: parallelRemake
 Type: Package
 Version: 0.0
 Date: 2016-05-17
 Author: Will Landau
 Maintainer: <will.landau@gmail.com>
-Description: This package helps with workflows.
+Description: This package helps with workflows by arranging for the execution of  parallel instances of remake.
 License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
@@ -16,5 +16,5 @@ Collate:
     'clean_stages.R'
     'namespace.R'
     'single_field.R'
-    'write_step.R'
-    'write_workflow.R'
+    'write_makefile.R'
+    'write_yaml.R'

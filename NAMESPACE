@@ -2,6 +2,6 @@
 
 export(clean_stages)
 export(single_field)
-export(write_step)
-export(write_workflow)
+export(write_makefile)
+export(write_yaml)
 import(remake)
