@@ -31,7 +31,7 @@ In this workflow, I
 
 Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `workflowHelper` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake).
 
-First, let's define the functions for generating data, saving column means, and plotting. I keep them in `code.R`.
+First, let's define the functions for generating data, saving column means, and plotting. I keep them in `code.R` below.
 
 ```
 generate_data = function(){
@@ -56,7 +56,7 @@ my_plot = function(reps){
 }
 ```
 
-Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I use `write_step` produce each [YAML](http://yaml.org/) file from a list.
+Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file (step) per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I use `write_step` to produce each [YAML](http://yaml.org/) file from a named list.
 
 ```
 # Install from https://github.com/wlandau/workflowhelper
