@@ -21,9 +21,9 @@ R CMD INSTALL ...
 
 where `...` is replaced by the name of the tarball produced by `R CMD build`. 
 
-# An example
+# Example
 
-In this workflow, I
+The [code in this example](https://github.com/wlandau/workflowHelper/tree/master/example) is available for download. In this workflow, I
 
 1. Generate four data frames.
 2. Take the column means of each data frame.
