@@ -28,7 +28,7 @@ write_makefile = function(stages, file = "Makefile"){
     cat(yaml[i], ":\n\tRscript -e \'remake::make(remake_file = \"", 
       yaml[i], ".yml\")\'\n\n", sep = "")
 
-  cat("clean_all: clean clean_yaml clean_make\n\n")
+  cat("clean_all: clean clean_yaml clean_makefile\n\n")
 
   cat("clean:\n")
   for(i in 1:length(yaml))
@@ -40,7 +40,7 @@ write_makefile = function(stages, file = "Makefile"){
     cat("\trm -f ", yaml[i], ".yml\n", sep = "")
   cat("\n")
 
-  cat(paste0("clean_make:\n\trm -f ", file, "\n"))
+  cat(paste0("clean_makefile:\n\trm -f ", file, "\n"))
 
   sink()
 }
