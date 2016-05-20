@@ -1,4 +1,4 @@
-This R package helps to manage large R workflows. It uses GNU make to manage parallel instances of [`remake`](https://github.com/richfitz/remake).
+This R package helps to manage large R workflows. It uses [GNU make](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake) package to do work in parallelizable stages.
 
 # Installation
 
@@ -21,428 +21,106 @@ R CMD INSTALL ...
 
 where `...` is replaced by the name of the tarball produced by `R CMD build`. 
 
-# A toy example: running remake files in parallel
+# An example
 
-Suppose I have some R code in `code.R`.
+In this workflow, I
+
+1. Generate four data frames.
+2. Take the column means of each data frame.
+3. Plot the column means.
+
+Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. For this, I use `workflowHelper` to run parallel instances of [`remake`](https://github.com/richfitz/remake).
+
+First, let's define the functions for generating data, saving column means, and plotting. I keep them in `code.R`.
 
 ```
-wrapper_function = function(file){
-  generate_data(file)
+generate_data = function(){
+  data.frame(
+    x = rnorm(1000), 
+    y = rnorm(1000, mean = 16)
+  )
 }
 
-generate_data = function(file){
-  data(mtcars)
-  n = dim(mtcars)[1]
-#  mtcars$cyl = rpois(n, 5) # COMMENT/UNCOMMENT THIS LINE TO SEE HOW remake::make() RESPONDS
-  write.csv(mtcars, file = file)
+save_column_means = function(dataset, rep){
+  out = colMeans(dataset)
+  saveRDS(out, paste0("column_means", rep, ".rds"))
 }
 
-process_data = function(filename){
-  d = read.csv(filename)
-  data.frame(x = d$mpg, y = d$cyl)
+my_plot = function(reps){
+  column_means = NULL
+  for(rep in 1:reps){
+    file = paste0("column_means", rep, ".rds")
+    column_means = rbind(column_means, readRDS(file))
+  }
+  plot(y ~ x, data = column_means, pch = 16)
+}
+```
+
+Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I use `write_step` produce each [YAML](http://yaml.org/) file from a list.
+
+```
+# Install from https://github.com/wlandau/workflowhelper
+# Also requires the remake package at https://github.com/richfitz/remake
+library(workflowHelper) 
+
+# Number of datasets to generate with generate_data().
+reps = 4
+
+# Encode remake/[YAML](http://yaml.org/) instructions to generate multiple datasets
+# and take the column means of each dataset.
+for(rep in 1:reps){ 
+  dataset = paste0("dataset", rep)  
+  column_means = paste0("column_means", rep, ".rds") 
+
+  # Initialize [YAML](http://yaml.org/) fields.
+  fields = list(
+    sources = "code.R",
+    targets = list(
+      all = list(depends = column_means)
+    )
+  )
+
+  # Add a target to create the data.
+  fields$targets[[dataset]] = list(command = "generate_data()")
+
+  # Add a target to take the column means of a dataset.
+  my_command = paste0("save_column_means(dataset = dataset", rep, ", rep = ", rep, ")")
+  fields$targets[[column_means]] = list(command = my_command)
+
+  # Write the [YAML](http://yaml.org/) file for remake.
+  write_step(fields, paste0("step", rep, ".yml"))
 }
 
-myplot = function(data){
-  plot(y~x, data = data)
-}
+# Write the remake/[YAML](http://yaml.org/) file for plotting the column means of the datasets
+# initialize [YAML](http://yaml.org/) fields
+fields = list(
+  sources = "code.R",
+  targets = list(
+    all = list(depends = "my_plot.pdf"),
+    my_plot.pdf = list(
+      command = paste0("my_plot(reps = ", reps, ")"),
+      plot = "TRUE"
+    )
+  )
+)
 
+# Write the plotting [YAML](http://yaml.org/) file
+write_step(fields, "my_plot.yml")
 ```
 
-I have a workflow defined in `remake1.yml`
-
-```
-sources:
-  - code.R
-
-targets:
-  all:
-    depends: plot1.pdf
-
-  data1.csv:
-    command: wrapper_function("data1.csv")
-
-  processed1:
-    command: process_data("data1.csv")
-
-  plot1.pdf:
-    command: myplot(processed1)
-    plot: true
-```
-
-I also have remake files `remake2.yml` through `remake6.yml`, which are the same as `remake1.yml` except that 1's are replaced with other digits: that is, `remake2.yml` looks like this.
-
-```
-sources:
-  - code.R
-
-targets:
-  all:
-    depends: plot2.pdf
-
-  data2.csv:
-    command: wrapper_function("data2.csv")
-
-  processed2:
-    command: process_data("data2.csv")
-
-  plot2.pdf:
-    command: myplot(processed2)
-    plot: true
-```
-
- I want to run `remake1.yml`, `remake2.yml`, and `remake3.yml` in parallel and then run `remake4.yml`, `remake5.yml`, and `remake6.yml` in parallel. First, I group the remake files into 2 sequential stages made up of (possibly) parallel steps.
+Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes.
 
 ```
 stages = list(
-  paste0("remake", 1:3)),
-  paste0("remake", 4:6)
+  stage1 = paste0("step", 1:reps, ".yml"),
+  stage2 = "my_plot.yml"
 )
 ```
 
-Then, I create an overarching Makefile to endocode the workflow.
+This organization of steps into stages is reflected in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_workflow`.
 
 ```
 write_workflow(stages)
 ```
 
-This produces the following `Makefile`.
-
-```
-# Generated by write_workflow() on 2016-05-19 12:21:36 
-
-.PHONY: all clean stage1 stage2 remake1 remake2 remake3 remake4 remake5 remake6 
-
-all:  stage2 
-
-stage2 : stage1 remake4 remake5 remake6 
-
-stage1 :  remake1 remake2 remake3 
-
-clean:
-	Rscript -e 'remake::make("clean", remake_file = "remake1.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "remake2.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "remake3.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "remake4.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "remake5.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "remake6.yml")'
-
-remake1:
-	Rscript -e 'remake::make(remake_file = "remake1.yml")'
-
-remake2:
-	Rscript -e 'remake::make(remake_file = "remake2.yml")'
-
-remake3:
-	Rscript -e 'remake::make(remake_file = "remake3.yml")'
-
-remake4:
-	Rscript -e 'remake::make(remake_file = "remake4.yml")'
-
-remake5:
-	Rscript -e 'remake::make(remake_file = "remake5.yml")'
-
-remake6:
-	Rscript -e 'remake::make(remake_file = "remake6.yml")'
-
-```
-
-Now, using a shell program like BASH, I can run the whole workflow over 3 parallel processes with
-
-```
-make -j 3
-```
-
-Here, each of the 2 stages divides its 3 steps among the available 3 parallel processes. To clean up, just call
-
-```
-make clean
-```
-
-
-# Application to a simulation study using `write_step` to generate YAML files for `remake`
-
-Frequently, a workflow consists of generating some datasets, analyzing each dataset with a collection of statistical methods, computing summaries of each analysis, and making some plots. If you need no parallel computing, I highly recommend using [`remake`](https://github.com/richfitz/remake) to avoid redundant computation if you have to redo parts of your work. However, if you want to use parallel processes to speed up each stage of your workflow, this package can help. 
-
-The idea is to divide the workflow into atomic steps. A step could be the generation of a single dataset, the analysis of a single dataset with a single method, generating some plots, etc. For any one of these steps, I generate a [`remake`](https://github.com/richfitz/remake)-style YAML file to encode the work. With all those YAML files, I generate an overarching Makefile to arrange the steps into parallelizable stages. For example, I could simulate all the datasets in parallel, then run all the analyses in parallel, then compute all the summaries in parallel, and then make all the plots in parallel. 
-
-In a big simulation study with a lot of different datasets and modes of analysis, several  YAML files will be needed. So here, I use `write_step` to generate the YAML files from R lists. That way, more of the grunt work and repetition is automated. For example, suppose I have a list of fields defined below.
-
-```
-fields = list(
-  sources = c("code.R", "code0.R"),
-  targets = list(
-    all = list(
-      depends = "plot1.pdf"
-    ),
-    data1.csv = list(
-      command = "wrapper_function(\"data1.csv\")"
-    ),
-    processed1 = list(
-      command = "process_data(\"data1.csv\")"
-    ),
-    plot1.pdf = list(
-      command = "myplot(processed1)",
-      plot = c("true", "false")
-    )
-  )
-)
-```
-
-If I call `write_step(fields, "my_step.yml")`, then `my_step.yml` will look like this.
-
-
-```
-# Generated by write_step() on 2016-05-19 17:19:54 
-
-sources: 
-  - code.R
-  - more_code.R
-
-targets: 
-  all: 
-    depends: plot1.pdf
-
-  data1.csv: 
-    command: wrapper_function("data1.csv")
-
-  processed1: 
-    command: process_data("data1.csv")
-
-  plot1.pdf: 
-    command: myplot(processed1)
-    plot: TRUE
-
-```
-
-
-With `write_step` defined, let's begin the example in earnest. Functions to generate data, analyze data, etc. are encoded in `code.R` below.
-
-```
-# Functions to generate datasets
-my_norm = function(file, size = 20){
-  out = data.frame(
-    x = rnorm(size),
-    y = rnorm(size)
-  )
-  saveRDS(out, file = file)
-}
-
-my_cars = function(file){
-  data(mtcars)
-  out = data.frame(
-    x = mtcars$mpg,
-    y = mtcars$cyl # + 1 ## UNCOMMENT TO SEE HOW REMAKE RESPONDS TO CHANGE
-  )
-  saveRDS(out, file = file)
-}
-
-# Functions to analyze datasets
-my_ols = function(file){
-  d = readRDS(file)
-  lm(y ~ x, data = d)
-}
-
-my_rpart = function(file){
-  d = readRDS(file)
-  library(rpart)
-  rpart(y ~ x, data = d)
-}
-
-# Summarize analyses
-my_predict = function(fit, file){
-  out = predict(fit, newdata = data.frame(x = c(1, 5, 20)))
-  saveRDS(out, file = file)
-}
-
-# Make plots
-my_scatter = function(file1, file2){
-  x = readRDS(file1)
-  y = readRDS(file2)
-  plot(y ~ x)
-}
-```
-
-With the building blocks defined, I need to organize the workflow into steps. First, I define the function `my_datasets` to create `cars.yml` and `norm20.yml`. These YAML files tell `remake` how to compute the datasets `cars.rds` and `norm29.rds`.
-
-```
-my_datasets = function(){
-
-  # Initialize YAML instructions to create the "norm20" dataset
-  fields = list(
-    sources = "code.R",
-    targets = list(
-      all = list(depends = "norm20.rds")
-    )
-  )
-
-  # Add the rule to generate the data
-  fields$targets[["norm20.rds"]] = 
-    list(command = "my_norm(file = \"norm20.rds\", size = 20)")
-
-  # Turn the list into a YAML file for remake
-  write_step(fields, "norm20.yml")
- 
-  # Similarly, write instructions to create the "cars" dataset
-  fields = list(
-    sources = "code.R",
-    targets = list(
-      all = list(depends = "cars.rds")
-    )
-  )
-  fields$targets[["cars.rds"]] =
-    list(command = "my_cars(file = \"cars.rds\")")
-  write_step(fields, "cars.yml")
-}
-
-```
-
-Similarly, I create `my_analyses` to generate YAML files to analyze each dataset with the functions `my_ols` and `my_rpart` and generate predictions.
-
-```
-my_analyses = function(){
-
-  # Make a YAML instruction set for each dataset and each method of analysis
-  for(dataset in c("norm20", "cars"))
-  for(analyzer in c("my_ols", "my_rpart")){ 
-
-    # Name of the analysis
-    analysis = paste(dataset, analyzer, sep = "_")
-
-    # paths to important files
-    dataset_file = paste0(dataset, ".rds")
-    analysis_object = paste0(analysis, "_analysis")
-    summary_file = paste0(analysis, "_summary.rds")
-
-    # Initialize the list of YAML fields    
-    fields = list(
-      sources = "code.R",
-      targets = list(
-        all = list(depends = summary_file)
-      )
-    )
-
-    # Add a rule to analyze the data
-    fields$targets[[analysis_object]] = 
-      list(command = paste0(analyzer, "(\"", dataset, ".rds\")"))
-
-    # Add a rule to summarize the analysis
-    fields$targets[[summary_file]] = 
-      list(command = paste0("my_predict(", analysis_object, ", \"", summary_file, "\")"))
-
-    # Write the YAML file
-    write_step(fields, paste0("", analysis, ".yml"))
-  }
-}
-
-```
-
-Next, I make a function to write YAML instructions for a plot.
-
-```
-my_plot = function(){
-
-  # YAML fields for remake
-  fields = list(
-    sources = "code.R",
-    targets = list(
-      all = list(depends = "my_plot.pdf"),
-      my_plot.pdf = list(
-        command = "my_scatter(\"cars_my_ols_summary.rds\", \"cars_my_rpart_summary.rds\")",
-        plot = "TRUE"
-      )
-    )
-  )
-
-  # write the YAML file
-  write_step(fields, "my_plot.yml")
-}
-
-``` 
-
-Now, I load the `workflowHelper` and actually generate these YAML files.
-
-```
-library(workflowHelper)
-my_datasets()
-my_analyses()
-my_plot()
-```
-
-With all the YAML files generated, I organize them into individually parallelizable stages.
-
-```
-my_stages = list(
-  dataset_stage = c(
-    "cars.yml",
-    "norm20.yml"
-  ),
-  analysis_and_summary_stage = c(
-    "cars_my_ols.yml",
-    "cars_my_rpart.yml",
-    "norm20_my_ols.yml",
-    "norm20_my_rpart.yml"
-  ),
-  plotting_stage = "my_plot.yml"
-)
-```
-
-I use `write_workflow` to write an overarching `Makefile` to run everything.
-
-```
-write_workflow(my_stages)
-```
-
-The `Makefile` looks like this.
-
-```
-# Generated by workflowHelper::write_workflow() on 2016-05-19 17:27:53 
-
-.PHONY: all clean dataset_stage analysis_and_summary_stage plotting_stage cars norm20 cars_my_ols cars_my_rpart norm20_my_ols norm20_my_rpart my_plot 
-
-all:  plotting_stage 
-
-plotting_stage : analysis_and_summary_stage my_plot 
-
-analysis_and_summary_stage : dataset_stage cars_my_ols cars_my_rpart norm20_my_ols norm20_my_rpart 
-
-dataset_stage :  cars norm20 
-
-clean:
-	Rscript -e 'remake::make("clean", remake_file = "cars.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "norm20.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "cars_my_ols.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "cars_my_rpart.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "norm20_my_ols.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "norm20_my_rpart.yml")'
-	Rscript -e 'remake::make("clean", remake_file = "my_plot.yml")'
-
-cars:
-	Rscript -e 'remake::make(remake_file = "cars.yml")'
-
-norm20:
-	Rscript -e 'remake::make(remake_file = "norm20.yml")'
-
-cars_my_ols:
-	Rscript -e 'remake::make(remake_file = "cars_my_ols.yml")'
-
-cars_my_rpart:
-	Rscript -e 'remake::make(remake_file = "cars_my_rpart.yml")'
-
-norm20_my_ols:
-	Rscript -e 'remake::make(remake_file = "norm20_my_ols.yml")'
-
-norm20_my_rpart:
-	Rscript -e 'remake::make(remake_file = "norm20_my_rpart.yml")'
-
-my_plot:
-	Rscript -e 'remake::make(remake_file = "my_plot.yml")'
-
-
-```
-
-
-Lastly, I run the analysis with as many parallel processes as I want.
-
-```
-make -j 4
-```
+With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) in the [current working directory](https://en.wikipedia.org/wiki/Working_directory). To run the workflow with 4 parallel processes, I type `make -j 4`. To change the number of processes,) substitute a different number for 4. To run the workflow sequentially in a single process, simply type `make`. To clean up, the generated output, type `make clean`.
