@@ -117,7 +117,7 @@ stages = list(
 )
 ```
 
-This organization of steps into stages is reflected in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_workflow`.
+This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_workflow`.
 
 ```
 write_workflow(stages)
