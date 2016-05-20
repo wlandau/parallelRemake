@@ -2,7 +2,7 @@ This R package helps to manage large R workflows. It uses [GNU make](https://www
 
 # Installation
 
-Open an R session and run 
+Ensure that [R](https://www.r-project.org/) is installed. Open an R session and run 
 
 ```
 library(devtools)
@@ -19,7 +19,9 @@ R CMD build workflowHelper
 R CMD INSTALL ...
 ```
 
-where `...` is replaced by the name of the tarball produced by `R CMD build`. 
+where `...` is replaced by the name of the tarball produced by `R CMD build`.
+
+To fully utilize this package, you will need to install [GNU make](https://www.gnu.org/software/make/).
 
 # Example
 
