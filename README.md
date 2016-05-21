@@ -28,7 +28,7 @@ The [code in this example](https://github.com/wlandau/parallelRemake/tree/master
 3. Plot the column means as below, where each point corresponds to a data frame.
 
 <div style = "text-align:center">
-<img src="example/my_plot.jpg" width = 350px height = 350px/>
+<img src="example/my_plot.jpg" width = 375px height = 375px/>
 </div>
 
 Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `parallelRemake` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake). At the end of this tutorial, you will be able to call `make -j` to distribute the work over multiple parallel processes.
