@@ -25,10 +25,10 @@ The [code in this example](https://github.com/wlandau/parallelRemake/tree/master
 
 1. Generate four data frames, each with 1000 rows and columns `x` and `y`.
 2. Take the column means of each data frame.
-3. Plot the column means as below, where each point corresponds to a single data frame.
+3. Plot the column means as below, where each point corresponds to a data frame.
 
 <div style = "text-align:center">
-<img src="example/my_plot.jpg" width = 600px height = 600px/>
+<img src="example/my_plot.jpg" width = 450px height = 450px/>
 </div>
 
 Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `parallelRemake` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake). At the end of this tutorial, you will be able to call `make -j` to distribute the work over multiple parallel processes.
