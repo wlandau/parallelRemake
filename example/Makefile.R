@@ -1,5 +1,6 @@
 # Install from https://github.com/wlandau/parallelRemake
 # Also requires the remake package at https://github.com/richfitz/remake
+# and GNU make.
 library(parallelRemake) 
 
 # Number of datasets to generate with generate_data().

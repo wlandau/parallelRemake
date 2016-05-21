@@ -16,6 +16,7 @@
 .remake
 .Rapp.history
 .Rhistory
+example/*.pdf
 Makefile
 Rbuildignore/*.pdf
 Rbuildignore/local/

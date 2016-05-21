@@ -23,9 +23,12 @@ where `...` is replaced by the name of the tarball produced by `R CMD build`.
 
 The [code in this example](https://github.com/wlandau/parallelRemake/tree/master/example) is available for download. In this workflow, I
 
-1. Generate four data frames.
+1. Generate four data frames, each with 1000 rows and columns `x` and `y`.
 2. Take the column means of each data frame.
-3. Plot the column means.
+3. Plot the column means all together as below.
+
+<img src="example/my_plot.jpg" width = 300px height = 300px/>
+
 
 Normally, this would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `parallelRemake` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake). At the end of this tutorial, you will be able to call `make -j` to distribute the work over multiple parallel processes.
 
@@ -45,12 +48,13 @@ save_column_means = function(dataset, rep){
 }
 
 my_plot = function(reps){
-  column_means = NULL
-  for(rep in 1:reps){
+  column_means = t(sapply(1:reps, function(rep){
     file = paste0("column_means", rep, ".rds")
-    column_means = rbind(column_means, readRDS(file))
-  }
-  plot(y ~ x, data = column_means, pch = 16)
+    readRDS(file)
+  }))
+  plot(y ~ x, data = column_means,
+    xlab = "Means of x", ylab = "Means of y",
+    pch = 16, cex = 2, cex.axis = 1.25, cex.lab = 1.5)
 }
 ```
 
