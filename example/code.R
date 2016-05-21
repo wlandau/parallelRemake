@@ -16,6 +16,6 @@ my_plot = function(reps){
     readRDS(file)
   }))
   plot(y ~ x, data = column_means, 
-    xlab = "Means of x", ylab = "Means of y",
+    xlab = "Mean of x", ylab = "Mean of y",
     pch = 16, cex = 2, cex.axis = 1.25, cex.lab = 1.5)
 }
