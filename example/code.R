@@ -10,12 +10,7 @@ save_column_means = function(dataset, rep){
   saveRDS(out, paste0("column_means", rep, ".rds"))
 }
 
-my_plot = function(reps){
-  column_means = t(sapply(1:reps, function(rep){
-    file = paste0("column_means", rep, ".rds")
-    readRDS(file)
-  }))
-  plot(y ~ x, data = column_means, 
-    xlab = "Mean of x", ylab = "Mean of y",
-    pch = 16, cex = 2, cex.axis = 1.25, cex.lab = 1.5)
+my_plot = function(...){
+  column_means = do.call(rbind, lapply(list(...), readRDS))
+  plot(y ~ x, data = column_means)
 }

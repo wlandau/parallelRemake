@@ -35,7 +35,7 @@ Normally, this 3-task workflow would be an easy job for [`remake`](https://githu
 
 First, let's define the functions for generating data, saving column means, and plotting. I keep them in `code.R` below.
 
-```
+```{r}
 generate_data = function(){
   data.frame(
     x = rnorm(1000), 
@@ -48,34 +48,27 @@ save_column_means = function(dataset, rep){
   saveRDS(out, paste0("column_means", rep, ".rds"))
 }
 
-my_plot = function(reps){
-  column_means = t(sapply(1:reps, function(rep){
-    file = paste0("column_means", rep, ".rds")
-    readRDS(file)
-  }))
-  plot(y ~ x, data = column_means,
-    xlab = "Means of x", ylab = "Means of y",
-    pch = 16, cex = 2, cex.axis = 1.25, cex.lab = 1.5)
+my_plot = function(...){
+  column_means = do.call(rbind, lapply(list(...), readRDS))
+  plot(y ~ x, data = column_means)
 }
 ```
 
 Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file (i.e., step) per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I automate the production of the [YAML](http://yaml.org/) files. Specifically, I use `write_yaml` to produce each [YAML](http://yaml.org/) file from a named list.
 
-```
-# Install from https://github.com/wlandau/parallelRemake
-# Also requires the remake package at https://github.com/richfitz/remake
+```{r}
 library(parallelRemake) 
 
 # Number of datasets to generate with generate_data().
 reps = 4
 
-# Encode remake/[YAML](http://yaml.org/) instructions to generate multiple datasets
+# Encode remake/YAML instructions to generate multiple datasets
 # and take the column means of each dataset.
 for(rep in 1:reps){ 
   dataset = paste0("dataset", rep)  
   column_means = paste0("column_means", rep, ".rds") 
 
-  # Initialize [YAML](http://yaml.org/) fields.
+  # Initialize YAML fields.
   fields = list(
     sources = "code.R",
     targets = list(
@@ -90,30 +83,33 @@ for(rep in 1:reps){
   my_command = paste0("save_column_means(dataset = dataset", rep, ", rep = ", rep, ")")
   fields$targets[[column_means]] = list(command = my_command)
 
-  # Write the [YAML](http://yaml.org/) file for remake.
+  # Write the YAML file for remake.
   write_yaml(fields, paste0("step", rep, ".yml"))
 }
 
-# Write the remake/[YAML](http://yaml.org/) file for plotting the column means of the datasets
-# initialize [YAML](http://yaml.org/) fields
+# Character string of the RDS files containing the column means.
+files = paste(paste0("\"column_means", 1:reps, ".rds\""), collapse = ", ")
+
+# Write the remake/YAML file for plotting the column means of the datasets
+# initialize YAML fields
 fields = list(
   sources = "code.R",
   targets = list(
     all = list(depends = "my_plot.pdf"),
     my_plot.pdf = list(
-      command = paste0("my_plot(reps = ", reps, ")"),
+      command = paste0("my_plot(", files, ")"),
       plot = "TRUE"
     )
   )
 )
 
-# Write the plotting [YAML](http://yaml.org/) file
+# Write the plotting YAML file
 write_yaml(fields, "my_plot.yml")
 ```
 
 Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes.
 
-```
+```{r}
 stages = list(
   stage1 = paste0("step", 1:reps, ".yml"),
   stage2 = "my_plot.yml"
@@ -122,7 +118,7 @@ stages = list(
 
 This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
 
-```
+```{r}
 write_makefile(stages)
 ```
 

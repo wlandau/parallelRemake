@@ -31,6 +31,9 @@ for(rep in 1:reps){
   write_yaml(fields, paste0("step", rep, ".yml"))
 }
 
+# Character string of the RDS files containing the column means.
+files = paste(paste0("\"column_means", 1:reps, ".rds\""), collapse = ", ")
+
 # Write the remake/YAML file for plotting the column means of the datasets
 # initialize YAML fields
 fields = list(
@@ -38,7 +41,7 @@ fields = list(
   targets = list(
     all = list(depends = "my_plot.pdf"),
     my_plot.pdf = list(
-      command = paste0("my_plot(reps = ", reps, ")"),
+      command = paste0("my_plot(", files, ")"),
       plot = "TRUE"
     )
   )
