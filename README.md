@@ -107,7 +107,7 @@ fields = list(
 write_yaml(fields, "my_plot.yml")
 ```
 
-Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes.
+Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes. 
 
 ```{r}
 stages = list(
@@ -116,7 +116,7 @@ stages = list(
 )
 ```
 
-This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
+Above, I include the `.yml` extensions of the files, but you have the option to omit them. This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
 
 ```{r}
 write_makefile(stages)
