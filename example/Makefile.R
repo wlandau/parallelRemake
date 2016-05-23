@@ -11,7 +11,7 @@ reps = 4
 for(rep in 1:reps){ 
   dataset = paste0("dataset", rep)  
   column_means = paste0("column_means", rep, ".rds") 
-
+ 
   # Initialize YAML fields.
   fields = list(
     sources = "code.R",
@@ -52,8 +52,8 @@ write_yaml(fields, "my_plot.yml")
 
 # Organize the steps of analysis into parallelizable stages.
 stages = list(
-  stage1 = paste0("step", 1:reps, ".yml"),
-  stage2 = "my_plot.yml"
+  paste0("step", 1:reps, ".yml"),
+  "my_plot.yml"
 )
 
 # Write the overarching Makefile for the workflow.

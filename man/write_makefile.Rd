@@ -4,13 +4,15 @@
 \alias{write_makefile}
 \title{Function \code{write_makefile}}
 \usage{
-write_makefile(stages, file = "Makefile")
+write_makefile(stages, phony = unlist(stages), file = "Makefile")
 }
 \arguments{
 \item{stages}{List of character vectors. Organizes the steps of a 
 workflow into parallelizable stages. Each character string is a 
 path to a \code{remake}/YAML file encoding a step in the workflow.
 The ".yml" file extension is optional.}
+
+\item{phony}{phony targets for the Makefile}
 
 \item{file}{Path to output Makefile.}
 }

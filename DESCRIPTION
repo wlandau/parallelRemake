@@ -5,7 +5,8 @@ Version: 0.0
 Date: 2016-05-17
 Author: Will Landau
 Maintainer: <will.landau@gmail.com>
-Description: This package helps with workflows by arranging for the execution of  parallel instances of remake.
+Description: This package helps with workflows by arranging for the execution of
+    parallel instances of remake.
 License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
@@ -13,7 +14,6 @@ Imports:
     remake
 RoxygenNote: 5.0.1
 Collate:
-    'clean_stages.R'
     'namespace.R'
     'single_field.R'
     'write_makefile.R'

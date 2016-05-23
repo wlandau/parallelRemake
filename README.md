@@ -116,11 +116,13 @@ stages = list(
 )
 ```
 
-Above, I include the `.yml` extensions of the files, but you have the option to omit them. This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
+Above, I include the `.yml` extensions of the files, but you have the option to omit them. This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
 
 ```{r}
 write_makefile(stages)
 ```
+
+A [Makefile](https://www.gnu.org/software/make/) is produced the current working directory. You can add to phony targets with the `phony` argument to `write_makefile`, but this may interfere with parallel execution.
 
 With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). To run the workflow with 4 parallel processes, I type `make -j 4`. I could have changed the number of processes by substituting a different integer in place of 4 or simply typed `make` to run the workflow steps sequentially in a single process. 
 
