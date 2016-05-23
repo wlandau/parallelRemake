@@ -8,7 +8,6 @@
 #' path to a \code{remake}/YAML file encoding a step in the workflow.
 #' The ".yml" file extension is optional.
 #' @param file Path to output Makefile.
-#' @param phony phony targets for the Makefile
 write_makefile = function(stages, file = "Makefile"){
   stages = lapply(stages, gsub, pattern = ".yml$", replacement = "")
   sink(file)
