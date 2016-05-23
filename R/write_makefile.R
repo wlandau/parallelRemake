@@ -24,13 +24,14 @@ write_makefile = function(stages, file = "Makefile"){
         yaml, ".yml\")\'\n\n", sep = "")
     }
 
-  cat("clean_all: clean clean_yaml clean_makefile\n\n")
+  cat("clean_all: clean clean_cache clean_yaml clean_makefile\n\n")
 
   yaml = unlist(stages)
   cat("clean:\n")
   for(i in 1:length(yaml))
     cat("\tRscript -e \'remake::make(\"clean\", remake_file = \"", yaml[i], ".yml\")\'\n", sep = "")
-  cat("\n")
+
+  cat("\nclean_cache:\n\trm -rf .remake\n\n")
 
   cat("clean_yaml:\n")
   for(i in 1:length(yaml))
