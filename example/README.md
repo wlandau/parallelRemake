@@ -5,7 +5,8 @@
 - Open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html).
 - Enter `make` into the command line to run the full workflow. To distribute the work over multiple parallel process, you can instead type `make -j <n>` where `<n>` is the number of processes.
 - Verify that the generated plot `my_plot.pdf` looks similar to the provided example plot `my_plot.jpg`.
-- Optionally, clean up the output. Typing `make clean` removes the files produced by `make`. Similarly, `make clean_yaml` removes the [YAML](http://yaml.org/) files produced by `write_yaml`, `make clean_makefile` removes the [Makefile](https://www.gnu.org/software/make/), and `make clean_all` is equivalent to `make clean clean_yaml clean_makefile`.
+- Optionally, clean up the output. Typing `make clean` removes all the files since the call to `Makefile.R`. There are also other intermediate targets for `clean` and the main workflow.
+
 
 # Details
 
@@ -110,6 +111,4 @@ Above, I include the `.yml` extensions of the files, but you have the option to 
 write_makefile(stages)
 ```
 
-With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). To run the workflow with 4 parallel processes, I type `make -j 4`. I could have changed the number of processes by substituting a different integer in place of 4 or simply typed `make` to run the workflow steps sequentially in a single process. 
-
-There are several ways to clean up the output. Typing `make clean` removes the files produced by `make`. Similarly, `make clean_yaml` removes the [YAML](http://yaml.org/) files produced by `write_yaml`, `make clean_makefile` removes the [Makefile](https://www.gnu.org/software/make/), and `make clean_all` is equivalent to `make clean clean_yaml clean_makefile`.
+With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). To run the workflow with 4 parallel processes, I type `make -j 4`. I could have changed the number of processes by substituting a different integer in place of 4 or simply typed `make` to run the workflow steps sequentially in a single process. Optionally, I can clean up the output at the point. Typing `make clean` removes all the files since the call to `Makefile.R`. There are also other intermediate targets for `clean` and the main workflow.

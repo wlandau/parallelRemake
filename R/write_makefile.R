@@ -24,21 +24,15 @@ write_makefile = function(stages, file = "Makefile"){
         yaml, ".yml\")\'\n\n", sep = "")
     }
 
-  cat("clean_all: clean clean_cache clean_yaml clean_makefile\n\n")
-
-  yaml = unlist(stages)
-  cat("clean:\n")
-  for(i in 1:length(yaml))
-    cat("\tRscript -e \'remake::make(\"clean\", remake_file = \"", yaml[i], ".yml\")\'\n", sep = "")
-
-  cat("\nclean_cache:\n\trm -rf .remake\n\n")
-
-  cat("clean_yaml:\n")
-  for(i in 1:length(yaml))
-    cat("\trm -f ", yaml[i], ".yml\n", sep = "")
-  cat("\n")
-
-  cat(paste0("clean_makefile:\n\trm -f ", file, "\n"))
+  cat("clean: clean_makefile\n\n")
+  cat("clean_makefile: clean_yaml\n\trm -f", file, "\n\n")
+  cat("clean_yaml: clean_cache\n")
+  yaml = paste0(rev(unlist(stages)), ".yml")
+  for(y in yaml) cat("\trm -f", y, "\n")
+  cat("\nclean_cache: clean_remake\n\t rm -rf .remake\n\n")
+  cat("clean_remake:\n")
+  for(y in yaml)
+    cat("\tRscript -e \'remake::make(\"clean\", remake_file = \"", y, "\")\'\n", sep = "")
 
   sink()
 }
