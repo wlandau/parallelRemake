@@ -1,6 +1,4 @@
-This R package helps to manage large R workflows. It uses [GNU make](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake) package to do work in parallelizable stages.
-
-Check out the [example](https://github.com/wlandau/parallelRemake/tree/master/example).
+This R package helps to manage large parallelizable R workflows. Check out the [example](https://github.com/wlandau/parallelRemake/tree/master/example).
 
 # Installation
 
