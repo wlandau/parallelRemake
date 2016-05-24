@@ -2,7 +2,7 @@ This R package helps to manage large parallelizable R workflows. Check out the [
 
 # Installation
 
-Ensure that [R](https://www.r-project.org/), the [`remake`](https://github.com/richfitz/remake) package, and [GNU make](https://www.gnu.org/software/make/) are installed. Open an R session and run 
+Ensure that [R](https://www.r-project.org/) and [GNU make](https://www.gnu.org/software/make/) are installed, as well as the dependencies in the [`DESCRIPTION`](https://github.com/wlandau/parallelRemake/blob/master/DESCRIPTION). Open an R session and run 
 
 ```
 library(devtools)
