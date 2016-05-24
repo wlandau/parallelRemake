@@ -105,7 +105,9 @@ stages = list(
 )
 ```
 
-Above, I include the `.yml` extensions of the files, but you have the option to omit them. This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
+Be sure to include names for all of the stages (in this case, `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the files, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
+
+This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
 
 ```{r}
 write_makefile(stages)
