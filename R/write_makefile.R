@@ -8,7 +8,8 @@
 #' path to a \code{remake}/YAML file encoding a step in the workflow.
 #' The ".yml" file extension is optional.
 #' @param file Path to output Makefile.
-write_makefile = function(stages, file = "Makefile"){
+#' @param clean Character vector of commands to add to the \code{clean} rule.
+write_makefile = function(stages, file = "Makefile", clean = NULL){
   if(!length(stages)) stop("no workflow stages. Nothing to do.")
   stages = lapply(stages, gsub, pattern = ".yml$", replacement = "")
   sink(file)
@@ -25,7 +26,9 @@ write_makefile = function(stages, file = "Makefile"){
         yaml, ".yml\")\'\n\n", sep = "")
     }
 
-  cat("clean: clean_makefile\n\n")
+  cat("clean: clean_makefile\n")
+  for(rule in clean) cat("\t", rule, "\n")
+  cat("\n")
   cat("clean_makefile: clean_cache\n\trm -f", file, "\n\n")
   cat("clean_cache: clean_remake\n\t rm -rf .remake\n\n")
   cat("clean_remake:", paste0("clean_", stages[[1]]), "\n\n")
