@@ -4,7 +4,7 @@
 \alias{write_makefile}
 \title{Function \code{write_makefile}}
 \usage{
-write_makefile(stages, file = "Makefile")
+write_makefile(stages, file = "Makefile", clean = NULL)
 }
 \arguments{
 \item{stages}{List of character vectors. Organizes the steps of a 
@@ -13,6 +13,8 @@ path to a \code{remake}/YAML file encoding a step in the workflow.
 The ".yml" file extension is optional.}
 
 \item{file}{Path to output Makefile.}
+
+\item{clean}{Character vector of commands to add to the \code{clean} rule.}
 }
 \description{
 Takes a collection of \code{remake} YAML files (github.com/richfitz/remake)
