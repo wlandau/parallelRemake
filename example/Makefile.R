@@ -52,8 +52,8 @@ write_yaml(fields, "my_plot.yml")
 
 # Organize the steps of analysis into parallelizable stages.
 stages = list(
-  paste0("step", 1:reps, ".yml"),
-  "my_plot.yml"
+  data = paste0("step", 1:reps, ".yml"),
+  plot = "my_plot.yml"
 )
 
 # Write the overarching Makefile for the workflow.

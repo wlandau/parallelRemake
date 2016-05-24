@@ -11,9 +11,11 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
 Imports:
-    remake
+    remake,
+    stringr
 RoxygenNote: 5.0.1
 Collate:
+    'clean_stages.R'
     'namespace.R'
     'single_field.R'
     'write_makefile.R'
