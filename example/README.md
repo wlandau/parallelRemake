@@ -67,7 +67,7 @@ for(rep in 1:reps){
 
   # Add a target to create the data.
   # The `strings` function converts general R expressions into named character vectors.
-  # Try `strings(x = myfunction(n = 5), y = 2)`.
+  # Try strings(one = readRDS("mse.rds"), two = y <- x + 1)
   fields$targets[[dataset]] = list(command = strings(generate_data()))
 
   # Add a target to take the column means of a dataset.
@@ -103,11 +103,11 @@ Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into 
 ```{r}
 stages = list(
   data = paste0("step", 1:reps, ".yml"),
-  plot = strings(my_plot.yml) # Try `strings(x = myfunction(n = 5), y = 2)`.
+  plot = strings(my_plot.yml) # Try strings(one = readRDS("mse.rds"), two = y <- x + 1)
 )
 ```
 
-Above, the `strings` function turns general R expressions into named character vectors. (Try `strings(command1 = generate_data(), get_packages = install.packages(c("ggplot2", "reshape2")))`) Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
+Above, the `strings` function turns general R expressions into named character vectors. (Try `strings(one = readRDS("mse.rds"), two = y <- x + 1)`) Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
 
 This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
 
