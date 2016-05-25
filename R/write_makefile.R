@@ -7,7 +7,9 @@
 #' workflow into parallelizable stages. Each character string is a 
 #' path to a \code{remake}/YAML file encoding a step in the workflow.
 #' The ".yml" file extension is optional.
-#' @param file Path to output Makefile.
+#' @param file Name of Makefile. This can also be a file path, but make sure that 
+#' the Makefile ends up in a place where it can call the \code{YAML} files in 
+#' \code{stages}
 #' @param clean Character vector of commands to add to the \code{clean} rule.
 write_makefile = function(stages, file = "Makefile", clean = NULL){
   if(!length(stages)) stop("no workflow stages. Nothing to do.")
@@ -33,7 +35,7 @@ write_makefile = function(stages, file = "Makefile", clean = NULL){
         yaml, ".yml\")\'\n\n", sep = "")
     }
 
-  cat("reset: clean\n\trm -f Makefile\n")
+  cat("reset: clean\n\trm -f", file, "\n")
     for(y in unlist(stages)) cat("\trm -f ", y, ".yml\n", sep = "")
   cat("\n")
 

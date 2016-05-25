@@ -12,7 +12,9 @@ workflow into parallelizable stages. Each character string is a
 path to a \code{remake}/YAML file encoding a step in the workflow.
 The ".yml" file extension is optional.}
 
-\item{file}{Path to output Makefile.}
+\item{file}{Name of Makefile. This can also be a file path, but make sure that 
+the Makefile ends up in a place where it can call the \code{YAML} files in 
+\code{stages}}
 
 \item{clean}{Character vector of commands to add to the \code{clean} rule.}
 }
