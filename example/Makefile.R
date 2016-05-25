@@ -21,8 +21,6 @@ for(rep in 1:reps){
   )
 
   # Add a target to create the data.
-  # The `strings` function converts general R expressions into named character vectors.
-  # Try `strings(x = myfunction(n = 5), y = 2)`.
   fields$targets[[dataset]] = list(command = strings(generate_data()))
 
   # Add a target to take the column means of a dataset.
@@ -55,7 +53,7 @@ write_yaml(fields, "my_plot.yml")
 # Organize the steps of analysis into parallelizable stages.
 stages = list(
   data = paste0("step", 1:reps, ".yml"),
-  plot = strings(my_plot.yml) # Try `strings(x = myfunction(n = 5), y = 2)`.
+  plot = strings(my_plot.yml) # Try `strings(x = myfunction(n = 5), z = y -> x + 2)`.
 )
 
 # Write the overarching Makefile for the workflow.
