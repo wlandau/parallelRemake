@@ -21,7 +21,7 @@ for(rep in 1:reps){
   )
 
   # Add a target to create the data.
-  fields$targets[[dataset]] = list(command = "generate_data()")
+  fields$targets[[dataset]] = list(command = strings(generate_data()))
 
   # Add a target to take the column means of a dataset.
   my_command = paste0("save_column_means(dataset = dataset", rep, ", rep = ", rep, ")")
@@ -53,7 +53,7 @@ write_yaml(fields, "my_plot.yml")
 # Organize the steps of analysis into parallelizable stages.
 stages = list(
   data = paste0("step", 1:reps, ".yml"),
-  plot = "my_plot.yml"
+  plot = strings(my_plot.yml)
 )
 
 # Write the overarching Makefile for the workflow.

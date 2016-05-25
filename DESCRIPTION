@@ -18,5 +18,6 @@ Collate:
     'clean_stages.R'
     'namespace.R'
     'single_field.R'
+    'strings.R'
     'write_makefile.R'
     'write_yaml.R'
