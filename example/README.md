@@ -66,8 +66,9 @@ for(rep in 1:reps){
   )
 
   # Add a target to create the data.
-  # The `strings` function turns R expressions into named character vectors
-  fields$targets[[dataset]] = list(command = strings(generate_data())) 
+  # The `strings` function converts general R expressions into named character vectors.
+  # Try `strings(x = myfunction(n = 5), y = 2)`.
+  fields$targets[[dataset]] = list(command = strings(generate_data()))
 
   # Add a target to take the column means of a dataset.
   my_command = paste0("save_column_means(dataset = dataset", rep, ", rep = ", rep, ")")
