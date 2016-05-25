@@ -107,7 +107,7 @@ stages = list(
 )
 ```
 
-Above, the `strings` function turns general R expressions into named character vectors. (Try `strings(command1 = generate_data(), get_packages = install.packages(c("ggplot2", "reshape2")))`) Be sure to give every element of `stages` a name (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the files, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
+Above, the `strings` function turns general R expressions into named character vectors. (Try `strings(command1 = generate_data(), get_packages = install.packages(c("ggplot2", "reshape2")))`) Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
 
 This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
 
