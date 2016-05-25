@@ -10,7 +10,7 @@
 
 # Details
 
-The  is available for download. In this workflow, I
+Suppose I want to run the following workflow.
 
 1. Generate four data frames, each with 1000 rows and columns `x` and `y`.
 2. Take the column means of each data frame.
@@ -20,7 +20,7 @@ The  is available for download. In this workflow, I
 <img src="my_plot.jpg" width = 375px height = 375px/>
 </div>
 
-Normally, this 3-task workflow would be an easy job for [`remake`](https://github.com/richfitz/remake). However, let's say I want run tasks (1) and (2) in parallel processes, with one process per dataset. The [`remake`](https://github.com/richfitz/remake) package does not allow for much parallelism because it runs in a single R session, so I use `parallelRemake` to run pieces of the workflow in parallel instances of [`remake`](https://github.com/richfitz/remake). At the end of this tutorial, you will be able to call `make -j` to distribute the work over multiple parallel processes.
+Normally, managing this 3-task workflow would be an easy job for [`remake`](https://github.com/richfitz/remake). However, [`remake`](https://github.com/richfitz/remake) does not allow for much parallelism because it runs in a single R session. That's why I wrote `parallelRemake` to manage multiple [`remake`](https://github.com/richfitz/remake) instances with an overarching Makefile. At the end of this tutorial, you will be able to call `make -j` to distribute the work over multiple parallel processes. 
 
 First, let's define the functions for generating data, saving column means, and plotting. I keep them in [`code.R`](https://github.com/wlandau/parallelRemake/blob/master/example/code.R), also below.
 
@@ -43,7 +43,7 @@ my_plot = function(...){
 }
 ```
 
-Next, I generate a [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) file for each "step" of the workflow. In this case, I create one [YAML](http://yaml.org/) file (i.e., step) per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I automate the production of the [YAML](http://yaml.org/) files. Specifically, I use `write_yaml` to produce each [YAML](http://yaml.org/) file from a named list.
+Next, I divide the workflow among multiple [`remake`](https://github.com/richfitz/remake)/[YAML](http://yaml.org/) files. In this case, I create one [YAML](http://yaml.org/) file per dataset for tasks (1) and (2) and a single [YAML](http://yaml.org/) file for task (3). I could write these [YAML](http://yaml.org/) files by hand, but for big simulation studies, this is cumbersome and prone to human error. Below, I automate the production of the [YAML](http://yaml.org/) files with `write_yaml`.
 
 ```{r}
 library(parallelRemake) 
@@ -66,8 +66,6 @@ for(rep in 1:reps){
   )
 
   # Add a target to create the data.
-  # The `strings` function converts general R expressions into named character vectors.
-  # Try strings(one = readRDS("mse.rds"), two = y <- x + 1)
   fields$targets[[dataset]] = list(command = strings(generate_data()))
 
   # Add a target to take the column means of a dataset.
@@ -81,8 +79,7 @@ for(rep in 1:reps){
 # Character string of the RDS files containing the column means.
 files = paste(paste0("\"column_means", 1:reps, ".rds\""), collapse = ", ")
 
-# Write the remake/YAML file for plotting the column means of the datasets
-# initialize YAML fields
+# Write the remake/YAML file for plotting the column means of the datasets.
 fields = list(
   sources = "code.R",
   targets = list(
@@ -94,35 +91,33 @@ fields = list(
   )
 )
 
-# Write the plotting YAML file
 write_yaml(fields, "my_plot.yml")
 ```
 
-Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes. 
+Above, `strings` is a utility function that converts R expressions into character strings. Try `strings(one = readRDS("mse.rds"), two = y <- x + 1)`.
+
+Next, I organize the [YAML](http://yaml.org/) instructions into parallelizable stages of the workflow. Within each stage, the steps can be run in separate parallel processes. 
 
 ```{r}
 stages = list(
   data = paste0("step", 1:reps, ".yml"),
-  plot = strings(my_plot.yml) # Try strings(one = readRDS("mse.rds"), two = y <- x + 1)
+  plot = strings(my_plot.yml) 
 )
 ```
 
-Above, the `strings` function turns general R expressions into named character vectors. (Try `strings(one = readRDS("mse.rds"), two = y <- x + 1)`) Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extension are removed. 
+Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extensions are removed. 
 
-This organization of steps into stages is encoded in the overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
+This organization of steps into stages is encoded in an overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
 
 ```{r}
 write_makefile(stages)
 ```
 
-With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, depending on what I type into the command line, I can manage the workflow in the following ways.
+With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, I can manage the workflow by typing commands.
 
 - `make` runs the full workflow, only building targets that are out of date.
 - `make -j <n>` is the same as above with the workflow distributed over `<n>` parallel processes. Similarly, you can append `-j <n>` to any of the commands below to activate parallelism.
 - `make data` just makes the datasets. The [Makefile](https://www.gnu.org/software/make/) knows to do this because `data` is in `names(stages)`.
-- `make plot` ensures the datasets are up to date and then makes the plot. The [Makefile](https://www.gnu.org/software/make/) knows to do this because `plot` is in `names(stages)`.
-- `make clean` removes the files generated by `make`. If some of your files are produced by side effects, `make clean` might not remove them. In that case, use the `clean` argument of `write_makefile` to add extra shell commands to the `clean` rule.
-```{r}
-write_makefile(stages, clean = c("rm -f myfile1", "rm -f myfile2"))
-```
+- Similarly, `make plot` ensures the datasets are up to date and then makes the plot.
+- `make clean` removes the files generated by `make`. If some of your files are produced by side effects, `make clean` might not remove them. In that case, those files may not be rebuilt when the dependencies change, so you should probably fix your [YAML](http://yaml.org/) files.
 - `make reset` runs `make clean` and then removes the [Makefile](https://www.gnu.org/software/make/) and all its constituent [YAML](http://yaml.org/) files.
