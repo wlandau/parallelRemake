@@ -103,7 +103,7 @@ Next, I organize the workflow steps (i.e., [YAML](http://yaml.org/) files) into 
 ```{r}
 stages = list(
   data = paste0("step", 1:reps, ".yml"),
-  plot = strings(my_plot.yml)
+  plot = strings(my_plot.yml) # Try `strings(x = myfunction(n = 5), y = 2)`.
 )
 ```
 
