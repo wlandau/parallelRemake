@@ -113,7 +113,9 @@ This organization of steps into stages is encoded in an overarching [Makefile](h
 write_makefile(stages, begin = c("# This is my makefile.", "# Variables..."))
 ```
 
-Above, `begin` is an optional character vector of lines to prepend to the [Makefile](https://www.gnu.org/software/make/). With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, I can manage the workflow by typing commands.
+Above, `begin` is an optional character vector of lines to prepend to the [Makefile](https://www.gnu.org/software/make/). In this way, I can configure my workflow for a [Slurm](https://en.wikipedia.org/wiki/Slurm_Workload_Manager) or [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System) cluster or simply add comments.
+
+With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, I can manage the workflow by typing commands.
 
 - `make` runs the full workflow, only building targets that are out of date.
 - `make -j <n>` is the same as above with the workflow distributed over `<n>` parallel processes. Similarly, you can append `-j <n>` to any of the commands below to activate parallelism.
