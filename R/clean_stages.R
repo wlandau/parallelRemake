@@ -6,5 +6,5 @@ check_stages = function(stages){
     stop("No duplicates allowed in unlist(stages) after .yml extensions are removed.")
   if(anyDuplicated(names(stages))) stop("No duplicates allowed in names(stages).")
   if(anyDuplicated(c(names(stages), unlist(stages)))) 
-    stop("No duplicates allowed in c(names(stages), unlist(stages)) after .yml extensions are removed..")
+    stop("No duplicates allowed in c(names(stages), unlist(stages)) after .yml extensions are removed.")
 }
