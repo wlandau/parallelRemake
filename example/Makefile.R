@@ -57,7 +57,7 @@ stages = list(
 )
 
 # Write the overarching Makefile for the workflow.
-write_makefile(stages)
+write_makefile(stages, begin = c("# This is my makefile.", "# Variables..."))
 
 # Now, open a command line program run the workflow with `make`. 
 # To run the steps in stage 1 in parallel, try `make -j 4`.

@@ -107,13 +107,13 @@ stages = list(
 
 Be sure that every element of `stages` is named (in this case, I use `data` and `plot`), and be sure that `c(names(stages), unlist(stages))` has no duplicates. In `stages`, I include the `.yml` extensions of the [YAML](http://yaml.org/) files previously generated, but you have the option to omit them. Duplicates are checked after the `.yml` extensions are removed. 
 
-This organization of steps into stages is encoded in an overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`. 
+This organization of steps into stages is encoded in an overarching [Makefile](https://www.gnu.org/software/make/) produced by `write_makefile`.
 
 ```{r}
-write_makefile(stages)
+write_makefile(stages, begin = c("# This is my makefile.", "# Variables..."))
 ```
 
-With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, I can manage the workflow by typing commands.
+Above, `begin` is an optional character vector of lines to prepend to the [Makefile](https://www.gnu.org/software/make/). With a [Makefile](https://www.gnu.org/software/make/) in hand, I can easily run the whole workflow. First, I open a [command line program](http://linuxcommand.org/) such as [Terminal](https://en.wikipedia.org/wiki/Terminal_%28OS_X%29) and point to the [current working directory](http://www.linfo.org/cd.html). Then, I can manage the workflow by typing commands.
 
 - `make` runs the full workflow, only building targets that are out of date.
 - `make -j <n>` is the same as above with the workflow distributed over `<n>` parallel processes. Similarly, you can append `-j <n>` to any of the commands below to activate parallelism.
