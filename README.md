@@ -1,4 +1,4 @@
-This R package helps to manage large parallelizable R workflows. Check out the [example](https://github.com/wlandau/parallelRemake/tree/master/example).
+This R package helps to manage large parallelizable R workflows. Check out the [small example](https://github.com/wlandau/parallelRemake/tree/master/example). In addition, the [`workflowHelper`](https://github.com/wlandau/workflowHelper) package leverages `parallelRemake` to manage large reproducible studies.
 
 # Installation
 
