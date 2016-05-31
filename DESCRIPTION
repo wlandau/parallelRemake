@@ -13,6 +13,8 @@ Depends:
 Imports:
     remake,
     stringr
+Remotes:
+    remake/issues
 RoxygenNote: 5.0.1
 Collate:
     'clean_stages.R'
