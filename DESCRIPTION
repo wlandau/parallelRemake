@@ -14,7 +14,7 @@ Imports:
     remake,
     stringr
 Remotes:
-    remake/issues
+    richfitz/remake
 RoxygenNote: 5.0.1
 Collate:
     'clean_stages.R'
