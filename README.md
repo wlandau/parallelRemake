@@ -1,5 +1,9 @@
 This R package helps [`remake`](https://github.com/richfitz/remake) by adding parallelism. The function `write_makefile` creates a master [`Makefile`](https://www.gnu.org/software/make/) from an existing [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file so that [`remake`](https://github.com/richfitz/remake) targets can be built in parallel with `make -j <n>`, where `<n>` is the number of parallel processes.
 
+# Acknowledgements
+
+This package stands on the shoulders of [Rich Fitzjohn](https://richfitz.github.io/)'s [`remake`](https://github.com/richfitz/remake) package, an understanding of which is a prerequisite for this one. Also thanks to [Daniel Falster](http://danielfalster.com/) for [the idea](https://github.com/richfitz/remake/issues/84) that cleaned everything up.
+
 # Installation
 
 Ensure that [R](https://www.r-project.org/) and [GNU make](https://www.gnu.org/software/make/) are installed, as well as the dependencies in the [`DESCRIPTION`](https://github.com/wlandau/parallelRemake/blob/master/DESCRIPTION). Open an R session and run 
@@ -35,3 +39,4 @@ Use the `run_example` function to run the example workflow from start to finish.
 
 `write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument.
 
+ 
