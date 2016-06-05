@@ -11,15 +11,10 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
 Imports:
+    crayon,
     remake,
-    stringr
-Remotes:
-    richfitz/remake
+    stringr,
+    yaml
+Remotes: richfitz/remake
 RoxygenNote: 5.0.1
-Collate:
-    'clean_stages.R'
-    'namespace.R'
-    'single_field.R'
-    'strings.R'
-    'write_makefile.R'
-    'write_yaml.R'
+
