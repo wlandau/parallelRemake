@@ -22,5 +22,5 @@ run_example = function(intern = F){
   example_source_file()
   example_remake_file()
   write_makefile()
-  system("make -j 2>&1", intern = intern)
+  system("make -j 4 2>&1", intern = intern)
 }
