@@ -2,13 +2,21 @@
 #' @description Write a master Makefile to run \code{remake} targets in parallel.
 #' @export
 #' @param makefile name of Makefile to write.
-#' @param remakefile name of input \code{remake} file.
+#' @param remakefiles Character vector of paths to input \code{remake} files.
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
-write_makefile = function(makefile = "Makefile", remakefile = "remake.yml", begin = NULL, clean = NULL){
+write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL){
 
 # For debugging:
-# library(stringr); library(parallelRemake); example_remake_file(); remakefile = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
+# library(stringr); library(parallelRemake); example_remake_file(); remakefiles = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
+
+# library(stringr); library(parallelRemake); setwd("~/Desktop/baad"); remakefiles = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
+
+  if(length(remakefiles) > 1 || length(yaml_read(remakefiles[1])$include) > 0){
+    remakefile = collate_yaml(remakefiles)
+  } else {
+    remakefile = remakefiles
+  }
 
   remake_data = yaml_read(remakefile)
   targets = remake_data$targets
@@ -25,7 +33,8 @@ write_makefile = function(makefile = "Makefile", remakefile = "remake.yml", begi
   for(name in names(targets)){
     cat(name, ": ", sep = "")
     target = targets[[name]]
-    dep = unique(c(target$depends, parse_command(target$command)$depends))
+    dep = unique(c(unlist(target$depends), parse_command(target$command)$depends))
+    dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
     cat(dep, "\n")
     if("command" %in% names(target)){
       cat("\tRscript -e \'remake::make(\"", name, "\", remake_file = \"", 

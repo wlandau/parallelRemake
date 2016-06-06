@@ -4,13 +4,13 @@
 \alias{write_makefile}
 \title{Function \code{write_makefile}}
 \usage{
-write_makefile(makefile = "Makefile", remakefile = "remake.yml",
+write_makefile(makefile = "Makefile", remakefiles = "remake.yml",
   begin = NULL, clean = NULL)
 }
 \arguments{
 \item{makefile}{name of Makefile to write.}
 
-\item{remakefile}{name of input \code{remake} file.}
+\item{remakefiles}{Character vector of paths to input \code{remake} files.}
 
 \item{begin}{Character vector of lines to prepend to the Makefile.}
 

@@ -46,6 +46,18 @@ from_yaml_map_list <- function(x) {
   x
 }
 
+#' @title Function \code{include_yaml}
+#' @description Recursively find YAML files
+#' @export
+#' @param remakefiles Character vector of remake files to add to the collation.
+#' @param out Character vector of names of remakefiles to collate so far.
+include_yaml = function(remakefiles, out = NULL){
+  if(!length(remakefiles)) return(out)
+  include = unlist(lapply(remakefiles, function(f) yaml_read(f)$include))
+  out = c(out, remakefiles, include)
+  unique(c(out, include_yaml(include, out)))
+}
+
 ## Copied from RcppR6
 read_file <- function(filename, ...) {
   assert_file_exists(filename)
@@ -92,4 +104,12 @@ yaml_read <- function(filename) {
   }
   tryCatch(yaml_load(read_file(filename)),
            error=catch_yaml)
+}
+
+# turn yes/no values into true/false values in aYAML file
+yaml_yesno_truefalse = function(file){
+  y = readLines(file)
+  y = gsub(": no$", ": FALSE", y)
+  y = gsub(": yes$", ": TRUE", y)
+  write(y, file)
 }
