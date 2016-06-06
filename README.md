@@ -41,7 +41,7 @@ Use the `run_example` function to run the example workflow from start to finish.
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache
 
-Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, and you can see the available values of `obj` with the `recallable` function.
+Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable` function.
 
 # Multiple [`remake`](https://github.com/richfitz/remake) files
 

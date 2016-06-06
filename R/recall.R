@@ -7,8 +7,7 @@
 #' @param cache Character vector, path to \code{storr} cache to load from.
 recall = function(..., cache = ".remake/objects"){
   if(!file.exists(cache)) stop("Remake cache does not exist yet.")
-  args = structure(as.list(match.call()[-1]), class = "uneval")
-  args = as.character(args)
+  args = as.character(unlist(list(...)))
   st = storr_rds(cache)
   out = lapply(args, st$get)
   names(out) = args
