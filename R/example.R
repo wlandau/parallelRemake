@@ -21,5 +21,5 @@ run_example = function(){
   example_source_file()
   example_remake_file()
   write_makefile()
-  system("make -j 4")
+  system("make -j")
 }
