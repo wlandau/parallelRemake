@@ -3,7 +3,7 @@
 #' This could be a dataset, analysis, etc.
 #' @export
 #' @return A loaded object
-#' @param ... Objects to load from cache
+#' @param ... Characters, names of objects to load from cache
 #' @param cache Character vector, path to \code{storr} cache to load from.
 recall = function(..., cache = ".remake/objects"){
   if(!file.exists(cache)) stop("Remake cache does not exist yet.")

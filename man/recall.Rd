@@ -7,7 +7,7 @@
 recall(..., cache = ".remake/objects")
 }
 \arguments{
-\item{...}{Objects to load from cache}
+\item{...}{Characters, names of objects to load from cache}
 
 \item{cache}{Character vector, path to \code{storr} cache to load from.}
 }
