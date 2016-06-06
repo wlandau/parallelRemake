@@ -39,4 +39,7 @@ Use the `run_example` function to run the example workflow from start to finish.
 
 `write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument.
 
- 
+
+# A note on distributed computing
+
+If you're running `make -j` over multiple nodes of a cluster, read this. [`remake`](https://github.com/richfitz/remake) uses a hidden folder called `.remake` in the current working directory for storing intermediate objects. You need to make sure that all the nodes share the same copy of `.remake` instead of creating their own local copies. That way, redundant rebuilds will be avoided. You could achieve this by using symbolic links, setting all nodes to the same working directory (`write_makefile(..., begin = "cd $PBS_O_WORKDIR")` for [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System)), or some other method.
