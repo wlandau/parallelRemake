@@ -6,12 +6,8 @@
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
 write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL){
-
-# For debugging:
-# library(stringr); library(parallelRemake); example_remake_file(); remakefiles = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
-
-# library(stringr); library(parallelRemake); setwd("~/Desktop/baad"); remakefiles = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
-
+   
+  remakefiles = unique(remakefiles)
   if(length(remakefiles) > 1 || length(yaml_read(remakefiles[1])$include) > 0){
     remakefile = collate_yaml(remakefiles)
   } else {
