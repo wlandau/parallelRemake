@@ -17,9 +17,10 @@ example_remake_file = function(){
 #' then generate the master \code{Makefile} to run the targets in parallel,
 #' and then run \code{make} to run the workflow in parallel.
 #' @export
-run_example = function(){
+#' @param intern Argument to system, option to capture output.
+run_example = function(intern = F){
   example_source_file()
   example_remake_file()
   write_makefile()
-  system("make -j")
+  system("make -j 2>&1", intern = intern)
 }

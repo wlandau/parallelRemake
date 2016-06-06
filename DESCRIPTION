@@ -18,4 +18,4 @@ Imports:
     yaml
 Remotes: richfitz/remake
 RoxygenNote: 5.0.1
-
+Suggests: testthat

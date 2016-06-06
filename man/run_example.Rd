@@ -4,7 +4,10 @@
 \alias{run_example}
 \title{Function \code{run_example}}
 \usage{
-run_example()
+run_example(intern = F)
+}
+\arguments{
+\item{intern}{Argument to system, option to capture output.}
 }
 \description{
 Run the whole example: generate the \code{remake} file,
