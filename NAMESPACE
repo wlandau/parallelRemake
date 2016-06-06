@@ -2,6 +2,7 @@
 
 export(example_remake_file)
 export(example_source_file)
+export(parse_command)
 export(run_example)
 export(write_makefile)
 export(yaml_read)

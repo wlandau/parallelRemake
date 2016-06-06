@@ -7,7 +7,8 @@
 #' @param clean Character vector of commands to add to the \code{clean} rule.
 write_makefile = function(makefile = "Makefile", remakefile = "remake.yml", begin = NULL, clean = NULL){
 
-# library(parallelRemake); example_remake_file(); remakefile = "remake.yml"
+# For debugging:
+# library(stringr); library(parallelRemake); example_remake_file(); remakefile = "remake.yml"; makefile = "Makefile"; begin = c("# Additional lines", "#!/bin/bash"); clean = c("rm -rf file1", "rm -rf file2")
 
   remake_data = yaml_read(remakefile)
   targets = remake_data$targets
@@ -21,12 +22,10 @@ write_makefile = function(makefile = "Makefile", remakefile = "remake.yml", begi
 
   cat(".PHONY:", names(targets), "clean\n\n")
   
-  command_vec = unlist(lapply(targets, function(x) x$command))
   for(name in names(targets)){
     cat(name, ": ", sep = "")
     target = targets[[name]]
-    extra_depends = as.logical(sapply(lapply(names(targets), grep, x = target$command), length))
-    dep = c(target$depends, names(targets)[extra_depends])
+    dep = unique(c(target$depends, parse_command(target$command)$depends))
     cat(dep, "\n")
     if("command" %in% names(target)){
       cat("\tRscript -e \'remake::make(\"", name, "\", remake_file = \"", 
