@@ -27,8 +27,8 @@ where `...` is replaced by the name of the tarball produced by `R CMD build`.
 
 Use the `run_example` function to run the example workflow from start to finish. The steps are as follows.
 
-1. Use the `example_source_file` function to create the example `code.R` with user-defined R code.
-2. Use the `example_remake_file` function to create the example `remake.yml` file, which is [`remake`](https://github.com/richfitz/remake) code containing the user's workflow.
+1. Use the `example_source_file` function to create `code.R` with example user-defined R code.
+2. Use the `example_remake_file` function to create the example `remake.yml` file, which contains [`remake`](https://github.com/richfitz/remake) instructions to direct the workflow.
 3. Use `write_makefile` to create the master [`Makefile`](https://www.gnu.org/software/make/) for running [`remake`](https://github.com/richfitz/remake) targets. The user will typically write `code.R` and `remake.yml` by hand and begin with this step.
 4. Use [`Makefile`](https://www.gnu.org/software/make/) to run the workflow. Some example options are as follows.
     - `make` just runs the workflow in 1 process.
