@@ -1,0 +1,8 @@
+targets:
+  plot2.pdf:
+    command: myplot(processed2)
+    plot: TRUE
+
+  plot3.pdf:
+    command: myplot(processed3)
+    plot: TRUE

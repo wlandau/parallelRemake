@@ -1,7 +1,5 @@
 # library(testthat); library(parallelRemake); 
-source("cleanup.R")
-source("files-collation.R")
-source("output-collation.R")
+source("utils.R")
 
 files = c("code.R", "data.csv", "Makefile", paste0("plot", 1:3, ".pdf"),
             paste0("remake", c("", 2:5, "_data"), ".yml"), "collated_remake.yml")
@@ -11,13 +9,10 @@ collation = function(){
 }
 
 write_collation_files = function(){
-  write(code, "code.R")
-  write(remake, "remake.yml")
-  write(remake2, "remake2.yml")
-  write(remake3, "remake3.yml")
-  write(remake4, "remake4.yml")
-  write(remake5, "remake5.yml")
-  write(remake_data, "remake_data.yml")
+  for(file in c("code.R", paste0("remake", c("", 2:5, "_data"), ".yml"))){
+    x = readLines(paste0(IO, file))
+    write(x, file)
+  }
 }
 
 test_that("Collated workflow runs smoothly.", {
@@ -25,7 +20,8 @@ test_that("Collated workflow runs smoothly.", {
   write_makefile(remakefiles = c("remake.yml", "remake_data.yml"))
   expect_true(file.exists("collated_remake.yml"))
   out = system("make 2>&1", intern = T)
-  expect_true(paste(out, collapse = "\n") == good_output)
+  good_output = readLines(paste0(IO, "output-collation.txt"))
+  expect_true(all(out == good_output))
   expect_true(all(files %in% list.files()))
   expect_true(all(recallable() == paste0("processed", 1:3)))
   cleanup(files)

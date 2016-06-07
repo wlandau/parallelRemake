@@ -1,5 +1,6 @@
-## COPIED FROM https://github.com/richfitz/remake utils.R and utils_assert.R.
-## ALL CREDIT FOR THIS FILE GOES TO RICH FITZJOHN (https://richfitz.github.io/)
+## MOST OF THIS FILE WAS COPIED FROM 
+## https://github.com/richfitz/remake utils.R and utils_assert.R.
+## CREDIT FOR THAT GOES TO RICH FITZJOHN (https://richfitz.github.io/)
 
 assert_character <- function(x, name=deparse(substitute(x))) {
   if (!is.character(x)) {
@@ -106,10 +107,15 @@ yaml_read <- function(filename) {
            error=catch_yaml)
 }
 
-# turn yes/no values into true/false values in aYAML file
+#' @title Function \code{yaml_yesno_truefalse}
+#' @description Turn yes/no values of a YAML file into TRUE/FALSE
+#' @export
+#' @param file Character, name of \code{YAML} file to read
 yaml_yesno_truefalse = function(file){
   y = readLines(file)
-  y = gsub(": no$", ": FALSE", y)
-  y = gsub(": yes$", ": TRUE", y)
+  for(s in c(":", "-")){
+    y = gsub(paste0(s, "[ \t\r\v\f]*no[ \t\r\v\f]*$"), paste(s, "FALSE"), y)
+    y = gsub(paste0(s, "[ \t\r\v\f]*yes[ \t\r\v\f]*$"), paste(s, "TRUE"), y)
+  }
   write(y, file)
 }

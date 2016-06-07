@@ -1,0 +1,3 @@
+targets:
+  processed3:
+    command: process_data("data.csv")

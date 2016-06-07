@@ -1,0 +1,46 @@
+x: TRUE
+x: TRUE
+yes: TRUE
+x: TRUE
+x: TRUE
+x: TRUE
+no: TRUE
+x: TRUE
+no:
+  - TRUE
+x: 
+- TRUE
+no:
+  	- TRUE
+x:yes stay
+x: yestothat
+yessiree:  	noyes
+x:	 nono   yes
+x:yes hi yes you were here
+x: TRUE
+notthistime: TRUE
+x: TRUE
+no:
+  - no yes
+x: 
+-yeshi
+no:
+  	-  	trueyes
+ -nonn
+yes
+  no
+x: FALSE
+x: FALSE
+x: FALSE
+no: FALSE
+x: FALSE
+x: FALSE
+yes: FALSE
+x: FALSE
+x:
+  - FALSE
+x: 
+- FALSE
+x:
+  	- FALSE
+ - TRUE

@@ -1,0 +1,11 @@
+include: remake2.yml
+
+sources:
+  - code.R
+
+targets:
+  all:
+    depends: 
+      - plot1.pdf
+      - plot2.pdf
+      - plot3.pdf

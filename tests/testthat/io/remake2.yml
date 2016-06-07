@@ -1,0 +1,8 @@
+include:
+  - remake3.yml
+  - remake4.yml
+
+targets:
+  plot1.pdf:
+    command: myplot(processed1)
+    plot: TRUE

@@ -1,0 +1,3 @@
+targets:
+  data.csv:
+    command: generate_data()

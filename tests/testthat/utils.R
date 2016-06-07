@@ -1,3 +1,5 @@
+IO = "io/"
+
 cleanup = function(files){
   unlink(".remake", recursive = T)
   unlink("*.yml")
