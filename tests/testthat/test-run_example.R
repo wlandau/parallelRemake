@@ -1,4 +1,5 @@
 # library(testthat); library(parallelRemake); 
+context("run_example")
 source("utils.R")
 
 test_that("Example runs as expected", {

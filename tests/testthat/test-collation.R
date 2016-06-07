@@ -1,4 +1,5 @@
 # library(testthat); library(parallelRemake); 
+context("Collation")
 source("utils.R")
 
 files = c("code.R", "data.csv", "Makefile", paste0("plot", 1:3, ".pdf"),

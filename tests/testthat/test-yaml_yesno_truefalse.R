@@ -1,4 +1,5 @@
-# library(testthat); library(parallelRemake); 
+# library(testthat); library(parallelRemake);
+context("yaml_yesno_truefalse")
 source("utils.R")
 
 test_that("Function yaml_yesno_truefalse is correct.", {
