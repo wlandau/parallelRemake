@@ -37,7 +37,10 @@ Use the `run_example` function to run the example workflow from start to finish.
     
 # More on `write_makefile`
 
-`write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument.
+`write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target.
+
+
+
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache
 

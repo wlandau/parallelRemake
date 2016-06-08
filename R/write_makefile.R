@@ -5,10 +5,9 @@
 #' @param remakefiles Character vector of paths to input \code{remake} files.
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
-#' @param ... Additional arguments to \code{remake::make}. Must be named.
-write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL, ...){
-   
-  add_args = remake_args(list(...))
+#' @param remake_args Fully-named list of additional arguments to \code{remake::make}.
+write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL, remake_args = list()){
+  add_args = remake_args(remake_args)
 
   remakefiles = unique(remakefiles)
   if(length(remakefiles) > 1 || length(yaml_read(remakefiles[1])$include) > 0){

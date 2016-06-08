@@ -23,7 +23,7 @@ test_that("Correct Makefiles are made with remake_args.", {
   example_remake_file()
   write_makefile()
   expect_equal(readLines("Makefile")[-1], readLines(paste0(IO, "Makefile-remake_args1"))[-1])
-  write_makefile(verbose = F, string = "my string", clean = "rm -rf myfile", begin = "#begin", makefile = "testmake")
+  write_makefile(remake_args = list(verbose = F, string = "my string"), clean = "rm -rf myfile", begin = "#begin", makefile = "testmake")
   expect_equal(readLines("testmake")[-1], readLines(paste0(IO, "Makefile-remake_args2"))[-1])
   out = system("make -f testmake 2>&1", intern = T)
   expect_equal(out, readLines(paste0(IO, "output-remake_args.txt")))
