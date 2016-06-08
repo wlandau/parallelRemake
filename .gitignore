@@ -11,7 +11,6 @@
 *.synctex.gz
 *.toc
 *.vrb
-*.yml
 .DS_Store
 .remake
 .Rapp.history

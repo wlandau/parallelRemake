@@ -7,7 +7,7 @@ test_that("Example runs as expected", {
   data(mtcars)
   files = c("code.R", "data.csv", "Makefile", "plot1.pdf", "plot2.pdf", "remake.yml")
   out = run_example(T)
-  good_output = readLines(paste0(IO, "output-run_example.txt"))
+  good_output = readLines("test-run_example/output.txt")
   expect_true(all(sort(out) == sort(good_output)))
   expect_true(all(files %in% list.files()))
   expect_true(all(recallable() == paste0("processed", 1:2)))

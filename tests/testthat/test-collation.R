@@ -10,9 +10,9 @@ collation = function(){
 }
 
 write_collation_files = function(){
-  for(file in c("code.R", paste0("coll-remake", c("", 2:5, "_data"), ".yml"))){
-    x = readLines(paste0(IO, file))
-    write(x, gsub("coll-", "", file))
+  for(file in c("code.R", paste0("remake", c("", 2:5, "_data"), ".yml"))){
+    x = readLines(paste0("test-collation/", file))
+    write(x, file)
   }
 }
 
@@ -21,7 +21,7 @@ test_that("Collated workflow runs smoothly.", {
   write_makefile(remakefiles = c("remake.yml", "remake_data.yml"))
   expect_true(file.exists("collated_remake.yml"))
   out = system("make 2>&1", intern = T)
-  good_output = readLines(paste0(IO, "output-collation.txt"))
+  good_output = readLines("test-collation/output.txt")
   expect_true(all(out == good_output))
   expect_true(all(files %in% list.files()))
   expect_true(all(recallable() == paste0("processed", 1:3)))
