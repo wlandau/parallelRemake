@@ -37,11 +37,12 @@ Use the `run_example` function to run the example workflow from start to finish.
 4. Use [`Makefile`](https://www.gnu.org/software/make/) to run the workflow. The `run_example` function does steps 1 through 4. Some example options are as follows.
     - `make` just runs the workflow in 1 process.
     - `make -j 4` distributes the workflow over at most 4 parallel processes.
-    - `make clean` removes the files created by [`remake`](https://github.com/richfitz/remake)
+    - `make clean` removes the files created by [`remake`](https://github.com/richfitz/remake).
+5. Optionally, use the `clean_example` function to remove all the files generated in steps 1 through 4.
     
 # More on `write_makefile`
 
-`write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target.
+`write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target. You cannot set `target_names` or `remake_file` this way.
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache
 
