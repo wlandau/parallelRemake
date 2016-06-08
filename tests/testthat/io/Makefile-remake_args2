@@ -23,4 +23,5 @@ plot2.pdf: processed2
 
 clean:
 	Rscript -e 'remake::make("clean", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+	rm -rf .remake
 	rm -rf myfile

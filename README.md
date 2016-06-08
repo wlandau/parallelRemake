@@ -23,6 +23,10 @@ R CMD INSTALL ...
 
 where `...` is replaced by the name of the tarball produced by `R CMD build`.
 
+## Windows users need [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
+
+The example and tests sometimes use `system("make")` and similar commands. So if you're using the Windows operating system, you will need to install the [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) package.
+
 # Example
 
 Use the `run_example` function to run the example workflow from start to finish. The steps are as follows.
@@ -39,9 +43,6 @@ Use the `run_example` function to run the example workflow from start to finish.
 
 `write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target.
 
-
-
-
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache
 
 Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable` function.
@@ -50,6 +51,6 @@ Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintain
 
 [`remake`](https://github.com/richfitz/remake) has the option to split the workflow over multiple [`YAML`](http://yaml.org/) files and collate them with the "include:" field. If that's the case, just specify all the root nodes in the `remakefiles` argument to `write_makefile`. (You could also specify every single [`YAML`](http://yaml.org/) file, but that's tedious.) If needed, `write_makefile` will recursively combine the targets, sources, etc. in the constituent `remakefiles` and output a new collated [`YAML`](http://yaml.org/) file that the master [`Makefile`](https://www.gnu.org/software/make/) will then use.
 
-# A note on distributed computing
+# Distributed computing
 
-If you're running `make -j` over multiple nodes of a cluster, read this. [`remake`](https://github.com/richfitz/remake) uses a hidden folder called `.remake` in the current working directory for storing intermediate objects. You need to make sure that all the nodes share the same copy of `.remake` instead of creating their own local copies. That way, unnecessarily redundant rebuilds will be avoided. You could achieve this by using symbolic links, changing all nodes to the same working directory (`write_makefile(..., begin = "cd $PBS_O_WORKDIR")` for [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System)), or some other method.
+If you're running `make -j` over multiple nodes of a cluster or cloud resource, read this. [`remake`](https://github.com/richfitz/remake) uses a hidden folder called `.remake` in the current working directory for storing intermediate objects. You need to make sure that all the nodes share the same copy of `.remake` instead of creating their own local copies. That way, unnecessarily redundant rebuilds will be avoided. You could achieve this by using symbolic links, changing all nodes to the same working directory (`write_makefile(..., begin = "cd $PBS_O_WORKDIR")` for [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System)), or some other method.

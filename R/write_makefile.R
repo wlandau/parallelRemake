@@ -43,6 +43,7 @@ write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", beg
 
   cat("clean:\n\tRscript -e \'remake::make(\"clean\", remake_file = \"", 
           remakefile, "\"", add_args, ")\'\n", sep = "")
+  cat("\trm -rf .remake\n")
   for(rule in clean) cat("\t", str_trim(rule), "\n", sep = "")
 
   sink()
