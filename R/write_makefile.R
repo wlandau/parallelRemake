@@ -6,6 +6,7 @@
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
 #' @param remake_args Fully-named list of additional arguments to \code{remake::make}.
+#' You cannot set \code{target_names} or \code{remake_file} this way.
 write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL, remake_args = list()){
   add_args = remake_args(remake_args)
 

@@ -16,7 +16,8 @@ write_makefile(makefile = "Makefile", remakefiles = "remake.yml",
 
 \item{clean}{Character vector of commands to add to the \code{clean} rule.}
 
-\item{remake_args}{Fully-named list of additional arguments to \code{remake::make}.}
+\item{remake_args}{Fully-named list of additional arguments to \code{remake::make}.
+You cannot set \code{target_names} or \code{remake_file} this way.}
 }
 \description{
 Write a master Makefile to run \code{remake} targets in parallel.
