@@ -12,6 +12,24 @@ example_remake_file = function(){
   write("sources:\n  - code.R\n\ntargets:\n  all:\n    depends: \n      - plot1.pdf\n      - plot2.pdf\n\n  data.csv:\n    command: download_data()\n\n  processed1:\n    command: process_data(\"data.csv\")\n\n  processed2:\n    command: process_data(\"data.csv\")\n\n  plot1.pdf:\n    command: myplot(processed1)\n    plot: true\n\n  plot2.pdf:\n    command: myplot(processed2)\n    plot: true", file = "remake.yml")
 }
 
+#' @title Function \code{write_example}
+#' @description Write the files \code{code.R} and \code{remake.yml} for the example.
+#' @export
+write_example = function(){
+  example_source_file()
+  example_remake_file()
+}
+
+
+#' @title Function \code{setup_example}
+#' @description Write the files \code{code.R} and \code{remake.yml} for the example. 
+#' and then write the Makefile.
+#' @export
+setup_example = function(){
+  write_example()
+  write_makefile()
+}
+
 #' @title Function \code{run_example}
 #' @description Run the whole example: generate the \code{remake} file,
 #' then generate the master \code{Makefile} to run the targets in parallel,
@@ -19,8 +37,6 @@ example_remake_file = function(){
 #' @export
 #' @param intern Argument to system, option to capture output.
 run_example = function(intern = F){
-  example_source_file()
-  example_remake_file()
-  write_makefile()
+  setup_example()
   system("make -j 4 2>&1", intern = intern)
 }

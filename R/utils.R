@@ -65,6 +65,26 @@ read_file <- function(filename, ...) {
   paste(readLines(filename), collapse="\n")
 }
 
+#' @title Function \code{remake_args}
+#' @description Check additional arguments to \code{remake}.
+#' @export
+#' @param x List of arguments to remake. Must be named.
+remake_args = function(x){
+  if(!length(x)) return("")
+  lack_names = !length(names(x)) | any(!nchar(names(x)))
+  if(lack_names) stop("All additional arguments to remake::make must have names.")
+  x = x[!(names(x) %in% c("target_names", "remake_file"))]
+  if(!length(x)) return("")
+  x = lapply(x, function(i){
+    if(is.character(i)) i = paste0("\"", i, "\"")
+    i
+  })
+  x = lapply(x, as.character)
+  x = paste(names(x), "=", x)
+  x = paste(x, collapse = ", ")
+  paste(",", x)
+}
+
 rep_along <- function(x, along.with) {
   rep_len(x, length(along.with))
 }

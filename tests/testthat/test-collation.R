@@ -10,9 +10,9 @@ collation = function(){
 }
 
 write_collation_files = function(){
-  for(file in c("code.R", paste0("remake", c("", 2:5, "_data"), ".yml"))){
+  for(file in c("code.R", paste0("coll-remake", c("", 2:5, "_data"), ".yml"))){
     x = readLines(paste0(IO, file))
-    write(x, file)
+    write(x, gsub("coll-", "", file))
   }
 }
 

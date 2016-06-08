@@ -5,7 +5,7 @@
 \title{Function \code{write_makefile}}
 \usage{
 write_makefile(makefile = "Makefile", remakefiles = "remake.yml",
-  begin = NULL, clean = NULL)
+  begin = NULL, clean = NULL, ...)
 }
 \arguments{
 \item{makefile}{name of Makefile to write.}
@@ -15,6 +15,8 @@ write_makefile(makefile = "Makefile", remakefiles = "remake.yml",
 \item{begin}{Character vector of lines to prepend to the Makefile.}
 
 \item{clean}{Character vector of commands to add to the \code{clean} rule.}
+
+\item{...}{Additional arguments to \code{remake::make}. Must be named.}
 }
 \description{
 Write a master Makefile to run \code{remake} targets in parallel.

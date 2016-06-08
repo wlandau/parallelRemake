@@ -5,8 +5,11 @@
 #' @param remakefiles Character vector of paths to input \code{remake} files.
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
-write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL){
+#' @param ... Additional arguments to \code{remake::make}. Must be named.
+write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", begin = NULL, clean = NULL, ...){
    
+  add_args = remake_args(list(...))
+
   remakefiles = unique(remakefiles)
   if(length(remakefiles) > 1 || length(yaml_read(remakefiles[1])$include) > 0){
     remakefile = collate_yaml(remakefiles)
@@ -34,13 +37,13 @@ write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", beg
     cat(dep, "\n")
     if("command" %in% names(target)){
       cat("\tRscript -e \'remake::make(\"", name, "\", remake_file = \"", 
-          remakefile, "\")\'\n", sep = "")
+          remakefile, "\"", add_args, ")\'\n", sep = "")
     }
     cat("\n")
   }
 
   cat("clean:\n\tRscript -e \'remake::make(\"clean\", remake_file = \"", 
-          remakefile, "\")\'\n", sep = "")
+          remakefile, "\"", add_args, ")\'\n", sep = "")
   for(rule in clean) cat("\t", str_trim(rule), "\n", sep = "")
 
   sink()
