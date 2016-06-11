@@ -1,4 +1,8 @@
-This R package helps [`remake`](https://github.com/richfitz/remake) by adding parallelism. The function `write_makefile` creates a master [`Makefile`](https://www.gnu.org/software/make/) from an existing [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file so that [`remake`](https://github.com/richfitz/remake) targets can be built in parallel with `make -j <n>`, where `<n>` is the number of parallel processes.
+This R package helps [`remake`](https://github.com/richfitz/remake) by adding parallelism. Thanks to [`remake`](https://github.com/richfitz/remake), whenever you change a function in your custom code (or any other dependency), only the affected pieces of your workflow will be rerun. This is similar to how [GNU make](https://www.gnu.org/software/make/) works.
+
+The function `write_makefile` creates a master [`Makefile`](https://www.gnu.org/software/make/) from an existing [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file so that [`remake`](https://github.com/richfitz/remake) targets can be built in parallel with `make -j <n>`, where `<n>` is the number of parallel processes.
+
+
 
 # Acknowledgements
 
