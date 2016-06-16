@@ -1,0 +1,25 @@
+sources:
+  - code.R
+
+targets:
+  all:
+    depends: 
+      - plot1.pdf
+      - plot2.pdf
+
+  data.csv:
+    command: download_data()
+
+  processed1:
+    command: process_data("data.csv")
+
+  processed2:
+    command: process_data("data.csv")
+
+  plot1.pdf:
+    command: myplot(processed1)
+    plot: true
+
+  plot2.pdf:
+    command: myplot(processed2)
+    plot: true

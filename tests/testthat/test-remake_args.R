@@ -19,8 +19,7 @@ test_that("Function remake_args behaves correctly.", {
 })
 
 test_that("Correct Makefiles are made with remake_args.", {
-  example_source_file()
-  example_remake_file()
+  write_example_parallelRemake()
   write_makefile()
   expect_equal(readLines("Makefile")[-1], readLines("test-remake_args/Makefile1")[-1])
   write_makefile(remake_args = list(verbose = F, string = "my string"), 
