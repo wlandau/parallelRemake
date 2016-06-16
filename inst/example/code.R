@@ -1,13 +1,12 @@
-download_data = function(){
+my_mtcars = function(){
   data(mtcars)
-# mtcars$mpg = mtcars$mpg + 1 # TOGGLE THIS LINE TO FORCE A REBUILD
-  write.csv(mtcars, "data.csv")
+  mtcars
 }
 
-process_data = function(file){
-  read.csv(file)
+my_random = function(){
+  data.frame(y = rnorm(32))
 }
 
-myplot = function(d){
-  plot(cyl ~ mpg, data = d)
+my_plot = function(mtcars, random){
+  plot(mtcars$mpg, random$y)
 }

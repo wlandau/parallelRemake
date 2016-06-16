@@ -1,5 +1,3 @@
-Rscript -e 'remake::make("data.csv", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("processed1", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("plot1.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("processed2", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("plot2.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+Rscript -e 'remake::make("mtcars", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+Rscript -e 'remake::make("random", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+Rscript -e 'remake::make("plot.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'

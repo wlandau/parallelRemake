@@ -1,25 +1,16 @@
-sources:
-  - code.R
+sources: code.R
 
 targets:
+
   all:
-    depends: 
-      - plot1.pdf
-      - plot2.pdf
+    depends: plot.pdf
 
-  data.csv:
-    command: download_data()
+  plot.pdf:
+    command: my_plot(mtcars, random)
+    plot: TRUE
 
-  processed1:
-    command: process_data("data.csv")
+  mtcars:
+    command: my_mtcars()
 
-  processed2:
-    command: process_data("data.csv")
-
-  plot1.pdf:
-    command: myplot(processed1)
-    plot: true
-
-  plot2.pdf:
-    command: myplot(processed2)
-    plot: true
+  random:
+    command: my_random()

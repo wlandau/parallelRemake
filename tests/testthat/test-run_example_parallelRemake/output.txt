@@ -1,36 +1,20 @@
-<  MAKE > data.csv
-<  MAKE > plot1.pdf
-<  MAKE > plot2.pdf
-<  MAKE > processed1
-<  MAKE > processed2
-Rscript -e 'remake::make("data.csv", remake_file = "remake.yml")'
-Rscript -e 'remake::make("plot1.pdf", remake_file = "remake.yml")'
-Rscript -e 'remake::make("plot2.pdf", remake_file = "remake.yml")'
-Rscript -e 'remake::make("processed1", remake_file = "remake.yml")'
-Rscript -e 'remake::make("processed2", remake_file = "remake.yml")'
-[    OK ] data.csv
-[    OK ] data.csv
-[    OK ] data.csv
-[    OK ] data.csv
-[    OK ] processed1
-[    OK ] processed2
+Rscript -e 'remake::make("mtcars", remake_file = "remake.yml")'
+Rscript -e 'remake::make("random", remake_file = "remake.yml")'
 [  LOAD ] 
 [  LOAD ] 
+[  READ ]          |  # loading sources
+[  READ ]          |  # loading sources
+<  MAKE > mtcars
+[ BUILD ] mtcars   |  mtcars <- my_mtcars()
+<  MAKE > random
+[ BUILD ] random   |  random <- my_random()
+[  READ ]          |  # loading packages
+[  READ ]          |  # loading packages
+Rscript -e 'remake::make("plot.pdf", remake_file = "remake.yml")'
 [  LOAD ] 
-[  LOAD ] 
-[  LOAD ] 
-[  PLOT ] plot1.pdf  |  myplot(processed1) # ==> plot1.pdf
-[  PLOT ] plot2.pdf  |  myplot(processed2) # ==> plot2.pdf
-[  READ ]            |  # loading packages
-[  READ ]            |  # loading packages
-[  READ ]            |  # loading packages
-[  READ ]            |  # loading packages
-[  READ ]            |  # loading packages
-[  READ ]            |  # loading sources
-[  READ ]            |  # loading sources
-[  READ ]            |  # loading sources
-[  READ ]            |  # loading sources
-[  READ ]            |  # loading sources
-[ BUILD ] data.csv   |  download_data()
-[ BUILD ] processed1 |  processed1 <- process_data("data.csv")
-[ BUILD ] processed2 |  processed2 <- process_data("data.csv")
+[  READ ]          |  # loading sources
+<  MAKE > plot.pdf
+[    OK ] mtcars
+[    OK ] random
+[  PLOT ] plot.pdf |  my_plot(mtcars, random) # ==> plot.pdf
+[  READ ]          |  # loading packages
