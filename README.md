@@ -45,6 +45,10 @@ Use the `run_example_parallelRemake` function to run the example workflow from s
 
 `write_makefile` has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target. You cannot set `target_names` or `remake_file` this way.
 
+# Use with the [downsize](https://github.com/wlandau/downsize) package
+
+You may want to use the [downsize](https://github.com/wlandau/downsize) package within your custom R source code. That way, you can run a quick scaled-down version of your workflow for debugging and testing before you run the full workload. Integrating [downsize](https://github.com/wlandau/downsize) with `parallelRemake` is done the same way as integrating [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper), which is documented in the `README.md` files of both [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper).
+
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache
 
 Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable` function.
