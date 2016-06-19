@@ -2,7 +2,8 @@
 #' @description Write the files \code{code.R} and \code{remake.yml} for the example.
 #' @export
 write_example_parallelRemake = function(){
-  for(file in c("code.R", "remake.yml")){
+  dir = system.file("example", package = "parallelRemake")
+  for(file in list.files(dir)){
     path = system.file("example", file, package = "parallelRemake")
     if (!file.exists(path)) stop("File ", file, 
       " is missing from installed package parallelRemake.", call.=FALSE)
