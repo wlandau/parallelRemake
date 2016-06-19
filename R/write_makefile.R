@@ -35,7 +35,7 @@ write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", beg
     dep = unique(c(unlist(target$depends), parse_command(target$command)$depends))
     dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
     cat(dep, "\n")
-    if("command" %in% names(target)){
+    if("command" %in% names(target) | !is.null(target$knitr)){
       cat("\tRscript -e \'remake::make(\"", name, "\", remake_file = \"", 
           remakefile, "\"", add_args, ")\'\n", sep = "")
     }
