@@ -2,7 +2,7 @@
 % Please edit documentation in R/example.R
 \name{run_example_parallelRemake}
 \alias{run_example_parallelRemake}
-\title{Function \code{run_example}}
+\title{Function \code{run_example_parallelRemake}}
 \usage{
 run_example_parallelRemake(intern = F)
 }

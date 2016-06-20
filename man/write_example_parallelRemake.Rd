@@ -2,7 +2,7 @@
 % Please edit documentation in R/example.R
 \name{write_example_parallelRemake}
 \alias{write_example_parallelRemake}
-\title{Function \code{write_example}}
+\title{Function \code{write_example_parallelRemake}}
 \usage{
 write_example_parallelRemake()
 }
