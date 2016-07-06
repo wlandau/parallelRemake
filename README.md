@@ -59,4 +59,13 @@ Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintain
 
 # Distributed computing
 
-If you're running `make -j` over multiple nodes of a cluster or cloud resource, read this. [`remake`](https://github.com/richfitz/remake) uses a hidden folder called `.remake` in the current working directory for storing intermediate objects. You need to make sure that all the nodes share the same copy of `.remake` instead of creating their own local copies. That way, unnecessarily redundant rebuilds will be avoided. You could achieve this by using symbolic links, changing all nodes to the same working directory (`write_makefile(..., begin = "cd $PBS_O_WORKDIR")` for [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System)), or some other method.
+If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm](http://slurm.schedmd.com/) cluster, refer to the Makefile in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html) and write
+
+```{r}
+write_makefile(..., 
+  begin = c(
+    "SHELL=srun",
+    ".SHELLFLAGS= <ARGS> bash -c"))
+```
+
+where `<ARGS>` stands for additional arguments to `srun`. For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), such an approach may not be possible. Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache.
