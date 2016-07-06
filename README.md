@@ -68,4 +68,6 @@ write_makefile(...,
     ".SHELLFLAGS= <ARGS> bash -c"))
 ```
 
-where `<ARGS>` stands for additional arguments to `srun`. For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), such an approach may not be possible. Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache.
+in an R session, where `<ARGS>` stands for additional arguments to `srun`. Then, once the [Makefile](https://www.gnu.org/software/make/) is generated, you can run the workflow with
+`nohup make -j [N] &` in the command line, where `[N]` is the number of simultaneous tasks.
+For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), such an approach may not be possible. Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache.
