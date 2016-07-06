@@ -57,7 +57,7 @@ Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintain
 
 [`remake`](https://github.com/richfitz/remake) has the option to split the workflow over multiple [`YAML`](http://yaml.org/) files and collate them with the "include:" field. If that's the case, just specify all the root nodes in the `remakefiles` argument to `write_makefile`. (You could also specify every single [`YAML`](http://yaml.org/) file, but that's tedious.) If needed, `write_makefile` will recursively combine the targets, sources, etc. in the constituent `remakefiles` and output a new collated [`YAML`](http://yaml.org/) file that the master [`Makefile`](https://www.gnu.org/software/make/) will then use.
 
-# Distributed computing
+# High-performance computing
 
 If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm](http://slurm.schedmd.com/) cluster, refer to the Makefile in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html) and write
 
