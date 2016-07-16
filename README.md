@@ -49,9 +49,9 @@ Use the `run_example_parallelRemake` function to run the example workflow from s
 
 You may want to use the [downsize](https://github.com/wlandau/downsize) package within your custom R source code. That way, you can run a quick scaled-down version of your workflow for debugging and testing before you run the full workload. Integrating [downsize](https://github.com/wlandau/downsize) with `parallelRemake` is done the same way as integrating [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper), which is documented in the `README.md` files of both [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper).
 
-# Accessing the [`remake`](https://github.com/richfitz/remake) cache
+# Accessing the [`remake`](https://github.com/richfitz/remake) cache for debugging and testing
 
-Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable` function.
+Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable()` function. **Important: this is only recommended for debugging and testing. Changes to the cache are not tracked and thus not reproducible.**
 
 # Multiple [`remake`](https://github.com/richfitz/remake) files
 
