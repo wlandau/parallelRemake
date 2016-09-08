@@ -47,7 +47,7 @@ Use the `run_example_parallelRemake` function to run the example workflow from s
 
 # Use with the [downsize](https://github.com/wlandau/downsize) package
 
-The <a href="https://github.com/wlandau/downsize">downsize</a> package is compatible with <a href="https://github.com/wlandau/parallelRemake">parallelRemake</a> <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> workflows, and the <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> README suggests one of many potential ways to use these packages together.
+The <a href="https://github.com/wlandau/downsize">downsize</a> package is compatible with <a href="https://github.com/wlandau/parallelRemake">parallelRemake</a> and <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> workflows, and the <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> README suggests one of many potential ways to use these packages together.
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache for debugging and testing
 
