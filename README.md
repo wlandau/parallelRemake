@@ -47,7 +47,7 @@ Use the `run_example_parallelRemake` function to run the example workflow from s
 
 # Use with the [downsize](https://github.com/wlandau/downsize) package
 
-You may want to use the [downsize](https://github.com/wlandau/downsize) package within your custom R source code. That way, you can run a quick scaled-down version of your workflow for debugging and testing before you run the full workload. Integrating [downsize](https://github.com/wlandau/downsize) with `parallelRemake` is done the same way as integrating [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper), which is documented in the `README.md` files of both [downsize](https://github.com/wlandau/downsize) and [workflowHelper](https://github.com/wlandau/workflowHelper).
+The <a href="https://github.com/wlandau/downsize">downsize</a> package is compatible with <a href="https://github.com/wlandau/parallelRemake">parallelRemake</a> <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> workflows, and the <a href="https://github.com/wlandau/remakeGenerator">remakeGenerator</a> README suggests one of many potential ways to use these packages together.
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache for debugging and testing
 
