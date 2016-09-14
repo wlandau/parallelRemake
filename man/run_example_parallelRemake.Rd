@@ -4,10 +4,7 @@
 \alias{run_example_parallelRemake}
 \title{Function \code{run_example_parallelRemake}}
 \usage{
-run_example_parallelRemake(intern = F)
-}
-\arguments{
-\item{intern}{Argument to system, option to capture output.}
+run_example_parallelRemake()
 }
 \description{
 Run the whole example: generate the \code{remake} file,

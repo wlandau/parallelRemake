@@ -1,3 +1,0 @@
-Rscript -e 'remake::make("mtcars", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("random", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
-Rscript -e 'remake::make("plot.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'

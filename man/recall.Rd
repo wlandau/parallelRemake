@@ -4,7 +4,7 @@
 \alias{recall}
 \title{Function \code{recall}}
 \usage{
-recall(..., cache = ".remake/objects")
+recall(..., cache = file.path(".remake", "objects"))
 }
 \arguments{
 \item{...}{Characters, names of objects to load from cache}

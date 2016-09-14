@@ -6,6 +6,7 @@
 .Rhistory
 Rbuildignore
 README.md
+README.html
 vignettes/model.html
 vignettes/model.log
 vignettes/tutorial.html

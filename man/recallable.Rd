@@ -4,7 +4,7 @@
 \alias{recallable}
 \title{Function \code{recallable}}
 \usage{
-recallable(cache = ".remake/objects")
+recallable(cache = file.path(".remake", "objects"))
 }
 \arguments{
 \item{cache}{Character vector, path to \code{storr} cache to load from.}

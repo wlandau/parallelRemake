@@ -248,7 +248,7 @@ target_infer_type <- function(name, dat) {
 }
 
 target_is_file <- function(x) {
-  is_file <- grepl("/", x, fixed=TRUE)
+  is_file <- grepl(.Platform$file.sep, x, fixed=TRUE)
   check <- !is_file
   if (any(check)) {
     is_file[check] <- tolower(file_extension(x[check])) %in% file_extensions()
