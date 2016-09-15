@@ -68,6 +68,8 @@ The <a href="https://github.com/wlandau/downsize">downsize</a> package is compat
 
 Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable()` function. **Important: this is only recommended for debugging and testing. Changes to the cache are not tracked and thus not reproducible.**
 
+The functions `create_bindings()` and `make_environment()` are alternatives from [`remake`](https://github.com/richfitz/remake) itself. Just be careful with `create_bindings()` if your project has a lot of data.
+
 # Multiple [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) files
 
 [`remake`](https://github.com/richfitz/remake) has the option to split the workflow over multiple [`YAML`](http://yaml.org/) files and collate them with the "include:" field. If that's the case, just specify all the root nodes in the `remakefiles` argument to `write_makefile`. (You could also specify every single [`YAML`](http://yaml.org/) file, but that's tedious.) If needed, `write_makefile` will recursively combine the targets, sources, etc. in the constituent `remakefiles` and output a new collated [`YAML`](http://yaml.org/) file that the master [`Makefile`](https://www.gnu.org/software/make/) will then use.
