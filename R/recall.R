@@ -6,7 +6,7 @@
 #' @param ... Characters, names of objects to load from cache
 #' @param cache Character vector, path to \code{storr} cache to load from.
 recall = function(..., cache = file.path(".remake", "objects")){
-  if(!file.exists(cache)) stop("Remake cache does not exist yet.")
+  if(!file.exists(cache)) stop(paste0("Remake cache \"", cache, "\" does not exist."))
   args = as.character(unlist(list(...)))
   st = storr_rds(cache)
   out = lapply(args, st$get)
@@ -21,7 +21,7 @@ recall = function(..., cache = file.path(".remake", "objects")){
 #' @return A loaded object
 #' @param cache Character vector, path to \code{storr} cache to load from.
 recallable = function(cache = file.path(".remake", "objects")){
-  if(!file.exists(cache)) stop("Cache does not exist yet.")
+  if(!file.exists(cache)) return(character(0))
   st = storr_rds(cache)
   st$list()
 }
