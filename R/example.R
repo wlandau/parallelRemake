@@ -12,7 +12,6 @@ write_example_parallelRemake = function(){
   }
 }
 
-
 #' @title Function \code{setup_example_parallelRemake}
 #' @description Write the files \code{code.R} and \code{remake.yml} for the example. 
 #' and then write the Makefile.
