@@ -18,5 +18,5 @@ test_that("Example runs as expected", {
   clean_example_parallelRemake()
   expect_false(file.exists(".remake"))
   expect_equal(list.files(), initial_files)
-  testrm()
+  testrm("example-ok")
 })

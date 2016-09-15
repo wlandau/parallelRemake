@@ -13,5 +13,5 @@ test_that("Function yaml_yesno_truefalse is correct.", {
     expect_true(all(o1 == o2))
     unlink("out.txt")
   }
-  testrm()
+  testrm("yaml_yesno_truefalse-ok")
 })

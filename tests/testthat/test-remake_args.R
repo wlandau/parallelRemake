@@ -17,7 +17,7 @@ test_that("Function remake_args behaves correctly.", {
   expect_error(remake_args(c("file1", "file2")))
   expect_error(remake_args(list("file")))
   expect_error(remake_args(list("file1", "file2")))
-  testrm()
+  testrm("remake_args-ok")
 })
 
 test_that("Correct Makefiles are made with remake_args.", {
@@ -37,5 +37,5 @@ test_that("Correct Makefiles are made with remake_args.", {
   expect_true(all(is.finite(as.matrix(recall("random")))))
   files = c("code.R", "Makefile", "testmake", "plot.pdf", "remake.yml")
   expect_true(all(files %in% list.files()))
-  testrm()
+  testrm("remake_args-Makefiles")
 })

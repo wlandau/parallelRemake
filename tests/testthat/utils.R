@@ -1,14 +1,13 @@
 testwd = function(x){
   dir = paste0("RUN-", x)
+  if(file.exists(file.path("..", dir))) return()
   if(!file.exists(dir)) dir.create(dir)
   setwd(dir)
 }
 
-testrm = function(){
-  d1 = getwd()
+testrm = function(x){
+  dir = paste0("RUN-", x)
+  if(!file.exists(file.path("..", dir))) return()
   setwd("..")
-  d2 = getwd()
-  d = gsub(d2, "", d1)
-  d = gsub("[^[:alnum:]|_|-]", "", d)
-  unlink(d, recursive = T)
+  unlink(dir, recursive = T)
 }
