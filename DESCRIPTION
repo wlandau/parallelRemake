@@ -1,12 +1,12 @@
 Package: parallelRemake
-Title: parallelRemake
-Type: Package
-Version: 0.0
-Date: 2016-05-17
-Author: Will Landau
-Maintainer: <will.landau@gmail.com>
-Description: This package helps with workflows by arranging for the execution of
-    parallel instances of remake.
+Title: "Parallelize Remake-Style Workflows with Makefiles"
+Version: 0.0.0
+Date: 2016-09-17
+Authors@R: person("Landau", "William", email = "will.landau@gmail.com",
+                  role = c("aut", "cre"))
+Description: Parallelize a workflow that uses remake (Rich FitzJohn, https://richfitz.github.io/)
+    by generating a Makefile, which can distribute the work over multiple parallel processes with 
+    system("make -j").
 License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
