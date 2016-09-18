@@ -1,4 +1,5 @@
-## THIS FILE WAS COPIED AND MODIFIED FROM FILES IN https://github.com/richfitz/remake/R
+## THIS FILE WAS COPIED AND SLIGHTLY MODIFIED FROM 
+## FILES IN https://github.com/richfitz/remake/R
 ## (parse_command.R, utils.R, and utils_assert.R).
 ## ALL FUNCTIONS IN THIS FILE WERE WRITTEN BY
 ## RICH FITZJOHN (https://richfitz.github.io/).
@@ -71,9 +72,6 @@ check_command <- function(str) {
       stop("Expected single expression")
     }
     command <- command[[1]]
-  }
-  if (length(command) == 0) {
-    stop("I don't think this is possible")
   }
   if (!is.call(command)) {
     stop("Expected a function call (even with no arguments)")
