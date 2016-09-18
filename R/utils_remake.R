@@ -1,43 +1,8 @@
 ## THIS FILE WAS COPIED AND SLIGHTLY MODIFIED FROM 
 ## FILES IN https://github.com/richfitz/remake/R
 ## (parse_command.R, utils.R, and utils_assert.R).
-## ALL FUNCTIONS IN THIS FILE WERE WRITTEN BY
-## RICH FITZJOHN (https://richfitz.github.io/).
-## 
-## LICENSE: https://raw.githubusercontent.com/richfitz/remake/master/LICENSE
-##
-## The BSD 2-Clause License
-##
-## Copyright (c) 2014, Rich FitzJohn 
-## (http://richfitz.github.io/, ## https://github.com/richfitz)
-## All rights reserved.
-## 
-## Redistribution and use in source and binary forms, with or 
-## without modification, are permitted provided that the following 
-## conditions are met:
-## 
-## 1. Redistributions of source code must retain the above 
-## copyright notice, this list of conditions and the following 
-## disclaimer.
-## 
-## 2. Redistributions in binary form must reproduce the above 
-## copyright notice, this list of conditions and the following 
-## disclaimer in the documentation and/or other materials provided 
-## with the distribution.
-## 
-## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
-## CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
-## INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
-## MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-## DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
-## CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-## SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-## NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-## LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-## HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-## CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-## OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
-## EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+## RICH FITZJOHN (https://richfitz.github.io/) OWNS COPYRIGHT
+## FOR ALL THE FUNCTIONS IN THIS FILE. ALL RIGHTS RESERVED.
 
 assert_character <- function(x, name=deparse(substitute(x))) {
   if (!is.character(x)) {
