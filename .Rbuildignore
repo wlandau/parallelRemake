@@ -1,6 +1,5 @@
 .DS_Store
 .git
-.gitattributes
 .gitignore
 .Rapp.history
 .Rbuildignore
