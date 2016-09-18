@@ -22,5 +22,7 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+URL: https://github.com/wlandau/parallelRemake
+BugReports: https://github.com/wlandau/parallelRemake/issues
 Remotes: richfitz/remake
 RoxygenNote: 5.0.1
