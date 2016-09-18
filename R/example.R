@@ -28,7 +28,7 @@ setup_example_parallelRemake = function(){
 #' @export
 run_example_parallelRemake = function(){
   setup_example_parallelRemake()
-  system("make -j 4")
+  system("make -j 2")
 }
 
 #' @title Function \code{clean_example_parallelRemake}
