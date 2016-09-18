@@ -14,3 +14,4 @@ vignettes/tutorial.log
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
+^appveyor\.yml$
