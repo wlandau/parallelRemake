@@ -13,3 +13,4 @@ vignettes/tutorial.html
 vignettes/tutorial.log
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
