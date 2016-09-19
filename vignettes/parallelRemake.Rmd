@@ -15,6 +15,10 @@ The `parallelRemake` package is a helper add-on for [`remake`](https://github.co
 
 The example and tests sometimes use `system("make")` and similar commands. So if you're using the Windows operating system, you will need to install the [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) package.
 
+# Troubleshooting
+
+Please refer to [TROUBLESHOOTING.md](https://github.com/wlandau/parallelRemake/blob/master/TROUBLESHOOTING.md) on the [GitHub page](https://github.com/wlandau/parallelRemake) for instructions.
+
 # Example
 
 Use the `run_example_parallelRemake()` function to run the example workflow from start to finish. The steps are as follows.
@@ -63,28 +67,3 @@ The functions `create_bindings()` and `make_environment()` are alternatives from
 # Acknowledgements
 
 This package stands on the shoulders of [Rich FitzJohn](https://richfitz.github.io/)'s [`remake`](https://github.com/richfitz/remake) package, an understanding of which is a prerequisite for this one. Also thanks to [Daniel Falster](http://danielfalster.com/) for [the idea](https://github.com/richfitz/remake/issues/84) that cleaned everything up.
-
-# Troubleshooting
-
-The use of [`remake`](https://github.com/richfitz/remake) and dependent packages is not always obvious. For example, to pass a character literal to a command, [use `I()`](https://github.com/richfitz/remake/issues/58). For example,
-
-```r
-commands(my_target = my_function(I("character_literal")))
-```
-
-Additionally, commands cannot be nested. For example, instead of `commands(my_target = f1(f2(arg)))`, either write
-
-```r
-commands(my_target = f1(tmp), tmp = f2(arg))
-```
-
-or
-
-```r
-commands(my_target = g(arg))
-```
-
-where `g(arg)` is just `f1(f2(arg))`.
-
-If you encounter additional problems, please read the [`remake` issues](https://github.com/richfitz/remake/issues) and the [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues) first. Bugs and questions can be submitted as [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues) as well.
-

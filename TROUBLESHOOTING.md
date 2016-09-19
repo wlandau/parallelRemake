@@ -20,4 +20,4 @@ commands(my_target = g(arg))
 
 where `g(arg)` is just `f1(f2(arg))`.
 
-If you encounter additional problems, please read the [`remake` issues](https://github.com/richfitz/remake/issues) and the [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues) first. Bugs and questions can be submitted as [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues) as well.
+If you encounter additional problems, please read the [`remake` issues](https://github.com/richfitz/remake/issues) and the [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues) first, taking care to search the closed issues as well. Please submit bugs and questions as [`parallelRemake` issues](https://github.com/wlandau/parallelRemake/issues).
