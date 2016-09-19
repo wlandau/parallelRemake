@@ -10,7 +10,7 @@ New submission
 
 Unknown, possibly mis-spelled, fields in DESCRIPTION:
   ‘Remotes’
-
+ 
 Strong dependencies not in mainstream repositories:
   remake
 ```
