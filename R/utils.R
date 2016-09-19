@@ -1,6 +1,5 @@
 #' @title Function \code{include_yaml}
 #' @description Recursively find YAML files
-#' @export
 #' @param remakefiles Character vector of remake files to add to the collation.
 #' @param out Character vector of names of remakefiles to collate so far.
 include_yaml = function(remakefiles, out = NULL){
@@ -12,7 +11,6 @@ include_yaml = function(remakefiles, out = NULL){
 
 #' @title Function \code{remake_args}
 #' @description Check additional arguments to \code{remake}.
-#' @export
 #' @param x List of arguments to remake. Must be named.
 remake_args = function(x){
   if(!length(x)) return("")
@@ -32,7 +30,6 @@ remake_args = function(x){
 
 #' @title Function \code{yaml_yesno_truefalse}
 #' @description Turn yes/no values of a YAML file into TRUE/FALSE
-#' @export
 #' @param file Character, name of \code{YAML} file to read
 yaml_yesno_truefalse = function(file){
   y = readLines(file)

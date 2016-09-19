@@ -1,6 +1,5 @@
 #' @title Function \code{recall}
-#' @description Load an intermediate object previously generated in the workflow.
-#' This could be a dataset, analysis, etc.
+#' @description Loads an object/target from the cache.
 #' @export
 #' @return A loaded object
 #' @param ... Characters, names of objects to load from cache
@@ -16,9 +15,9 @@ recall = function(..., cache = file.path(".remake", "objects")){
 }
 
 #' @title Function \code{recallable}
-#' @description List the items available to laod from the cache.
+#' @description Lists the objects/targets available to laod from the cache.
 #' @export
-#' @return A loaded object
+#' @return A character vector of objects/targets available to laod from the cache.
 #' @param cache Character vector, path to \code{storr} cache to load from.
 recallable = function(cache = file.path(".remake", "objects")){
   if(!file.exists(cache)) return(character(0))

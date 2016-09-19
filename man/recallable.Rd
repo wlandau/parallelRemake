@@ -10,9 +10,9 @@ recallable(cache = file.path(".remake", "objects"))
 \item{cache}{Character vector, path to \code{storr} cache to load from.}
 }
 \value{
-A loaded object
+A character vector of objects/targets available to laod from the cache.
 }
 \description{
-List the items available to laod from the cache.
+Lists the objects/targets available to laod from the cache.
 }
 

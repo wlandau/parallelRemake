@@ -2,7 +2,6 @@
 #' @description Collate interdependent remake/YAML files into a single 
 #' master remake/YAML file. Files in the "include:" fields will be collated
 #' as well
-#' @export
 #' @param remakefiles Character vector of the paths to the remake/YAML
 #' files to collate. 
 #' @param collated name of collated remake/YAML file.

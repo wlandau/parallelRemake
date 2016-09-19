@@ -7,6 +7,7 @@
 write_example_parallelRemake()
 }
 \description{
-Write the files \code{code.R} and \code{remake.yml} for the example.
+Writes the files \code{code.R} and \code{remake.yml} 
+for the package example.
 }
 

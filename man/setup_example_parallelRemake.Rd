@@ -7,7 +7,7 @@
 setup_example_parallelRemake()
 }
 \description{
-Write the files \code{code.R} and \code{remake.yml} for the example. 
-and then write the Makefile.
+Writes the files \code{code.R} and \code{remake.yml} for 
+the package example and then produces the Makefile.
 }
 

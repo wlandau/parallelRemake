@@ -1,7 +1,6 @@
 #' @title Function \code{collate_remakefiles}
 #' @description Collate multiple \code{remake}/\code{YAML} files 
 #' into a single \code{remake}/\code{YAML} file if necessary.
-#' @export
 #' @return Name of the collated (or solitary) \code{remake}/\code{YAML} file
 #' @param remakefiles names/paths of the \code{remake}/\code{YAML} files.
 collate_remakefiles = function(remakefiles){
@@ -16,7 +15,6 @@ collate_remakefiles = function(remakefiles){
 
 #' @title Function \code{makefile_clean}
 #' @description Write the rules of the Makefile for cleaning up
-#' @export
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param clean character vector of extra lines to run on \code{make clean}.
 #' @param add_args extra arguments to add to \code{remake}
@@ -29,7 +27,6 @@ makefile_clean = function(remakefile, clean, add_args){
 
 #' @title Function \code{makefile_head}
 #' @description Print the top lines of the Makefile (prepended lines and phony targets).
-#' @export
 #' @param begin character vector of lines to prepend to the Makefile
 #' @param targets \code{YAML}-like list of Makefile targets
 makefile_head = function(begin, targets){
@@ -43,7 +40,6 @@ makefile_head = function(begin, targets){
 
 #' @title Function \code{makefile_rules}
 #' @description Write the rules of the Makefile for pseudo-making the targets
-#' @export
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param targets \code{YAML}-like list of Makefile targets
 #' @param add_args extra arguments to add to \code{remake}
@@ -63,14 +59,16 @@ makefile_rules = function(remakefile, targets, add_args){
 }
 
 #' @title Function \code{write_makefile}
-#' @description Write a master Makefile to run \code{remake} targets in parallel.
+#' @description Writes a master Makefile that can distribute \code{remake} workflows
+#' over simultaneous processes.
 #' @export
-#' @param makefile name of Makefile to write.
+#' @param makefile Name of the Makefile to write.
 #' @param remakefiles Character vector of paths to input \code{remake} files.
 #' @param begin Character vector of lines to prepend to the Makefile.
 #' @param clean Character vector of commands to add to the \code{clean} rule.
-#' @param remake_args Fully-named list of additional arguments to \code{remake::make}.
-#' You cannot set \code{target_names} or \code{remake_file} this way.
+#' @param remake_args Named list of additional arguments to \code{remake::make}.
+#' You cannot set \code{target_names} or \code{remake_file} this way because 
+#' those names are already reserved.
 write_makefile = function(makefile = "Makefile", remakefiles = "remake.yml", 
   begin = NULL, clean = NULL, remake_args = list()){
 

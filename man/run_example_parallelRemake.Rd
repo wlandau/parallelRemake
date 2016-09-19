@@ -7,8 +7,8 @@
 run_example_parallelRemake()
 }
 \description{
-Run the whole example: generate the \code{remake} file,
-then generate the master \code{Makefile} to run the targets in parallel,
-and then run \code{make} to run the workflow in parallel.
+Runs the whole package example from start to finish.
+Generates the files \code{code.R} and \code{remake.yml}, produces the 
+Makefile, and then runs \code{make} to execute the workflow in parallel.
 }
 

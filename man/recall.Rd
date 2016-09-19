@@ -15,7 +15,6 @@ recall(..., cache = file.path(".remake", "objects"))
 A loaded object
 }
 \description{
-Load an intermediate object previously generated in the workflow.
-This could be a dataset, analysis, etc.
+Loads an object/target from the cache.
 }
 
