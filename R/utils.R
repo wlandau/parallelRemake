@@ -29,7 +29,11 @@ remake_args = function(x){
 }
 
 #' @title Function \code{yaml_yesno_truefalse}
-#' @description Turn yes/no values of a YAML file into TRUE/FALSE
+#' @description Internal utility function. Turns yes/no values of a YAML file 
+#' into TRUE/FALSE.
+#' This function is not intended for direct access by the user. 
+#' It is only exported because \code{remakeGenerator} uses it.
+#' @export
 #' @param file Character, name of \code{YAML} file to read
 yaml_yesno_truefalse = function(file){
   y = readLines(file)

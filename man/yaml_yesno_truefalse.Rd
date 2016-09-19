@@ -10,6 +10,9 @@ yaml_yesno_truefalse(file)
 \item{file}{Character, name of \code{YAML} file to read}
 }
 \description{
-Turn yes/no values of a YAML file into TRUE/FALSE
+Internal utility function. Turns yes/no values of a YAML file 
+into TRUE/FALSE.
+This function is not intended for direct access by the user. 
+It is only exported because \code{remakeGenerator} uses it.
 }
 
