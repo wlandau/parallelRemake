@@ -9,6 +9,7 @@ LICENSE
 NEWS.md
 README.md
 README.html
+TROUBLESHOOTING.md
 vignettes/parallelRemake.html
 vignettes/parallelRemake.log
 ^.*\.Rproj$
