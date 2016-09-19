@@ -70,7 +70,7 @@ The <a href="https://github.com/wlandau/downsize">downsize</a> package is compat
 
 # Accessing the [`remake`](https://github.com/richfitz/remake) cache for debugging and testing
 
-Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(obj)`, where `obj` is a character string, and you can see the available values of `obj` with the `recallable()` function. **Important: this is only recommended for debugging and testing. Changes to the cache are not tracked and thus not reproducible.**
+Intermediate [`remake`](https://github.com/richfitz/remake) objects are maintained in [`remake`](https://github.com/richfitz/remake)'s hidden [`storr`](https://github.com/richfitz/storr) cache. At any point in the workflow, you can reload them using `recall(name)`, where `name` is a character string denoting the name of a cached object, and you can see the names of all the available objects with the `recallable()` function. Enter multiple names to return a named list of multiple objects (i.e., `recall(name1, name2)`). **Important: this is only recommended for debugging and testing. Changes to the cache are not tracked and thus not reproducible.**
 
 The functions `create_bindings()` and `make_environment()` are alternatives from [`remake`](https://github.com/richfitz/remake) itself. Just be careful with `create_bindings()` if your project has a lot of data.
 
