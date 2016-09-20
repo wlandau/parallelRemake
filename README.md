@@ -11,10 +11,10 @@ The `parallelRemake` package is a helper add-on for [`remake`](https://github.co
 Ensure that [R](https://www.r-project.org/) is installed, as well as the dependencies in the [`DESCRIPTION`](https://github.com/wlandau/parallelRemake/blob/master/DESCRIPTION). Then, you can install one of the [stable releases](https://github.com/wlandau/parallelRemake/releases). Download the `.tar.gz` file, open an R session, and run the following.
 
 ```r
-install.packages("parallelRemake_0.0.0.tar.gz", repos = NULL, type = "source")
+install.packages("parallelRemake_<VERSION>.tar.gz", repos = NULL, type = "source")
 ```
 
-where `"parallelRemake_0.0.0.tar.gz"` may be replaced by another version. To install the development version, open an R session and run 
+where `<VERSION>` is the version number. To install the development version, open an R session and run 
 
 ```
 > library(devtools)
