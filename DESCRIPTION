@@ -3,12 +3,12 @@ Title: Parallelize Remake-Style Workflows with Makefiles
 Version: 0.0.0.9000
 Date: 2016-09-17
 Authors@R: c(
-    person("Landau", "William", email = "will.landau@gmail.com", role = c("aut", "cre", "cph")),
-    person("FitzJohn", "Richard", role = c("cph")))
+    person("Landau", "William", email = "will.landau@gmail.com", 
+      role = c("aut", "cre", "cph")),
+    person("FitzJohn", "Richard", role = "cph"))
 Description: Parallelize a workflow that uses remake (Rich FitzJohn, https://
     richfitz.github.io/) by generating a Makefile, which can distribute the work
-    over multiple parallel processes with system("make -j"). Windows users need 
-    Rtools (https://cran.r-project.org/bin/windows/Rtools/).
+    over multiple parallel processes with system("make -j").
 License: GPL (>=3)
 Depends: R (>= 3.0.0)
 Imports:
