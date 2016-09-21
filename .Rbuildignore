@@ -5,6 +5,7 @@
 .Rbuildignore
 .Rhistory
 cran-comments.md
+cran-comments.html
 LICENSE
 NEWS.md
 README.md
