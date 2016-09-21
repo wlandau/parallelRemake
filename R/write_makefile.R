@@ -1,6 +1,7 @@
 #' @title Function \code{collate_remakefiles}
 #' @description Collate multiple \code{remake}/\code{YAML} files 
 #' into a single \code{remake}/\code{YAML} file if necessary.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @return Name of the collated (or solitary) \code{remake}/\code{YAML} file
@@ -16,7 +17,8 @@ collate_remakefiles = function(remakefiles){
 }
 
 #' @title Function \code{makefile_clean}
-#' @description Write the rules of the Makefile for cleaning up
+#' @description Write the rules of the Makefile for cleaning up.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
@@ -31,6 +33,7 @@ makefile_clean = function(remakefile, clean, add_args){
 
 #' @title Function \code{makefile_head}
 #' @description Print the top lines of the Makefile (prepended lines and phony targets).
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @param begin character vector of lines to prepend to the Makefile
@@ -45,7 +48,8 @@ makefile_head = function(begin, targets){
 }
 
 #' @title Function \code{makefile_rules}
-#' @description Write the rules of the Makefile for pseudo-making the targets
+#' @description Write the rules of the Makefile for pseudo-making the targets.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
@@ -69,6 +73,7 @@ makefile_rules = function(remakefile, targets, add_args){
 #' @title Function \code{write_makefile}
 #' @description Writes a master Makefile that can distribute \code{remake} workflows
 #' over simultaneous processes.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @export

@@ -14,7 +14,8 @@ makefile_rules(remakefile, targets, add_args)
 \item{add_args}{extra arguments to add to \code{remake}}
 }
 \description{
-Write the rules of the Makefile for pseudo-making the targets
+Write the rules of the Makefile for pseudo-making the targets.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

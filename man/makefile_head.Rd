@@ -13,6 +13,7 @@ makefile_head(begin, targets)
 }
 \description{
 Print the top lines of the Makefile (prepended lines and phony targets).
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

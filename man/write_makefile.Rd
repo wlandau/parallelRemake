@@ -23,6 +23,7 @@ those names are already reserved.}
 \description{
 Writes a master Makefile that can distribute \code{remake} workflows
 over simultaneous processes.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

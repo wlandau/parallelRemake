@@ -14,6 +14,7 @@ Internal utility function. Turns yes/no values of a YAML file
 into TRUE/FALSE.
 This function is not intended for direct access by the user. 
 It is only exported because \code{remakeGenerator} uses it.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

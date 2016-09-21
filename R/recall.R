@@ -1,5 +1,6 @@
 #' @title Function \code{recall}
 #' @description Loads an object/target from the cache.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @export

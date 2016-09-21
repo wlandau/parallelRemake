@@ -13,6 +13,7 @@ include_yaml(remakefiles, out = NULL)
 }
 \description{
 Recursively find YAML files
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

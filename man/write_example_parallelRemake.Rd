@@ -9,6 +9,7 @@ write_example_parallelRemake()
 \description{
 Writes the files \code{code.R} and \code{remake.yml} 
 for the package example.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

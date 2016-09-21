@@ -14,7 +14,8 @@ makefile_clean(remakefile, clean, add_args)
 \item{add_args}{extra arguments to add to \code{remake}}
 }
 \description{
-Write the rules of the Makefile for cleaning up
+Write the rules of the Makefile for cleaning up.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

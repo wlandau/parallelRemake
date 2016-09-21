@@ -11,6 +11,7 @@ remake_args(x)
 }
 \description{
 Check additional arguments to \code{remake}.
+Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 }
 \details{
 See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd

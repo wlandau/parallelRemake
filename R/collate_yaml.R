@@ -1,7 +1,8 @@
 #' @title Function \code{collate_yaml}
 #' @description Collate interdependent remake/YAML files into a single 
 #' master remake/YAML file. Files in the "include:" fields will be collated
-#' as well
+#' as well.
+#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
 #' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
 #' for a package tutorial.
 #' @param remakefiles Character vector of the paths to the remake/YAML
