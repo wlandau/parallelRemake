@@ -17,4 +17,8 @@ A loaded object
 \description{
 Loads an object/target from the cache.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

@@ -11,4 +11,8 @@ Runs the whole package example from start to finish.
 Generates the files \code{code.R} and \code{remake.yml}, produces the 
 Makefile, and then runs \code{make} to execute the workflow in parallel.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

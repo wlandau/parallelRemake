@@ -24,4 +24,8 @@ those names are already reserved.}
 Writes a master Makefile that can distribute \code{remake} workflows
 over simultaneous processes.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

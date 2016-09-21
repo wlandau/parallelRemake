@@ -16,4 +16,8 @@ Name of the collated (or solitary) \code{remake}/\code{YAML} file
 Collate multiple \code{remake}/\code{YAML} files 
 into a single \code{remake}/\code{YAML} file if necessary.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

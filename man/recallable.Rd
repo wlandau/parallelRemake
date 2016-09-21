@@ -15,4 +15,8 @@ A character vector of objects/targets available to laod from the cache.
 \description{
 Lists the objects/targets available to laod from the cache.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

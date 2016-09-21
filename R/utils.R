@@ -1,5 +1,7 @@
 #' @title Function \code{include_yaml}
 #' @description Recursively find YAML files
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @param remakefiles Character vector of remake files to add to the collation.
 #' @param out Character vector of names of remakefiles to collate so far.
 include_yaml = function(remakefiles, out = NULL){
@@ -11,6 +13,8 @@ include_yaml = function(remakefiles, out = NULL){
 
 #' @title Function \code{remake_args}
 #' @description Check additional arguments to \code{remake}.
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @param x List of arguments to remake. Must be named.
 remake_args = function(x){
   if(!length(x)) return("")
@@ -33,6 +37,8 @@ remake_args = function(x){
 #' into TRUE/FALSE.
 #' This function is not intended for direct access by the user. 
 #' It is only exported because \code{remakeGenerator} uses it.
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @export
 #' @param file Character, name of \code{YAML} file to read
 yaml_yesno_truefalse = function(file){

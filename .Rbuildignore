@@ -10,6 +10,7 @@ NEWS.md
 README.md
 README.html
 TROUBLESHOOTING.md
+TROUBLESHOOTING.html
 vignettes/parallelRemake.html
 vignettes/parallelRemake.log
 ^.*\.Rproj$

@@ -15,4 +15,8 @@ into TRUE/FALSE.
 This function is not intended for direct access by the user. 
 It is only exported because \code{remakeGenerator} uses it.
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 

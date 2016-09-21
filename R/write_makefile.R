@@ -1,6 +1,8 @@
 #' @title Function \code{collate_remakefiles}
 #' @description Collate multiple \code{remake}/\code{YAML} files 
 #' into a single \code{remake}/\code{YAML} file if necessary.
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @return Name of the collated (or solitary) \code{remake}/\code{YAML} file
 #' @param remakefiles names/paths of the \code{remake}/\code{YAML} files.
 collate_remakefiles = function(remakefiles){
@@ -15,6 +17,8 @@ collate_remakefiles = function(remakefiles){
 
 #' @title Function \code{makefile_clean}
 #' @description Write the rules of the Makefile for cleaning up
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param clean character vector of extra lines to run on \code{make clean}.
 #' @param add_args extra arguments to add to \code{remake}
@@ -27,6 +31,8 @@ makefile_clean = function(remakefile, clean, add_args){
 
 #' @title Function \code{makefile_head}
 #' @description Print the top lines of the Makefile (prepended lines and phony targets).
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @param begin character vector of lines to prepend to the Makefile
 #' @param targets \code{YAML}-like list of Makefile targets
 makefile_head = function(begin, targets){
@@ -40,6 +46,8 @@ makefile_head = function(begin, targets){
 
 #' @title Function \code{makefile_rules}
 #' @description Write the rules of the Makefile for pseudo-making the targets
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param targets \code{YAML}-like list of Makefile targets
 #' @param add_args extra arguments to add to \code{remake}
@@ -61,6 +69,8 @@ makefile_rules = function(remakefile, targets, add_args){
 #' @title Function \code{write_makefile}
 #' @description Writes a master Makefile that can distribute \code{remake} workflows
 #' over simultaneous processes.
+#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+#' for a package tutorial.
 #' @export
 #' @param makefile Name of the Makefile to write.
 #' @param remakefiles Character vector of paths to input \code{remake} files.

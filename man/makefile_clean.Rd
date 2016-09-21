@@ -16,4 +16,8 @@ makefile_clean(remakefile, clean, add_args)
 \description{
 Write the rules of the Makefile for cleaning up
 }
+\details{
+See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
+for a package tutorial.
+}
 
