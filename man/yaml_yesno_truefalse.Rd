@@ -14,12 +14,12 @@ Internal utility function. Turns yes/no values of a YAML file
 into TRUE/FALSE.
 This function is not intended for direct access by the user. 
 It is only exported because \code{remakeGenerator} uses it.
-Use the \code{\link{parallelRemake_help}} function to get more help.
+Use the \code{\link{help_parallelRemake}} function to get more help.
 }
 \details{
-Use the \code{\link{parallelRemake_help}} function to get more help.
+Use the \code{\link{help_parallelRemake}} function to get more help.
 }
 \seealso{
-\code{\link{parallelRemake_help}}
+\code{\link{help_parallelRemake}}
 }
 

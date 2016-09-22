@@ -1,8 +1,8 @@
-#' @title Function \code{parallelRemake_help}
+#' @title Function \code{help_parallelRemake}
 #' @description Prints links for tutorials, troubleshooting, bug reports, etc.
 #' @seealso \code{\link{write_makefile}}
 #' @export
-parallelRemake_help = function(){
+help_parallelRemake = function(){
   cat(
 #    "The package vignette has a full tutorial, and it is available at the following webpages.",
 #    "    https://CRAN.R-project.org/package=parallelRemake/vignettes/parallelRemake.html",

@@ -9,12 +9,12 @@ setup_example_parallelRemake()
 \description{
 Writes the files \code{code.R} and \code{remake.yml} for 
 the package example and then produces the Makefile.
-Use the \code{\link{parallelRemake_help}} function to get more help.
+Use the \code{\link{help_parallelRemake}} function to get more help.
 }
 \details{
-Use the \code{\link{parallelRemake_help}} function to get more help.
+Use the \code{\link{help_parallelRemake}} function to get more help.
 }
 \seealso{
-\code{\link{parallelRemake_help}}
+\code{\link{help_parallelRemake}}
 }
 
