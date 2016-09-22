@@ -1,7 +1,7 @@
 # parallelRemake
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/wlandau/parallelRemake?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/parallelRemake)
 [![Travis-CI Build Status](https://travis-ci.org/wlandau/parallelRemake.svg?branch=master)](https://travis-ci.org/wlandau/parallelRemake)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/wlandau/parallelRemake?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/parallelRemake)
 [![codecov.io](https://codecov.io/github/wlandau/parallelRemake/coverage.svg?branch=master)](https://codecov.io/github/wlandau/parallelRemake?branch=master)
 
 The `parallelRemake` package is a helper add-on for [`remake`](https://github.com/richfitz/remake), a [Makefile](https://www.gnu.org/software/make/)-like reproducible build system for R. If you haven't done so already, go learn [`remake`](https://github.com/richfitz/remake)! Also learn [GNU make](https://www.gnu.org/software/make/), and then recall that `make -j 4` runs a [Makefile](https://www.gnu.org/software/make/) while distributing the rules over four parallel processes. This mode of parallelism is the whole point of `parallelRemake`. With `parallelRemake`, you can write an overarching [Makefile](https://www.gnu.org/software/make/) for a [`remake`](https://github.com/richfitz/remake) project to run [`remake`](https://github.com/richfitz/remake) targets in parallel. This distributed parallelism is extremely helpful for large clusters that use the [Slurm job scheduler](http://slurm.schedmd.com/), for example, as explained in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html).
