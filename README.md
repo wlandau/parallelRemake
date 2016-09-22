@@ -25,9 +25,9 @@ To install the development version, open an R session and run
 
 The example and tests sometimes use `system("make")` and similar commands. So if you're using the Windows operating system, you will need to install the [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) package.
 
-# Troubleshooting
+# Help and troubleshooting
 
-Please refer to [TROUBLESHOOTING.md](https://github.com/wlandau/parallelRemake/blob/master/TROUBLESHOOTING.md) on the [GitHub page](https://github.com/wlandau/parallelRemake) for instructions.
+Use the `help_parallelRemake()` function to obtain a collection of helpful links. For troubleshooting, please refer to [TROUBLESHOOTING.md](https://github.com/wlandau/parallelRemake/blob/master/TROUBLESHOOTING.md) on the [GitHub page](https://github.com/wlandau/parallelRemake) for instructions.
 
 # Example
 
