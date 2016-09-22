@@ -14,11 +14,10 @@ Ensure that [R](https://www.r-project.org/) is installed, as well as the depende
 install.packages("parallelRemake_<VERSION>.tar.gz", repos = NULL, type = "source")
 ```
 
-To install the development version, open an R session and run 
+To install the development version, get the [devtools](https://cran.r-project.org/web/packages/devtools/) package and then run
 
 ```
-> library(devtools)
-> install_github("wlandau/parallelRemake")
+devtools::install_github("wlandau/parallelRemake")
 ```
 
 # Rtools for Windows users
