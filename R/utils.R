@@ -1,8 +1,8 @@
 #' @title Function \code{include_yaml}
 #' @description Recursively find YAML files
-#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help..
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @param remakefiles Character vector of remake files to add to the collation.
 #' @param out Character vector of names of remakefiles to collate so far.
 include_yaml = function(remakefiles, out = NULL){
@@ -14,9 +14,9 @@ include_yaml = function(remakefiles, out = NULL){
 
 #' @title Function \code{remake_args}
 #' @description Check additional arguments to \code{remake}.
-#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @param x List of arguments to remake. Must be named.
 remake_args = function(x){
   if(!length(x)) return("")
@@ -39,9 +39,9 @@ remake_args = function(x){
 #' into TRUE/FALSE.
 #' This function is not intended for direct access by the user. 
 #' It is only exported because \code{remakeGenerator} uses it.
-#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @export
 #' @param file Character, name of \code{YAML} file to read
 yaml_yesno_truefalse = function(file){

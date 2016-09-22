@@ -15,10 +15,12 @@ Name of the collated (or solitary) \code{remake}/\code{YAML} file
 \description{
 Collate multiple \code{remake}/\code{YAML} files 
 into a single \code{remake}/\code{YAML} file if necessary.
-Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
+Use the \code{\link{parallelRemake_help}} function to get more help.
 }
 \details{
-See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-for a package tutorial.
+Use the \code{\link{parallelRemake_help}} function to get more help.
+}
+\seealso{
+\code{\link{parallelRemake_help}}
 }
 

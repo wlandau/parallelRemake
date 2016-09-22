@@ -1,8 +1,8 @@
 #' @title Function \code{recall}
 #' @description Loads an object/target from the cache.
-#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @export
 #' @return A loaded object
 #' @param ... Characters, names of objects to load from cache
@@ -19,8 +19,9 @@ recall = function(..., cache = file.path(".remake", "objects")){
 
 #' @title Function \code{recallable}
 #' @description Lists the objects/targets available to laod from the cache.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @export
 #' @return A character vector of objects/targets available to laod from the cache.
 #' @param cache Character vector, path to \code{storr} cache to load from.

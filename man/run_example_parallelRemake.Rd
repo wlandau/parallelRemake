@@ -10,10 +10,12 @@ run_example_parallelRemake()
 Runs the whole package example from start to finish.
 Generates the files \code{code.R} and \code{remake.yml}, produces the 
 Makefile, and then runs \code{make} to execute the workflow in parallel.
-Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
+Use the \code{\link{parallelRemake_help}} function to get more help.
 }
 \details{
-See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-for a package tutorial.
+Use the \code{\link{parallelRemake_help}} function to get more help.
+}
+\seealso{
+\code{\link{parallelRemake_help}}
 }
 

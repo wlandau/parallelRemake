@@ -2,9 +2,9 @@
 #' @description Collate interdependent remake/YAML files into a single 
 #' master remake/YAML file. Files in the "include:" fields will be collated
 #' as well.
-#' Read https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd for more.
-#' @details See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-#' for a package tutorial.
+#' Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @details Use the \code{\link{parallelRemake_help}} function to get more help.
+#' @seealso \code{\link{parallelRemake_help}}
 #' @param remakefiles Character vector of the paths to the remake/YAML
 #' files to collate. 
 #' @param collated name of collated remake/YAML file.

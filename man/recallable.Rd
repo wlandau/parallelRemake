@@ -14,9 +14,12 @@ A character vector of objects/targets available to laod from the cache.
 }
 \description{
 Lists the objects/targets available to laod from the cache.
+Use the \code{\link{parallelRemake_help}} function to get more help.
 }
 \details{
-See https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd
-for a package tutorial.
+Use the \code{\link{parallelRemake_help}} function to get more help.
+}
+\seealso{
+\code{\link{parallelRemake_help}}
 }
 
