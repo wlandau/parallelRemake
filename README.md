@@ -26,7 +26,7 @@ The example and tests sometimes use `system("make")` and similar commands. So if
 
 # Tutorial
 
-Please refer to the [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) for the tutorial.
+The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial.
 
 
 # Help and troubleshooting
