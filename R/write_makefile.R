@@ -4,6 +4,7 @@
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @return Name of the collated (or solitary) \code{remake}/\code{YAML} file
 #' @param remakefiles names/paths of the \code{remake}/\code{YAML} files.
 collate_remakefiles = function(remakefiles){
@@ -21,6 +22,7 @@ collate_remakefiles = function(remakefiles){
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param clean character vector of extra lines to run on \code{make clean}.
 #' @param add_args extra arguments to add to \code{remake}
@@ -36,6 +38,7 @@ makefile_clean = function(remakefile, clean, add_args){
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param begin character vector of lines to prepend to the Makefile
 #' @param targets \code{YAML}-like list of Makefile targets
 makefile_head = function(begin, targets){
@@ -52,6 +55,7 @@ makefile_head = function(begin, targets){
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param remakefile name of the (collated) \code{remake}/\code{YAML} file
 #' @param targets \code{YAML}-like list of Makefile targets
 #' @param add_args extra arguments to add to \code{remake}

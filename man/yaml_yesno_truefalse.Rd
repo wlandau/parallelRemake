@@ -12,8 +12,6 @@ yaml_yesno_truefalse(file)
 \description{
 Internal utility function. Turns yes/no values of a YAML file 
 into TRUE/FALSE.
-This function is not intended for direct access by the user. 
-It is only exported because \code{remakeGenerator} uses it.
 Use the \code{\link{help_parallelRemake}} function to get more help.
 }
 \details{

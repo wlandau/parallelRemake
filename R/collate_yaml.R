@@ -5,6 +5,7 @@
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param remakefiles Character vector of the paths to the remake/YAML
 #' files to collate. 
 #' @param collated name of collated remake/YAML file.

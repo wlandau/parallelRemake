@@ -3,6 +3,7 @@
 #' Use the \code{\link{help_parallelRemake}} function to get more help..
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param remakefiles Character vector of remake files to add to the collation.
 #' @param out Character vector of names of remakefiles to collate so far.
 include_yaml = function(remakefiles, out = NULL){
@@ -17,6 +18,7 @@ include_yaml = function(remakefiles, out = NULL){
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
+#' @export
 #' @param x List of arguments to remake. Must be named.
 remake_args = function(x){
   if(!length(x)) return("")
@@ -37,8 +39,6 @@ remake_args = function(x){
 #' @title Function \code{yaml_yesno_truefalse}
 #' @description Internal utility function. Turns yes/no values of a YAML file 
 #' into TRUE/FALSE.
-#' This function is not intended for direct access by the user. 
-#' It is only exported because \code{remakeGenerator} uses it.
 #' Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @details Use the \code{\link{help_parallelRemake}} function to get more help.
 #' @seealso \code{\link{help_parallelRemake}}
