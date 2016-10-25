@@ -37,7 +37,8 @@ The `write_makefile()` function has additional arguments. You can control the na
 
 # High-performance computing
 
-If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm](http://slurm.schedmd.com/) cluster, refer to the Makefile in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html) and write
+If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm](http://slurm.schedmd.com/) cluster, you should generate a Makefile like the one in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html).
+To do this, run the following in an R session
 
 ```{r, eval = F}
 write_makefile(..., 
@@ -46,9 +47,42 @@ write_makefile(...,
     ".SHELLFLAGS= <ARGS> bash -c"))
 ```
 
-in an R session, where `<ARGS>` stands for additional arguments to `srun`. Then, once the [Makefile](https://www.gnu.org/software/make/) is generated, you can run the workflow with
-`nohup make -j [N] &` in the command line, where `[N]` is the maximum number of simultaneous jobs to submit to the cluster.
-For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), this technique may not be possible. Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache.
+where `<ARGS>` stands for additional arguments to `srun`. Then, once the [Makefile](https://www.gnu.org/software/make/) is generated, you distribute
+the work over `[N]` simultaneous jobs by running the following in the 
+[Linux command line](http://linuxcommand.org/).
+
+```r
+nohup nice -19 make -j [N] &
+```
+
+For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), you  may have to create a custom stand-in for a shell. 
+For example, suppose we are using the Univa Grid Engine. From R, call
+
+```r
+write_makefile(.., begin = "SHELL = ./shell.sh")
+```
+
+where the file `shell.sh` contains
+
+```r
+#!/bin/bash
+shift
+echo "module load R; $*" | qsub -sync y -cwd -j y
+```
+
+Now, in the Linux command line, enable execution with
+
+```r
+chmod +x shell.sh
+```
+
+and then distribute the work over `[N]` simultaneous jobs with
+
+```r
+nohup nice -19 make -j [N] &
+```
+
+Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache. For the Univa Grid Engine, the `-cwd` flag for `qsub` accomplishes this.
 
 # Use with the [downsize](https://github.com/wlandau/downsize) package
 
