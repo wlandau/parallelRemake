@@ -22,14 +22,16 @@ test_that("Function remake_args behaves correctly.", {
 
 test_that("Correct Makefiles are made with remake_args.", {
   testwd("remake_args-Makefiles")
-  write_example_parallelRemake()
+  example = "basic"
+  example_parallelRemake(example)
+  setwd(example)
   write_makefile()
   expect_equal(readLines("Makefile")[-1], 
-    readLines(file.path("..", "test-remake_args", "Makefile1"))[-1])
+    readLines(file.path("..", "..", "test-remake_args", "Makefile1"))[-1])
   write_makefile(remake_args = list(verbose = F, string = "my string"), 
     clean = "rm -rf myfile", begin = "#begin", makefile = "testmake")
   expect_equal(readLines("testmake")[-1], 
-    readLines(file.path("..", "test-remake_args", "Makefile2"))[-1])
+    readLines(file.path("..", "..", "test-remake_args", "Makefile2"))[-1])
   system("make -f testmake")
   expect_true(all(recallable() == c("mtcars", "random")))
   expect_equal(recall("mtcars"), mtcars)
@@ -37,5 +39,7 @@ test_that("Correct Makefiles are made with remake_args.", {
   expect_true(all(is.finite(as.matrix(recall("random")))))
   files = c("code.R", "Makefile", "testmake", "plot.pdf", "remake.yml")
   expect_true(all(files %in% list.files()))
+  setwd("..")
+  unlink("basic", recursive = TRUE)
   testrm("remake_args-Makefiles")
 })

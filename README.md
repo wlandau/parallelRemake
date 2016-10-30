@@ -26,7 +26,7 @@ The example and tests sometimes use `system("make")` and similar commands. So if
 
 # Tutorial
 
-The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial.
+The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial. Run `list_examples_parallelRemake()` to see the available examples, and run `example_parallelRemake()` to output an example to your current working directory.
 
 
 # Help and troubleshooting
