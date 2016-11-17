@@ -12,12 +12,12 @@ License: GPL (>=3)
 Depends: R (>= 3.0.0)
 Imports:
     crayon,
-    remake,
     storr,
     stringr,
     yaml
 Suggests:
     knitr,
+    remake,
     rmarkdown,
     testthat
 VignetteBuilder: knitr

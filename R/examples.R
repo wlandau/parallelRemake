@@ -7,7 +7,8 @@
 #' run \code{\link{list_examples_parallelRemake}}.
 example_parallelRemake = function(example = list_examples_parallelRemake()){
   example <- match.arg(example)
-  dir <- system.file(file.path("examples", example), package = "parallelRemake")
+  dir <- system.file(file.path("examples", example), 
+    package = "parallelRemake", mustWork = TRUE)
   if(file.exists(example)) 
     stop("There is already a file or folder named ", example, ".", sep = "")
   file.copy(from = dir, to = getwd(), recursive = TRUE)
@@ -20,5 +21,6 @@ example_parallelRemake = function(example = list_examples_parallelRemake()){
 #' @export
 #' @return a names of all the parallelRemake examples.
 list_examples_parallelRemake = function(){
-  list.dirs(system.file("examples", package = "parallelRemake"), full.names = FALSE, recursive = FALSE)
+  list.dirs(system.file("examples", package = "parallelRemake", mustWork = TRUE), 
+    full.names = FALSE, recursive = FALSE)
 }
