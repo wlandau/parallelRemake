@@ -27,7 +27,7 @@ The example and tests sometimes use `system("make")` and similar commands. So if
 
 # Tutorial
 
-The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial. You can the compiled version from an R session.
+The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial. You can load the compiled version from an R session.
 
 ```r
 vignette("parallelRemake")
