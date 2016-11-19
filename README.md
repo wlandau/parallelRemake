@@ -8,17 +8,18 @@ The `parallelRemake` package is a helper add-on for [`remake`](https://github.co
 
 # Installation
 
-Ensure that [R](https://www.r-project.org/) is installed, as well as the dependencies in the [`DESCRIPTION`](https://github.com/wlandau/parallelRemake/blob/master/DESCRIPTION). Then, you can install one of the [stable releases](https://github.com/wlandau/parallelRemake/releases). Download `parallelRemake_<VERSION>.tar.gz` (where `<VERSION>` is the version number), open an R session, and run the following.
-
-```r
-install.packages("parallelRemake_<VERSION>.tar.gz", repos = NULL, type = "source")
-```
-
-To install the development version, get the [devtools](https://cran.r-project.org/web/packages/devtools/) package and then run
+To install the development version, get the [devtools](https://cran.r-project.org/web/packages/devtools/) package and run
 
 ```
-devtools::install_github("wlandau/parallelRemake")
+devtools::install_github("wlandau/parallelRemake", build = TRUE)
 ```
+
+If you specify a tag, you can install a GitHub release.
+
+```
+devtools::install_github("wlandau/parallelRemake@v0.0.2", build = TRUE)
+```
+
 
 # Rtools for Windows users
 
@@ -26,7 +27,11 @@ The example and tests sometimes use `system("make")` and similar commands. So if
 
 # Tutorial
 
-The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial. Run `list_examples_parallelRemake()` to see the available examples, and run `example_parallelRemake()` to output an example to your current working directory.
+The [online package vignette](https://github.com/wlandau/parallelRemake/blob/master/vignettes/parallelRemake.Rmd) has a complete tutorial. You can the compiled version from an R session.
+
+```r
+vignette("parallelRemake")
+```
 
 
 # Help and troubleshooting
