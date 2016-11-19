@@ -1,3 +1,11 @@
+^build_site.R$
+^index.html$
+^authors.html$
+^articles$
+^news$
+^reference$
+^_site$
+^_config.yml$
 .DS_Store
 .git
 .gitignore
@@ -12,8 +20,9 @@ README.md
 README.html
 TROUBLESHOOTING.md
 TROUBLESHOOTING.html
-vignettes/parallelRemake.html
-vignettes/parallelRemake.log
+vignettes/.*\.html
+vignettes/.*\.log
+^.*\.log$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$

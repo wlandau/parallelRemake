@@ -2,7 +2,6 @@
 *.bbl
 *.blg
 *.dcf
-*.html
 *.log
 *.nav
 *.out
@@ -15,9 +14,8 @@
 .remake
 .Rapp.history
 .Rhistory
-example/*.pdf
 Makefile
 Rbuildignore/*.pdf
 Rbuildignore/local/
 .Rproj.user
-fbseq.Rproj
+vignettes/*.html
