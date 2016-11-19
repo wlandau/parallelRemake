@@ -22,8 +22,11 @@ TROUBLESHOOTING.md
 TROUBLESHOOTING.html
 vignettes/.*\.html
 vignettes/.*\.log
+^.*\.css$
+^.*\.js$
 ^.*\.log$
 ^.*\.Rproj$
+^.*\.svg$
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^appveyor\.yml$
