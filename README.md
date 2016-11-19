@@ -16,7 +16,7 @@ devtools::install_github("wlandau/parallelRemake", build = TRUE)
 
 If you specify a tag, you can install a GitHub release.
 
-```
+```r
 devtools::install_github("wlandau/parallelRemake@v0.0.2", build = TRUE)
 ```
 
