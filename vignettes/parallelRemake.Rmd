@@ -1,6 +1,6 @@
 ---
 title: "parallelRemake"
-author: "Will Landau"
+author: "William Michael Landau"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
