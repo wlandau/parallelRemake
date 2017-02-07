@@ -67,7 +67,8 @@ makefile_rules = function(remakefile, targets, add_args){
     dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
     cat(dep, "\n")
     if("command" %in% names(target) | !is.null(target$knitr)){
-      cat("\tRscript -e \'remake::make(\"", name, "\", remake_file = \"", 
+      cat("\tRscript -e \'if (!remake::is_current(\"",
+          name, "\")) remake::make(\"", name, "\", remake_file = \"",
           remakefile, "\"", add_args, ")\'\n", sep = "")
     }
     cat("\n")
