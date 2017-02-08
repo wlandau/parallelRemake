@@ -82,6 +82,8 @@ and then distribute the work over `[N]` simultaneous jobs with
 nohup nice -19 make -j [N] &
 ```
 
+The same approach should work for [LSF systems](https://en.wikipedia.org/wiki/Platform_LSF), where `make` replaced by [`lsmake`](https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_admin/lsmake_how_works_lsf.html) and the [Makefile](https://www.gnu.org/software/make/) is compatible.
+
 Regardless of the system, be sure that all nodes point to the same working directory so that they share the same `.remake` [storr](https://github.com/richfitz/storr) cache. For the Univa Grid Engine, the `-cwd` flag for `qsub` accomplishes this.
 
 # Use with the [downsize](https://github.com/wlandau/downsize) package
