@@ -49,7 +49,7 @@ makefile_head = function(begin, targets, remakefile){
     cat("\n")
   }
   cat(".PHONY: clean ", names(targets), "\n\n")
-  cat("INIT := $(shell Rscript -e 'parallelRemake:::init_timestamps(\"", remake_file, "\")')\n\n", sep = "")
+  cat("INIT := $(shell Rscript -e 'parallelRemake:::init_timestamps(\"", remakefile, "\")')\n\n", sep = "")
 }
 
 #' @title Function \code{makefile_rules}
@@ -73,7 +73,7 @@ makefile_rules = function(remakefile, targets, add_args){
       cat("\tRscript -e \'if (!remake::is_current(\"",
           name, "\")) remake::make(\"", name, "\", remake_file = \"",
           remakefile, "\"", add_args, "); invisible(file.copy(\".timestamp\", \"", 
-          timestamp(name), "\", copy.date = TRUE))\'\n", sep = "")
+          timestamp(name), "\", copy.date = FALSE, overwrite = TRUE))\'\n", sep = "")
     }
     cat("\n")
   }
