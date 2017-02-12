@@ -4,12 +4,14 @@
 \alias{makefile_head}
 \title{Function \code{makefile_head}}
 \usage{
-makefile_head(begin, targets)
+makefile_head(begin, targets, remakefile)
 }
 \arguments{
 \item{begin}{character vector of lines to prepend to the Makefile}
 
 \item{targets}{\code{YAML}-like list of Makefile targets}
+
+\item{remakefile}{name of the remake file}
 }
 \description{
 Print the top lines of the Makefile (prepended lines and phony targets).
