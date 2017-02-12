@@ -48,8 +48,8 @@ makefile_head = function(begin, targets, remakefile){
     cat(begin, sep = "\n")
     cat("\n")
   }
-  cat(".PHONY: clean .init", names(targets), "\n\n")
-  cat(".init:\n\tRscript -e 'parallelRemake:::init_timestamps(\"", remakefile, "\")'\n\n", sep = "")
+  cat(".PHONY: clean ", names(targets), "\n\n")
+  cat("INIT := $(shell Rscript -e 'parallelRemake:::init_timestamps(\"", remake_file, "\")')\n\n", sep = "")
 }
 
 #' @title Function \code{makefile_rules}
@@ -64,7 +64,7 @@ makefile_head = function(begin, targets, remakefile){
 makefile_rules = function(remakefile, targets, add_args){
   for(name in names(targets)){
     cat(name, ": ", timestamp(name), "\n\n", sep = "")
-    cat(timestamp(name), ": .init ", sep = "")
+    cat(timestamp(name), ": ", sep = "")
     target = targets[[name]]
     dep = unique(c(unlist(target$depends), parse_command(target$command)$depends))
     dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
