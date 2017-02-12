@@ -7,13 +7,13 @@
 all: plot.pdf 
 
 plot.pdf: mtcars random 
-	R -q -e 'if (!remake::is_current("plot.pdf")) remake::make("plot.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+	Rscript -e 'if (!remake::is_current("plot.pdf")) remake::make("plot.pdf", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
 
 mtcars:  
-	R -q -e 'if (!remake::is_current("mtcars")) remake::make("mtcars", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+	Rscript -e 'if (!remake::is_current("mtcars")) remake::make("mtcars", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
 
 random:  
-	R -q -e 'if (!remake::is_current("random")) remake::make("random", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
+	Rscript -e 'if (!remake::is_current("random")) remake::make("random", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
 
 clean:
 	Rscript -e 'remake::make("clean", remake_file = "remake.yml", verbose = FALSE, string = "my string")'
