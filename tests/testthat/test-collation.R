@@ -33,6 +33,7 @@ test_that("Collation happens at the proper time.", {
   write_collation_files()
   makefile(run = F, remakefiles = c("remake.yml", "remake_data.yml"))
   expect_true(collation())
+  x = yaml_read("collated_remake.yml")
   testrm(diri(1))
 
   testwd(diri(2))

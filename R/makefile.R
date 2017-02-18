@@ -43,9 +43,7 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
 #' @param prepend Character vector of lines to prepend to the Makefile.
 #' @param remake_args Named list of additional arguments to \code{remake::make}.
 #' @param run logical, whether to actually run the Makefile or just write it.
-#' @param command character scalar, command to run to execute the Makefile
-#' You cannot set \code{target_names} or \code{remake_file} this way because 
-#' those names are already reserved.
+#' @param command character scalar, command to run to execute the Makefile.
 makefile = function(targets = "all", remakefiles = "remake.yml", 
   prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
   command = "make"){
@@ -64,4 +62,29 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
   
   init_timestamps(names(targets), remakefile)
   if(run) system2(command, stdout = remake_args$verbose)
+}
+
+
+#' @title DEPRECATED function \code{write_makefile}
+#' @description See \code{\link{makefile}}. Makefiles are not standalone anymore.
+#' You have to write and execute them in one step with \code{link{makefile}(..., run = TRUE)}.
+#' Use the \code{\link{help_parallelRemake}} function to get more help.
+#' @details Use the \code{\link{help_parallelRemake}} function to get more help.
+#' @seealso \code{\link{makefile}}, \code{\link{help_parallelRemake}}
+#' @export
+#' @param targets See \code{\link{makefile}()}.
+#' @param remakefiles See \code{\link{makefile}()}.
+#' @param prepend See \code{\link{makefile}()}.
+#' @param remake_args See \code{\link{makefile}()}.
+#' @param run See \code{\link{makefile}()}.
+#' @param command See \code{\link{makefile}()}.
+write_makefile = function(targets = "all", remakefiles = "remake.yml", 
+                    prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
+                    command = "make"){
+  .Deprecated("makefile", package = "parallelRemake")
+  stop("Do not use write_makefile() in version 1.0.0+ of parallelRemake. ",
+    "Use makefile(..., run = TRUE) to both generate and run the Makefile in a single step. ",
+    "Makefiles are not standalone anymore. You cannot run them outside of makefile(..., run = TRUE). ",
+    "The reason is that parallelRemake is using dummy timestamp files to skip jobs that don't ",
+    "Need to be submitted.")
 }

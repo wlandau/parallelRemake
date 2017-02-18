@@ -26,9 +26,8 @@ test_that("Correct Makefiles are made with remake_args.", {
   example_parallelRemake(example)
   setwd(example)
   remake::make("clean")
-  makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
-  expect_equal(readLines("Makefile")[-1], 
-    readLines(file.path("..", "..", "test-remake_args", "Makefile"))[-1])
+  x = makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
+  expect_equal(x, 0)
   expect_true(all(recallable() == c("mtcars", "random")))
   expect_equal(recall("mtcars"), mtcars)
   expect_equal(dim(recall("random")), c(32, 1))

@@ -5,6 +5,7 @@ files = c("code.R", "remake.yml", "Makefile")
 
 test_that("Stages in basic example happen correctly.", {
   testwd("examples")
+  expect_warning(expect_error(write_makefile()))
   example = "basic"
   expect_silent(example_parallelRemake(example))
   expect_error(example_parallelRemake(example))
