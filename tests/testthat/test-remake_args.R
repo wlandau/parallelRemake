@@ -1,4 +1,4 @@
-# library(testthat); library(parallelRemake); 
+# library(testthat); devtools::load_all(); 
 context("remake_args")
 source("utils.R")
 
@@ -25,20 +25,17 @@ test_that("Correct Makefiles are made with remake_args.", {
   example = "basic"
   example_parallelRemake(example)
   setwd(example)
-  write_makefile()
+  remake::make("clean")
+  makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
   expect_equal(readLines("Makefile")[-1], 
-    readLines(file.path("..", "..", "test-remake_args", "Makefile1"))[-1])
-  write_makefile(remake_args = list(verbose = F, string = "my string"), 
-    clean = "rm -rf myfile", begin = "#begin", makefile = "testmake")
-  expect_equal(readLines("testmake")[-1], 
-    readLines(file.path("..", "..", "test-remake_args", "Makefile2"))[-1])
-  system("make -f testmake")
+    readLines(file.path("..", "..", "test-remake_args", "Makefile"))[-1])
   expect_true(all(recallable() == c("mtcars", "random")))
   expect_equal(recall("mtcars"), mtcars)
   expect_equal(dim(recall("random")), c(32, 1))
-  expect_true(all(is.finite(as.matrix(recall("random")))))
-  files = c("code.R", "Makefile", "testmake", "plot.pdf", "remake.yml")
-  expect_true(all(files %in% list.files()))
+  mtime = file.mtime("plot.pdf")
+  Sys.sleep(1.1) # mtime resolutions are terrible on some OS's
+  makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
+  expect_equal(mtime, file.mtime("plot.pdf"))
   setwd("..")
   unlink("basic", recursive = TRUE)
   testrm("remake_args-Makefiles")

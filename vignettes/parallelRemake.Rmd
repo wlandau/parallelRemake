@@ -9,11 +9,11 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-The `parallelRemake` package is a helper add-on for [`remake`](https://github.com/richfitz/remake), a [Makefile](https://www.gnu.org/software/make/)-like reproducible build system for R. If you haven't done so already, go learn [`remake`](https://github.com/richfitz/remake)! Also learn [GNU make](https://www.gnu.org/software/make/), and then recall that `make -j 4` runs a [Makefile](https://www.gnu.org/software/make/) while distributing the rules over four parallel processes. This mode of parallelism is the whole point of `parallelRemake`. With `parallelRemake`, you can write an overarching [Makefile](https://www.gnu.org/software/make/) for a [`remake`](https://github.com/richfitz/remake) project to run [`remake`](https://github.com/richfitz/remake) targets in parallel. This distributed parallelism is extremely helpful for large clusters that use the [Slurm job scheduler](http://slurm.schedmd.com/), for example, as explained in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html).
+The `parallelRemake` package is a helper add-on for [`remake`](https://github.com/richfitz/remake), a [Makefile](https://www.gnu.org/software/make/)-like reproducible build system for R. If you haven't done so already, go learn [`remake`](https://github.com/richfitz/remake)! You should also familiarize yourself with [GNU make](https://www.gnu.org/software/make/) enough to use the `-j` flag. The whole key to this package is that `make -j <N>` runs a [Makefile](https://www.gnu.org/software/make/) and distributes the work over `<N>` simultaneous tasks. The `makefile()` function takes in a `remake.yml` file (or collection of collated files), generates a [Makefile](https://www.gnu.org/software/make/), and runs it using parallel processes. As explained later in this tutorial, you can launch these processes as formal jobs on a cluster or supercomputer.
 
 # Rtools for Windows users
 
-The example and tests sometimes use `system("make")` and similar commands. So if you're using the Windows operating system, you will need to install the [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) package.
+If you're using the Windows operating system, you will need to install the [`Rtools`](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) package. `makefile(run = TRUE)` requires it.
 
 # Help and troubleshooting
 
@@ -25,15 +25,13 @@ Run `list_examples_parallelRemake()` to see the available examples, and run `exa
 
 1. Call `example_parallelRemake("basic")` in an R session. 
 2. Call `setwd("basic")` to enter the `"basic"` folder.
-3. call `write_makefile()` to generate the `Makefile`.
-4. Use [`Makefile`](https://www.gnu.org/software/make/) to run the workflow. Do any of the following in any order.
-    - `system("make")` just runs the workflow in 1 process.
-    - `system("make -j 2")` distributes the workflow over two parallel processes.
-    - `system("make clean")` removes the files created by [`remake`](https://github.com/richfitz/remake).
+3. Call `makefile()` to generate the `Makefile` and run it. Use `command = "make -j 4"` to distribute the work over 4 parallel processes.
     
-# More on `write_makefile()`
+# More on `makefile()`
 
-The `write_makefile()` function has additional arguments. You can control the names of the [`Makefile`](https://www.gnu.org/software/make/) and the [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) file with the `makefile` and `remakefile` arguments, respectively. You can add lines to the beginning of the [`Makefile`](https://www.gnu.org/software/make/) with the `begin` argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to `make clean` with the `clean` argument. In addition, the `remake_args` argument passes additional arguments to `remake::make()`. For example, `write_makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target. You cannot set `target_names` or `remake_file` this way.
+Here, the [`Makefile`](https://www.gnu.org/software/make/) is more than just a job scheduler. At initialization, it generates dummy files to store timestamps, so it knows which jobs to skip and which jobs to run. The downside is that you cannot run the [`Makefile`](https://www.gnu.org/software/make/) on its own. You have to run it through `makefile(..., run = TRUE)`.
+
+The `makefile()` function has additional arguments. The `remake_args` argument passes additional arguments to `remake::make()`. For example, `makefile(remake_args = list(verbose = FALSE))` is equivalent to `remake::make(..., verbose = F)` for each target. You cannot set `target_names` or `remake_file` this way. Also, `prepend` argument writes arbitrary lines of code to the top of the [`Makefile`](https://www.gnu.org/software/make/). As explained in the next section, this is the key to submitting processes as jobs on a cluster.
 
 # High-performance computing
 
@@ -41,25 +39,23 @@ If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm
 To do this, run the following in an R session
 
 ```{r, eval = F}
-write_makefile(..., 
-  begin = c(
+makefile(..., command = "make -j 4",
+  prepend = c(
     "SHELL=srun",
     ".SHELLFLAGS= <ARGS> bash -c"))
 ```
 
-where `<ARGS>` stands for additional arguments to `srun`. Then, once the [Makefile](https://www.gnu.org/software/make/) is generated, you distribute
-the work over `[N]` simultaneous jobs by running the following in the 
-[Linux command line](http://linuxcommand.org/).
+where `<ARGS>` stands for additional arguments to `srun`. To ensure that jobs continue to get submitted after you log out, put the call to `makefile()` in an R script (say, `my_script.R`) and run the following in the [Linux command line](http://linuxcommand.org/).
 
 ```r
-nohup nice -19 make -j [N] &
+nohup nice -19 R CMD BATCH my_script.R &
 ```
 
 For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), you  may have to create a custom stand-in for a shell. 
 For example, suppose we are using the Univa Grid Engine. From R, call
 
 ```r
-write_makefile(.., begin = "SHELL = ./shell.sh")
+makefile(.., command = "make -j 8", prepend = "SHELL = ./shell.sh")
 ```
 
 where the file `shell.sh` contains
@@ -76,10 +72,10 @@ Now, in the Linux command line, enable execution with
 chmod +x shell.sh
 ```
 
-and then distribute the work over `[N]` simultaneous jobs with
+As before, write your call to `makefile()` in an R script and run 
 
 ```r
-nohup nice -19 make -j [N] &
+nohup nice -19 R CMD BATCH my_script.R &
 ```
 
 The same approach should work for [LSF systems](https://en.wikipedia.org/wiki/Platform_LSF), where `make` replaced by [lsmake](https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_admin/lsmake_how_works_lsf.html) and the [Makefile](https://www.gnu.org/software/make/) is compatible.
@@ -98,4 +94,4 @@ The functions `create_bindings()` and `make_environment()` are alternatives from
 
 # Multiple [`remake`](https://github.com/richfitz/remake)/[`YAML`](http://yaml.org/) files
 
-[`remake`](https://github.com/richfitz/remake) has the option to split the workflow over multiple [`YAML`](http://yaml.org/) files and collate them with the "include:" field. If that's the case, just specify all the root nodes in the `remakefiles` argument to `write_makefile()`. (You could also specify every single [`YAML`](http://yaml.org/) file, but that's tedious.) If needed, `write_makefile()` will recursively combine the targets, sources, etc. in the constituent `remakefiles` and output a new collated [`YAML`](http://yaml.org/) file that the master [`Makefile`](https://www.gnu.org/software/make/) will then use.
+[`remake`](https://github.com/richfitz/remake) has the option to split the workflow over multiple [`YAML`](http://yaml.org/) files and collate them with the "include:" field. If that's the case, just specify all the root nodes in the `remakefiles` argument to `makefile()`. (You could also specify every single [`YAML`](http://yaml.org/) file, but that's tedious.) If needed, `makefile()` will recursively combine the targets, sources, etc. in the constituent `remakefiles` and output a new collated [`YAML`](http://yaml.org/) file that the master [`Makefile`](https://www.gnu.org/software/make/) will then use.

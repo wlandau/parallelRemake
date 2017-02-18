@@ -1,4 +1,4 @@
-# library(testthat); library(parallelRemake); 
+# library(testthat); devtools::load_all(); 
 context("Collation")
 source("utils.R")
 
@@ -21,11 +21,9 @@ diri = function(i) paste("collation-proper-time-", i)
 test_that("Collated workflow runs smoothly.", {
   testwd("collation-ok")
   write_collation_files()
-  write_makefile(remakefiles = c("remake.yml", "remake_data.yml"))
+  makefile(remakefiles = c("remake.yml", "remake_data.yml"), remake_args = list(verbose = F))
   expect_true(file.exists("collated_remake.yml"))
-  system("make")
-  expect_true(all(files %in% list.files()))
-  expect_true(all(recallable() == paste0("processed", 1:3)))
+  expect_identical(recallable(), c("data", paste0("processed", 1:3)))
   testrm("collation-ok")
 })
 
@@ -33,31 +31,13 @@ test_that("Collation happens at the proper time.", {
   dir = "collation-proper-time"
   testwd(diri(1))
   write_collation_files()
-  write_makefile()
+  makefile(run = F, remakefiles = c("remake.yml", "remake_data.yml"))
   expect_true(collation())
   testrm(diri(1))
 
   testwd(diri(2))
   write_collation_files()
-  write_makefile(remakefiles = "remake3.yml")
-  expect_true(collation())
+  makefile(targets = "data", remakefiles = "remake_data.yml", run = F)
+  expect_false(collation())
   testrm(diri(2))
-
-  testwd(diri(3))
-  write_collation_files()
-  write_makefile(remakefiles = "remake_data.yml")
-  expect_false(collation())
-  testrm(diri(3))
-
-  testwd(diri(4))
-  write_collation_files()
-  write_makefile(remakefiles = c("remake_data.yml", "remake_data.yml"))
-  expect_false(collation())
-  testrm(diri(4))
-
-  testwd(diri(5))
-  write_collation_files()
-  write_makefile(remakefiles = c("remake_data.yml", "remake5.yml"))
-  expect_true(collation())
-  testrm(diri(5))
 })

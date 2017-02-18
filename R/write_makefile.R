@@ -23,19 +23,12 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
     cat(timestamp(dep), "\n")
     if("command" %in% names(target) | !is.null(target$knitr)){
       cat("\tRscript -e \'if (!remake::is_current(\"",
-          name, "\")) remake::make(\"", name, "\", remake_file = \"",
-          remakefile, "\"", add_args, "); invisible(file.copy(\".timestamp\", \"", 
-          timestamp(name), "\", copy.date = FALSE, overwrite = TRUE))\'\n", sep = "")
+          name, "\", remake_file = \"", remakefile, "\")) remake::make(\"", name, "\", remake_file = \"",
+          remakefile, "\"", add_args, "); unlink(\"", 
+          timestamp(name), "\"); file.create(\"", timestamp(name), "\")\'\n", sep = "")
     }
     cat("\n")
   }
-}
-
-makefile_clean = function(remakefile, clean, add_args){
-  cat("clean:\n\tRscript -e \'remake::make(\"clean\", remake_file = \"", 
-      remakefile, "\"", add_args, ")\'\n", sep = "")
-  cat("\trm -rf .data .remake .makefile\n")
-  for(rule in clean) cat("\t", str_trim(rule), "\n", sep = "")
 }
 
 #' @title Function \code{makefile}
@@ -48,14 +41,13 @@ makefile_clean = function(remakefile, clean, add_args){
 #' @param targets character vector of targets to make
 #' @param remakefiles Character vector of paths to input \code{remake} files.
 #' @param prepend Character vector of lines to prepend to the Makefile.
-#' @param clean Character vector of commands to add to the \code{clean} rule.
 #' @param remake_args Named list of additional arguments to \code{remake::make}.
 #' @param run logical, whether to actually run the Makefile or just write it.
 #' @param command character scalar, command to run to execute the Makefile
 #' You cannot set \code{target_names} or \code{remake_file} this way because 
 #' those names are already reserved.
 makefile = function(targets = "all", remakefiles = "remake.yml", 
-  prepend = NULL, clean = NULL, remake_args = list(), run = TRUE,
+  prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
   command = "make"){
 
   make_these = targets
@@ -68,10 +60,8 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
   sink("Makefile")
   if(!is.null(prepend)) cat(prepend, "", sep = "\n")
   makefile_rules(remakefile, make_these, targets, add_args)
-  makefile_clean(remakefile, clean, add_args)
   sink()
   
-  init_timestamps(names(targets))
-  if(run) system(command)
-  invisible()
+  init_timestamps(names(targets), remakefile)
+  if(run) system2(command, stdout = remake_args$verbose)
 }

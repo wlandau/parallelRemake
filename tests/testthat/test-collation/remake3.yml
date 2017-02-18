@@ -2,7 +2,7 @@ include: remake5.yml
 
 targets:
   processed1:
-    command: process_data("data.csv")
+    command: process_data(data)
 
   processed2:
-    command: process_data("data.csv")
+    command: process_data(data)

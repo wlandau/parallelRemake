@@ -1,10 +1,9 @@
 generate_data = function(){
   data(mtcars)
-  write.csv(mtcars, file = "data.csv")
+  mtcars
 }
 
-process_data = function(filename){
-  d = read.csv(filename)
+process_data = function(d){
   data.frame(x = d$mpg, y = d$cyl)
 }
 

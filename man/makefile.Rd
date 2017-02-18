@@ -5,7 +5,7 @@
 \title{Function \code{makefile}}
 \usage{
 makefile(targets = "all", remakefiles = "remake.yml", prepend = NULL,
-  clean = NULL, remake_args = list(), run = TRUE, command = "make")
+  remake_args = list(verbose = TRUE), run = TRUE, command = "make")
 }
 \arguments{
 \item{targets}{character vector of targets to make}
@@ -13,8 +13,6 @@ makefile(targets = "all", remakefiles = "remake.yml", prepend = NULL,
 \item{remakefiles}{Character vector of paths to input \code{remake} files.}
 
 \item{prepend}{Character vector of lines to prepend to the Makefile.}
-
-\item{clean}{Character vector of commands to add to the \code{clean} rule.}
 
 \item{remake_args}{Named list of additional arguments to \code{remake::make}.}
 
