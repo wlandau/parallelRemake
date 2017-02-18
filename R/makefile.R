@@ -25,7 +25,7 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
       cat("\tRscript -e \'if (!remake::is_current(\"",
           name, "\", remake_file = \"", remakefile, "\")) remake::make(\"", name, "\", remake_file = \"",
           remakefile, "\"", add_args, "); unlink(\"", 
-          timestamp(name), "\"); file.create(\"", timestamp(name), "\")\'\n", sep = "")
+          timestamp(name), "\"); invisible(file.create(\"", timestamp(name), "\"))\'\n", sep = "")
     }
     cat("\n")
   }
@@ -61,7 +61,8 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
   sink()
   
   init_timestamps(names(targets), remakefile)
-  if(run) system2(command, stdout = remake_args$verbose)
+  if(run) system(command)
+  invisible()
 }
 
 

@@ -25,9 +25,10 @@ test_that("Correct Makefiles are made with remake_args.", {
   example = "basic"
   example_parallelRemake(example)
   setwd(example)
-  remake::make("clean")
-  x = makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
-  expect_equal(x, 0)
+  remake::make("clean", verbose = F)
+  makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin", run = F)
+  x = system2("make", stdout = T)
+  expect_equal(length(x), 3)
   expect_true(all(recallable() == c("mtcars", "random")))
   expect_equal(recall("mtcars"), mtcars)
   expect_equal(dim(recall("random")), c(32, 1))
@@ -35,6 +36,8 @@ test_that("Correct Makefiles are made with remake_args.", {
   Sys.sleep(1.1) # mtime resolutions are terrible on some OS's
   makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
   expect_equal(mtime, file.mtime("plot.pdf"))
+  remake::make("clean", verbose = F)
+  makefile(remake_args = list(verbose = F, string = "my string"), prepend = "#begin")
   setwd("..")
   unlink("basic", recursive = TRUE)
   testrm("remake_args-Makefiles")
