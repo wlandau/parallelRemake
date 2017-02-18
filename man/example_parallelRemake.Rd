@@ -15,6 +15,6 @@ Copy a parallelRemake example to the current working directory.
 To see the names of all the examples, run \code{\link{list_examples_parallelRemake}}.
 }
 \seealso{
-\code{\link{list_examples_parallelRemake}}, \code{\link{write_makefile}}
+\code{\link{list_examples_parallelRemake}}, \code{\link{makefile}}
 }
 

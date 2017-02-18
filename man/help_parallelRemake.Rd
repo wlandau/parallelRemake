@@ -10,6 +10,6 @@ help_parallelRemake()
 Prints links for tutorials, troubleshooting, bug reports, etc.
 }
 \seealso{
-\code{\link{write_makefile}}
+\code{\link{makefile}}
 }
 

@@ -13,6 +13,6 @@ a names of all the parallelRemake examples.
 Return the names of all the parallelRemake examples.
 }
 \seealso{
-\code{\link{example_parallelRemake}}, \code{\link{write_makefile}}
+\code{\link{example_parallelRemake}}, \code{\link{makefile}}
 }
 

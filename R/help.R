@@ -1,6 +1,6 @@
 #' @title Function \code{help_parallelRemake}
 #' @description Prints links for tutorials, troubleshooting, bug reports, etc.
-#' @seealso \code{\link{write_makefile}}
+#' @seealso \code{\link{makefile}}
 #' @export
 help_parallelRemake = function(){
   cat(

@@ -1,7 +1,7 @@
 #' @title Function \code{example_parallelRemake}
 #' @description Copy a parallelRemake example to the current working directory.
 #' To see the names of all the examples, run \code{\link{list_examples_parallelRemake}}.
-#' @seealso \code{\link{list_examples_parallelRemake}}, \code{\link{write_makefile}}
+#' @seealso \code{\link{list_examples_parallelRemake}}, \code{\link{makefile}}
 #' @export
 #' @param example name of the example. To see all the available example names, 
 #' run \code{\link{list_examples_parallelRemake}}.
@@ -17,7 +17,7 @@ example_parallelRemake = function(example = list_examples_parallelRemake()){
 
 #' @title Function \code{list_examples_parallelRemake}
 #' @description Return the names of all the parallelRemake examples.
-#' @seealso \code{\link{example_parallelRemake}}, \code{\link{write_makefile}}
+#' @seealso \code{\link{example_parallelRemake}}, \code{\link{makefile}}
 #' @export
 #' @return a names of all the parallelRemake examples.
 list_examples_parallelRemake = function(){

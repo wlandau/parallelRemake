@@ -1,15 +1,16 @@
-init_timestamps = function(remake_file = "remake.yml"){
+init_timestamps = function(targetnames){
   unlink(timestampdir, recursive = TRUE)
   dir.create(timestampdir)
   zip = system.file("timestamp.zip", package = "parallelRemake", mustWork = TRUE)
   unzip(zip, setTimes = TRUE)
-  targets = Filter(remake::is_current, remake::list_targets(remake_file))
+  targets = Filter(remake::is_current, targetnames)
   lapply(targets, function(x) 
     file.copy(".timestamp", timestamp(x), copy.date = TRUE))
+  unlink(".timestamp")
   invisible()
 }
 
-timestampdir = ".data"
+timestampdir = ".makefile"
 
 timestamp = function(x){
   file.path(timestampdir, x)
