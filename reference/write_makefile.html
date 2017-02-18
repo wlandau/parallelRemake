@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function  — write_makefile • parallelRemake</title>
+<title>DEPRECATED function  — write_makefile • parallelRemake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -72,32 +72,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Function </h1>
+    <h1>DEPRECATED function </h1>
     </div>
 
     
-    <p>Writes a master Makefile that can distribute <code>remake</code> workflows
-over simultaneous processes.
+    <p>See <code><a href='makefile.html'>makefile</a></code>. Makefiles are not standalone anymore.
+You have to write and execute them in one step with <code>link{makefile}(..., run = TRUE)</code>.
 Use the <code><a href='help_parallelRemake.html'>help_parallelRemake</a></code> function to get more help.</p>
     
 
-    <pre><span class='fu'>write_makefile</span>(<span class='kw'>makefile</span> <span class='kw'>=</span> <span class='st'>"Makefile"</span>, <span class='kw'>remakefiles</span> <span class='kw'>=</span> <span class='st'>"remake.yml"</span>,
-  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remake_args</span> <span class='kw'>=</span> <span class='fu'>list</span>())</pre>
+    <pre><span class='fu'>write_makefile</span>(<span class='kw'>targets</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>remakefiles</span> <span class='kw'>=</span> <span class='st'>"remake.yml"</span>,
+  <span class='kw'>prepend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remake_args</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>run</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>command</span> <span class='kw'>=</span> <span class='st'>"make"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>makefile</dt>
-      <dd>Name of the Makefile to write.</dd>
+      <dt>targets</dt>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
       <dt>remakefiles</dt>
-      <dd>Character vector of paths to input <code>remake</code> files.</dd>
-      <dt>begin</dt>
-      <dd>Character vector of lines to prepend to the Makefile.</dd>
-      <dt>clean</dt>
-      <dd>Character vector of commands to add to the <code>clean</code> rule.</dd>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
+      <dt>prepend</dt>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
       <dt>remake_args</dt>
-      <dd>Named list of additional arguments to <code>remake::make</code>.
-You cannot set <code>target_names</code> or <code>remake_file</code> this way because 
-those names are already reserved.</dd>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
+      <dt>run</dt>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
+      <dt>command</dt>
+      <dd>See <code><a href='makefile.html'>makefile</a>()</code>.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -106,7 +107,7 @@ those names are already reserved.</dd>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='help_parallelRemake.html'>help_parallelRemake</a></code></p>
+    <p><code><a href='makefile.html'>makefile</a></code>, <code><a href='help_parallelRemake.html'>help_parallelRemake</a></code></p>
     
 
   </div>

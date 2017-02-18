@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • parallelRemake</title>
+<title>Function  — makefile • parallelRemake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -34,7 +34,7 @@
   </head>
 
   <body>
-    <div class="container template-vignette-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -69,20 +69,57 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Vignette reference <small>version&nbsp;1.0.0</small></h1>
-</div>
-
-<div class="row">
-  <div class="col-md-9">
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="parallelRemake.html">parallelRemake</a></li>
-      </ul>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Function </h1>
     </div>
+
+    
+    <p>Writes an executes a Makefile to distribute <code>remake</code> targets
+over simultaneous processes.
+Use the <code><a href='help_parallelRemake.html'>help_parallelRemake</a></code> function to get more help.</p>
+    
+
+    <pre><span class='fu'>makefile</span>(<span class='kw'>targets</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>remakefiles</span> <span class='kw'>=</span> <span class='st'>"remake.yml"</span>, <span class='kw'>prepend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>remake_args</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>run</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>command</span> <span class='kw'>=</span> <span class='st'>"make"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>targets</dt>
+      <dd>character vector of targets to make</dd>
+      <dt>remakefiles</dt>
+      <dd>Character vector of paths to input <code>remake</code> files.</dd>
+      <dt>prepend</dt>
+      <dd>Character vector of lines to prepend to the Makefile.</dd>
+      <dt>remake_args</dt>
+      <dd>Named list of additional arguments to <code>remake::make</code>.</dd>
+      <dt>run</dt>
+      <dd>logical, whether to actually run the Makefile or just write it.</dd>
+      <dt>command</dt>
+      <dd>character scalar, command to run to execute the Makefile.</dd>
+    </dl>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Use the <code><a href='help_parallelRemake.html'>help_parallelRemake</a></code> function to get more help.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='help_parallelRemake.html'>help_parallelRemake</a></code></p>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
   </div>
 </div>
 

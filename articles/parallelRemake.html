@@ -35,16 +35,16 @@
       <h1>parallelRemake</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2017-02-07</h4>
+            <h4 class="date">2017-02-18</h4>
           </div>
 
     
     
 <div class="contents">
-<p>The <code>parallelRemake</code> package is a helper add-on for <a href="https://github.com/richfitz/remake"><code>remake</code></a>, a <a href="https://www.gnu.org/software/make/">Makefile</a>-like reproducible build system for R. If you haven&rsquo;t done so already, go learn <a href="https://github.com/richfitz/remake"><code>remake</code></a>! Also learn <a href="https://www.gnu.org/software/make/">GNU make</a>, and then recall that <code>make -j 4</code> runs a <a href="https://www.gnu.org/software/make/">Makefile</a> while distributing the rules over four parallel processes. This mode of parallelism is the whole point of <code>parallelRemake</code>. With <code>parallelRemake</code>, you can write an overarching <a href="https://www.gnu.org/software/make/">Makefile</a> for a <a href="https://github.com/richfitz/remake"><code>remake</code></a> project to run <a href="https://github.com/richfitz/remake"><code>remake</code></a> targets in parallel. This distributed parallelism is extremely helpful for large clusters that use the <a href="http://slurm.schedmd.com/">Slurm job scheduler</a>, for example, as explained in <a href="http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html">this post</a>.</p>
+<p>The <code>parallelRemake</code> package is a helper add-on for <a href="https://github.com/richfitz/remake"><code>remake</code></a>, a <a href="https://www.gnu.org/software/make/">Makefile</a>-like reproducible build system for R. If you haven&rsquo;t done so already, go learn <a href="https://github.com/richfitz/remake"><code>remake</code></a>! You should also familiarize yourself with <a href="https://www.gnu.org/software/make/">GNU make</a> enough to use the <code>-j</code> flag. The whole key to this package is that <code>make -j &lt;N&gt;</code> runs a <a href="https://www.gnu.org/software/make/">Makefile</a> and distributes the work over <code>&lt;N&gt;</code> simultaneous tasks. The <code><a href="../reference/makefile.html">makefile()</a></code> function takes in a <code>remake.yml</code> file (or collection of collated files), generates a <a href="https://www.gnu.org/software/make/">Makefile</a>, and runs it using parallel processes. As explained later in this tutorial, you can launch these processes as formal jobs on a cluster or supercomputer.</p>
 <div id="rtools-for-windows-users" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#rtools-for-windows-users" class="anchor"> </a></body></html>Rtools for Windows users</h1>
-<p>The example and tests sometimes use <code>system("make")</code> and similar commands. So if you&rsquo;re using the Windows operating system, you will need to install the <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows"><code>Rtools</code></a> package.</p>
+<p>If you&rsquo;re using the Windows operating system, you will need to install the <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows"><code>Rtools</code></a> package. <code><a href="../reference/makefile.html">makefile(run = TRUE)</a></code> requires it.</p>
 </div>
 <div id="help-and-troubleshooting" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#help-and-troubleshooting" class="anchor"> </a></body></html>Help and troubleshooting</h1>
@@ -55,36 +55,32 @@
 <p>Run <code><a href="../reference/list_examples_parallelRemake.html">list_examples_parallelRemake()</a></code> to see the available examples, and run <code><a href="../reference/example_parallelRemake.html">example_parallelRemake()</a></code> to output an example to your current working directory. To run the basic example,</p>
 <ol style="list-style-type: decimal"><li>Call <code><a href="../reference/example_parallelRemake.html">example_parallelRemake("basic")</a></code> in an R session.</li>
 <li>Call <code>setwd("basic")</code> to enter the <code>"basic"</code> folder.</li>
-<li>call <code><a href="../reference/write_makefile.html">write_makefile()</a></code> to generate the <code>Makefile</code>.</li>
-<li>Use <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> to run the workflow. Do any of the following in any order.
-<ul><li><code>system("make")</code> just runs the workflow in 1 process.</li>
-<li><code>system("make -j 2")</code> distributes the workflow over two parallel processes.</li>
-<li><code>system("make clean")</code> removes the files created by <a href="https://github.com/richfitz/remake"><code>remake</code></a>.</li>
-</ul></li>
+<li>Call <code><a href="../reference/makefile.html">makefile()</a></code> to generate the <code>Makefile</code> and run it. Use <code>command = "make -j 4"</code> to distribute the work over 4 parallel processes.</li>
 </ol></div>
-<div id="more-on-write_makefile" class="section level1">
-<h1 class="hasAnchor"><html><body><a href="#more-on-write_makefile" class="anchor"> </a></body></html>More on <code><a href="../reference/write_makefile.html">write_makefile()</a></code></h1>
-<p>The <code><a href="../reference/write_makefile.html">write_makefile()</a></code> function has additional arguments. You can control the names of the <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> and the <a href="https://github.com/richfitz/remake"><code>remake</code></a>/<a href="http://yaml.org/"><code>YAML</code></a> file with the <code>makefile</code> and <code>remakefile</code> arguments, respectively. You can add lines to the beginning of the <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> with the <code>begin</code> argument, which could be useful for setting up the workflow for execution on a cluster, for example. You can append commands to <code>make clean</code> with the <code>clean</code> argument. In addition, the <code>remake_args</code> argument passes additional arguments to <code>remake::make()</code>. For example, <code><a href="../reference/write_makefile.html">write_makefile(remake_args = list(verbose = FALSE))</a></code> is equivalent to <code>remake::make(..., verbose = F)</code> for each target. You cannot set <code>target_names</code> or <code>remake_file</code> this way.</p>
+<div id="more-on-makefile" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#more-on-makefile" class="anchor"> </a></body></html>More on <code><a href="../reference/makefile.html">makefile()</a></code></h1>
+<p>Here, the <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> is more than just a job scheduler. At initialization, it generates dummy files to store timestamps, so it knows which jobs to skip and which jobs to run. The downside is that you cannot run the <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> on its own. You have to run it through <code><a href="../reference/makefile.html">makefile(..., run = TRUE)</a></code>.</p>
+<p>The <code><a href="../reference/makefile.html">makefile()</a></code> function has additional arguments. The <code>remake_args</code> argument passes additional arguments to <code>remake::make()</code>. For example, <code><a href="../reference/makefile.html">makefile(remake_args = list(verbose = FALSE))</a></code> is equivalent to <code>remake::make(..., verbose = F)</code> for each target. You cannot set <code>target_names</code> or <code>remake_file</code> this way. Also, <code>prepend</code> argument writes arbitrary lines of code to the top of the <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a>. As explained in the next section, this is the key to submitting processes as jobs on a cluster.</p>
 </div>
 <div id="high-performance-computing" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#high-performance-computing" class="anchor"> </a></body></html>High-performance computing</h1>
 <p>If you want to run <code>make -j</code> to distribute tasks over multiple nodes of a <a href="http://slurm.schedmd.com/">Slurm</a> cluster, you should generate a Makefile like the one in <a href="http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html">this post</a>. To do this, run the following in an R session</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/write_makefile.html">write_makefile</a></span>(..., 
-  <span class="dt">begin =</span> <span class="kw">c</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(..., <span class="dt">command =</span> <span class="st">"make -j 4"</span>,
+  <span class="dt">prepend =</span> <span class="kw">c</span>(
     <span class="st">"SHELL=srun"</span>,
     <span class="st">".SHELLFLAGS= &lt;ARGS&gt; bash -c"</span>))</code></pre></div>
-<p>where <code>&lt;ARGS&gt;</code> stands for additional arguments to <code>srun</code>. Then, once the <a href="https://www.gnu.org/software/make/">Makefile</a> is generated, you distribute the work over <code>[N]</code> simultaneous jobs by running the following in the <a href="http://linuxcommand.org/">Linux command line</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nohup nice -<span class="dv">19</span> make -j [N] &amp;</code></pre></div>
+<p>where <code>&lt;ARGS&gt;</code> stands for additional arguments to <code>srun</code>. To ensure that jobs continue to get submitted after you log out, put the call to <code><a href="../reference/makefile.html">makefile()</a></code> in an R script (say, <code>my_script.R</code>) and run the following in the <a href="http://linuxcommand.org/">Linux command line</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nohup nice -<span class="dv">19</span> R CMD BATCH my_script.R &amp;</code></pre></div>
 <p>For other task managers such as <a href="https://en.wikipedia.org/wiki/Portable_Batch_System">PBS</a>, you may have to create a custom stand-in for a shell. For example, suppose we are using the Univa Grid Engine. From R, call</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/write_makefile.html">write_makefile</a></span>(.., <span class="dt">begin =</span> <span class="st">"SHELL = ./shell.sh"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(.., <span class="dt">command =</span> <span class="st">"make -j 8"</span>, <span class="dt">prepend =</span> <span class="st">"SHELL = ./shell.sh"</span>)</code></pre></div>
 <p>where the file <code>shell.sh</code> contains</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#!/bin/bash</span>
 shift
 echo <span class="st">"module load R; $*"</span> |<span class="st"> </span>qsub -sync y -cwd -j y</code></pre></div>
 <p>Now, in the Linux command line, enable execution with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chmod +x shell.sh</code></pre></div>
-<p>and then distribute the work over <code>[N]</code> simultaneous jobs with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nohup nice -<span class="dv">19</span> make -j [N] &amp;</code></pre></div>
+<p>As before, write your call to <code><a href="../reference/makefile.html">makefile()</a></code> in an R script and run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nohup nice -<span class="dv">19</span> R CMD BATCH my_script.R &amp;</code></pre></div>
 <p>The same approach should work for <a href="https://en.wikipedia.org/wiki/Platform_LSF">LSF systems</a>, where <code>make</code> replaced by <a href="https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_admin/lsmake_how_works_lsf.html">lsmake</a> and the <a href="https://www.gnu.org/software/make/">Makefile</a> is compatible.</p>
 <p>Regardless of the system, be sure that all nodes point to the same working directory so that they share the same <code>.remake</code> <a href="https://github.com/richfitz/storr">storr</a> cache. For the Univa Grid Engine, the <code>-cwd</code> flag for <code>qsub</code> accomplishes this.</p>
 </div>
@@ -99,7 +95,7 @@ echo <span class="st">"module load R; $*"</span> |<span class="st"> </span>qsub 
 </div>
 <div id="multiple-remakeyaml-files" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#multiple-remakeyaml-files" class="anchor"> </a></body></html>Multiple <a href="https://github.com/richfitz/remake"><code>remake</code></a>/<a href="http://yaml.org/"><code>YAML</code></a> files</h1>
-<p><a href="https://github.com/richfitz/remake"><code>remake</code></a> has the option to split the workflow over multiple <a href="http://yaml.org/"><code>YAML</code></a> files and collate them with the &ldquo;include:&rdquo; field. If that&rsquo;s the case, just specify all the root nodes in the <code>remakefiles</code> argument to <code><a href="../reference/write_makefile.html">write_makefile()</a></code>. (You could also specify every single <a href="http://yaml.org/"><code>YAML</code></a> file, but that&rsquo;s tedious.) If needed, <code><a href="../reference/write_makefile.html">write_makefile()</a></code> will recursively combine the targets, sources, etc. in the constituent <code>remakefiles</code> and output a new collated <a href="http://yaml.org/"><code>YAML</code></a> file that the master <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> will then use.</p>
+<p><a href="https://github.com/richfitz/remake"><code>remake</code></a> has the option to split the workflow over multiple <a href="http://yaml.org/"><code>YAML</code></a> files and collate them with the &ldquo;include:&rdquo; field. If that&rsquo;s the case, just specify all the root nodes in the <code>remakefiles</code> argument to <code><a href="../reference/makefile.html">makefile()</a></code>. (You could also specify every single <a href="http://yaml.org/"><code>YAML</code></a> file, but that&rsquo;s tedious.) If needed, <code><a href="../reference/makefile.html">makefile()</a></code> will recursively combine the targets, sources, etc. in the constituent <code>remakefiles</code> and output a new collated <a href="http://yaml.org/"><code>YAML</code></a> file that the master <a href="https://www.gnu.org/software/make/"><code>Makefile</code></a> will then use.</p>
 </div>
 </div>
   </div>
@@ -110,7 +106,7 @@ echo <span class="st">"module load R; $*"</span> |<span class="st"> </span>qsub 
       <ul class="nav nav-pills nav-stacked"><li><a href="#rtools-for-windows-users">Rtools for Windows users</a></li>
       <li><a href="#help-and-troubleshooting">Help and troubleshooting</a></li>
       <li><a href="#examples">Examples</a></li>
-      <li><a href="#more-on-write_makefile">More on <code><a href="../reference/write_makefile.html">write_makefile()</a></code></a></li>
+      <li><a href="#more-on-makefile">More on <code><a href="../reference/makefile.html">makefile()</a></code></a></li>
       <li><a href="#high-performance-computing">High-performance computing</a></li>
       <li><a href="#use-with-the-downsize-package">Use with the </a><a href="https://github.com/wlandau/downsize">downsize</a> package</li>
       <li><a href="#accessing-the-remake-cache-for-debugging-and-testing">Accessing the </a><a href="https://github.com/richfitz/remake"><code>remake</code></a> cache for debugging and testing</li>
