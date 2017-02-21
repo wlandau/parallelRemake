@@ -44,9 +44,20 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
 #' @param remake_args Named list of additional arguments to \code{remake::make}.
 #' @param run logical, whether to actually run the Makefile or just write it.
 #' @param command character scalar, command to run to execute the Makefile.
+#' \code{command} and \code{args} will be used to call 
+#' \code{system2(command = command, args = args)} to run the \code{Makefile}.
+#' For example, to execute the \code{Makefile} using 4 parallel jobs
+#' while suppressing output to the console, use 
+#' \code{makefile(..., command = "make", args = c("--jobs=4", "-s"))}.
+#' @param args character vector of arguments to the specified \code{command}.
+#' \code{command} and \code{args} will be used to call
+#' \code{system2(command = command, args = args)} to run the \code{Makefile}.
+#' For example, to execute the \code{Makefile} using 4 parallel jobs
+#' while suppressing output to the console, use
+#' \code{makefile(..., command = "make", args = c("--jobs=4", "-s"))}.
 makefile = function(targets = "all", remakefiles = "remake.yml", 
   prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
-  command = "make"){
+  command = "make", args = character(0)){
 
   make_these = targets
   add_args = remake_args(remake_args)
@@ -61,7 +72,7 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
   sink()
   
   init_timestamps(names(targets), remakefile)
-  if(run) system(command)
+  if(run) system2(command = command, args = args)
   invisible()
 }
 
@@ -79,9 +90,10 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
 #' @param remake_args See \code{\link{makefile}()}.
 #' @param run See \code{\link{makefile}()}.
 #' @param command See \code{\link{makefile}()}.
+#' @param args See \code{\link{makefile}()}.
 write_makefile = function(targets = "all", remakefiles = "remake.yml", 
                     prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
-                    command = "make"){
+                    command = "make", args = character(0)){
   .Deprecated("makefile", package = "parallelRemake")
   stop("Do not use write_makefile() in version 1.0.0+ of parallelRemake. ",
     "Use makefile(..., run = TRUE) to both generate and run the Makefile in a single step. ",

@@ -15,7 +15,7 @@ test_that("Stages in basic example happen correctly.", {
   makefile("random", remake_args = list(verbose = F))
   expect_equal(recallable(), "random")
   expect_false(file.exists("plot.pdf"))
-  makefile(remake_args = list(verbose = F), command = "make -j 2")
+  makefile(remake_args = list(verbose = F), command = "make", args = "-j2")
   expect_true(file.exists("plot.pdf"))
   file.copy("../../test-examples/code.R", "code.R", overwrite = TRUE)
   makefile(remake_args = list(verbose = F), run = F)

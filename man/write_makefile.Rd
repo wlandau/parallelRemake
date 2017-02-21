@@ -6,7 +6,7 @@
 \usage{
 write_makefile(targets = "all", remakefiles = "remake.yml",
   prepend = NULL, remake_args = list(verbose = TRUE), run = TRUE,
-  command = "make")
+  command = "make", args = character(0))
 }
 \arguments{
 \item{targets}{See \code{\link{makefile}()}.}
@@ -20,6 +20,8 @@ write_makefile(targets = "all", remakefiles = "remake.yml",
 \item{run}{See \code{\link{makefile}()}.}
 
 \item{command}{See \code{\link{makefile}()}.}
+
+\item{args}{See \code{\link{makefile}()}.}
 }
 \description{
 See \code{\link{makefile}}. Makefiles are not standalone anymore.
