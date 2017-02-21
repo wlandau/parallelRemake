@@ -25,7 +25,7 @@ Run `list_examples_parallelRemake()` to see the available examples, and run `exa
 
 1. Call `example_parallelRemake("basic")` in an R session. 
 2. Call `setwd("basic")` to enter the `"basic"` folder.
-3. Call `makefile()` to generate the `Makefile` and run it. Use `command = "make -j 4"` to distribute the work over 4 parallel processes.
+3. Call `makefile()` to generate the `Makefile` and run it. Use `makefile(..., command = "make", args = "--jobs=4")` to distribute the work over 4 parallel processes.
     
 # More on `makefile()`
 
@@ -39,7 +39,7 @@ If you want to run `make -j` to distribute tasks over multiple nodes of a [Slurm
 To do this, run the following in an R session
 
 ```{r, eval = F}
-makefile(..., command = "make -j 4",
+makefile(..., command = "make", args = "--jobs=4",
   prepend = c(
     "SHELL=srun",
     ".SHELLFLAGS= <ARGS> bash -c"))
@@ -55,7 +55,8 @@ For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Bat
 For example, suppose we are using the Univa Grid Engine. From R, call
 
 ```r
-makefile(.., command = "make -j 8", prepend = "SHELL = ./shell.sh")
+makefile(.., command = "make", args = "--jobs=8",
+  prepend = "SHELL = ./shell.sh")
 ```
 
 where the file `shell.sh` contains

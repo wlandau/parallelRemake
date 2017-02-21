@@ -5,7 +5,8 @@
 \title{Function \code{makefile}}
 \usage{
 makefile(targets = "all", remakefiles = "remake.yml", prepend = NULL,
-  remake_args = list(verbose = TRUE), run = TRUE, command = "make")
+  remake_args = list(verbose = TRUE), run = TRUE, command = "make",
+  args = character(0))
 }
 \arguments{
 \item{targets}{character vector of targets to make}
@@ -18,7 +19,19 @@ makefile(targets = "all", remakefiles = "remake.yml", prepend = NULL,
 
 \item{run}{logical, whether to actually run the Makefile or just write it.}
 
-\item{command}{character scalar, command to run to execute the Makefile.}
+\item{command}{character scalar, command to run to execute the Makefile.
+\code{command} and \code{args} will be used to call 
+\code{system2(command = command, args = args)} to run the \code{Makefile}.
+For example, to execute the \code{Makefile} using 4 parallel jobs
+while suppressing output to the console, use 
+\code{makefile(..., command = "make", args = c("--jobs=4", "-s"))}.}
+
+\item{args}{character vector of arguments to the specified \code{command}.
+\code{command} and \code{args} will be used to call
+\code{system2(command = command, args = args)} to run the \code{Makefile}.
+For example, to execute the \code{Makefile} using 4 parallel jobs
+while suppressing output to the console, use
+\code{makefile(..., command = "make", args = c("--jobs=4", "-s"))}.}
 }
 \description{
 Writes an executes a Makefile to distribute \code{remake} targets
