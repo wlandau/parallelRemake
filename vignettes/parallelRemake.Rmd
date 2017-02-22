@@ -52,7 +52,7 @@ nohup nice -19 R CMD BATCH my_script.R &
 ```
 
 For other task managers such as [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), you  may have to create a custom stand-in for a shell. 
-For example, suppose we are using the Univa Grid Engine. From R, call
+For example, suppose we are using the Univa Grid Engine. In `my_script.R`, call
 
 ```r
 makefile(.., command = "make", args = "--jobs=8",
