@@ -35,7 +35,7 @@
       <h1>parallelRemake</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2017-02-18</h4>
+            <h4 class="date">2017-02-22</h4>
           </div>
 
     
@@ -55,7 +55,7 @@
 <p>Run <code><a href="../reference/list_examples_parallelRemake.html">list_examples_parallelRemake()</a></code> to see the available examples, and run <code><a href="../reference/example_parallelRemake.html">example_parallelRemake()</a></code> to output an example to your current working directory. To run the basic example,</p>
 <ol style="list-style-type: decimal"><li>Call <code><a href="../reference/example_parallelRemake.html">example_parallelRemake("basic")</a></code> in an R session.</li>
 <li>Call <code>setwd("basic")</code> to enter the <code>"basic"</code> folder.</li>
-<li>Call <code><a href="../reference/makefile.html">makefile()</a></code> to generate the <code>Makefile</code> and run it. Use <code>command = "make -j 4"</code> to distribute the work over 4 parallel processes.</li>
+<li>Call <code><a href="../reference/makefile.html">makefile()</a></code> to generate the <code>Makefile</code> and run it. Use <code><a href="../reference/makefile.html">makefile(..., command = "make", args = "--jobs=4")</a></code> to distribute the work over 4 parallel processes.</li>
 </ol></div>
 <div id="more-on-makefile" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#more-on-makefile" class="anchor"> </a></body></html>More on <code><a href="../reference/makefile.html">makefile()</a></code></h1>
@@ -65,14 +65,15 @@
 <div id="high-performance-computing" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#high-performance-computing" class="anchor"> </a></body></html>High-performance computing</h1>
 <p>If you want to run <code>make -j</code> to distribute tasks over multiple nodes of a <a href="http://slurm.schedmd.com/">Slurm</a> cluster, you should generate a Makefile like the one in <a href="http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html">this post</a>. To do this, run the following in an R session</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(..., <span class="dt">command =</span> <span class="st">"make -j 4"</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(..., <span class="dt">command =</span> <span class="st">"make"</span>, <span class="dt">args =</span> <span class="st">"--jobs=4"</span>,
   <span class="dt">prepend =</span> <span class="kw">c</span>(
     <span class="st">"SHELL=srun"</span>,
     <span class="st">".SHELLFLAGS= &lt;ARGS&gt; bash -c"</span>))</code></pre></div>
 <p>where <code>&lt;ARGS&gt;</code> stands for additional arguments to <code>srun</code>. To ensure that jobs continue to get submitted after you log out, put the call to <code><a href="../reference/makefile.html">makefile()</a></code> in an R script (say, <code>my_script.R</code>) and run the following in the <a href="http://linuxcommand.org/">Linux command line</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nohup nice -<span class="dv">19</span> R CMD BATCH my_script.R &amp;</code></pre></div>
 <p>For other task managers such as <a href="https://en.wikipedia.org/wiki/Portable_Batch_System">PBS</a>, you may have to create a custom stand-in for a shell. For example, suppose we are using the Univa Grid Engine. From R, call</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(.., <span class="dt">command =</span> <span class="st">"make -j 8"</span>, <span class="dt">prepend =</span> <span class="st">"SHELL = ./shell.sh"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/makefile.html">makefile</a></span>(.., <span class="dt">command =</span> <span class="st">"make"</span>, <span class="dt">args =</span> <span class="st">"--jobs=8"</span>,
+  <span class="dt">prepend =</span> <span class="st">"SHELL = ./shell.sh"</span>)</code></pre></div>
 <p>where the file <code>shell.sh</code> contains</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#!/bin/bash</span>
 shift
