@@ -13,15 +13,18 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
   make_these = unique(make_these)
   for(name in names(targets)){
     if(name == "all"){
-      cat("all:", timestamp(make_these), "\n\n")
+      cat(paste0("all: ", timestamp(make_these)), sep = "\n")
+      cat("\n")
       next()
     }
-    cat(timestamp(name), ": ", sep = "")
     target = targets[[name]]
     dep = unique(c(unlist(target$depends), parse_command(target$command)$depends))
     dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
-    cat(timestamp(dep), "\n")
+    if (length(dep) > 0) {
+      cat(paste0(timestamp(name), ": ", timestamp(dep)), sep = "\n")
+    }
     if("command" %in% names(target) | !is.null(target$knitr)){
+      cat(timestamp(name), ":\n", sep = "")
       cat("\tRscript -e \'if (!remake::is_current(\"",
           name, "\", remake_file = \"", remakefile, "\")) remake::make(\"", name, "\", remake_file = \"",
           remakefile, "\"", add_args, "); unlink(\"", 
