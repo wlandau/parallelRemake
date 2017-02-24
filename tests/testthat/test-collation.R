@@ -1,6 +1,5 @@
 # library(testthat); devtools::load_all(); 
 context("Collation")
-source("utils.R")
 
 files = c("code.R", "data.csv", "Makefile", paste0("plot", 1:3, ".pdf"),
             paste0("remake", c("", 2:5, "_data"), ".yml"), "collated_remake.yml")

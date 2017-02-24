@@ -1,6 +1,5 @@
-# library(testthat); library(parallelRemake);
+# library(testthat); devtools::load_all(); 
 context("yaml_yesno_truefalse")
-source("utils.R")
 
 test_that("Function yaml_yesno_truefalse is correct.", {
   testwd("yaml_yesno_truefalse-ok")

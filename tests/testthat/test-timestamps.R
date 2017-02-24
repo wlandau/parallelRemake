@@ -1,6 +1,5 @@
 # library(testthat); devtools::load_all(); 
 context("timestamps")
-source("utils.R")
 
 test_that("Timestamp files are written without mangling the dates.", {
   testwd("timestamps")
