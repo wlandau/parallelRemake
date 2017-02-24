@@ -24,14 +24,22 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
       cat(paste0(timestamp(name), ": ", timestamp(dep)), sep = "\n")
     }
     if("command" %in% names(target) | !is.null(target$knitr)){
-      cat(timestamp(name), ":\n", sep = "")
-      cat("\tRscript -e \'if (!remake::is_current(\"",
-          name, "\", remake_file = \"", remakefile, "\")) remake::make(\"", name, "\", remake_file = \"",
-          remakefile, "\"", add_args, "); unlink(\"", 
-          timestamp(name), "\"); invisible(file.create(\"", timestamp(name), "\"))\'\n", sep = "")
+      cat(timestamp(name), ":\n")
+      cat("\tRscript -e \'parallelRemake::process(\"$@\")\'\n")
     }
     cat("\n")
   }
+}
+
+#' @export
+process = function(target_name, remake_file, ...) {
+  name <- un_timestamp(target_name)
+  if (!remake::is_current(name, remake_file = remake_file)) {
+    remake::make(name, remake_file = remake_file, ...)
+  }
+  unlink(target_name)
+  file.create(target_name)
+  invisible()
 }
 
 #' @title Function \code{makefile}

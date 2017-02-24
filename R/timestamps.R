@@ -16,6 +16,12 @@ timestamp = function(x){
   file.path(timestampdir, x)
 }
 
+un_timestamp = function(x){
+  # Matches timestampdir at the beginning, plus one character (path separator)
+  rx = utils::glob2rx(paste0(timestampdir, "?*"))
+  gsub(rx, "", x)
+}
+
 check_timestamps = function(){
   zip = system.file("timestamp.zip", package = "parallelRemake", mustWork = TRUE)
   unzip(zip, setTimes = TRUE)
