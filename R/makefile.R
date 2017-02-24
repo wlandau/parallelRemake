@@ -24,8 +24,10 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
       cat(paste0(timestamp(name), ": ", timestamp(dep)), sep = "\n")
     }
     if("command" %in% names(target) | !is.null(target$knitr)){
-      cat(timestamp(name), ":\n")
-      cat("\tRscript -e \'parallelRemake::process(\"$@\")\'\n")
+      cat(timestamp(name), ":\n", sep = "")
+      cat("\t${PARALLEL_REMAKE_RUNNER} Rscript -e \'parallelRemake::process(",
+          "\"$@\", remake_file = \"", remakefile, "\"", add_args, ")\'\n",
+          sep = "")
     }
     cat("\n")
   }
