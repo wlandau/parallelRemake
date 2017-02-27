@@ -25,7 +25,7 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
     }
     if("command" %in% names(target) | !is.null(target$knitr)){
       cat(timestamp(name), ":\n", sep = "")
-      cat("\t${PARALLEL_REMAKE_RUNNER} Rscript -e \'parallelRemake::process(",
+      cat("\t${PARALLEL_REMAKE_RUNNER} Rscript -e \'parallelRemake:::process(",
           "\"$@\", remake_file = \"", remakefile, "\"", add_args, ")\'\n",
           sep = "")
     }
@@ -33,7 +33,6 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
   }
 }
 
-#' @export
 process = function(target_name, remake_file, ...) {
   name <- un_timestamp(target_name)
   if (!remake::is_current(name, remake_file = remake_file)) {
