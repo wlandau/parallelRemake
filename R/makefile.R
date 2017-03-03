@@ -39,6 +39,7 @@ process = function(target_name, remake_file, ...) {
     remake::make(name, remake_file = remake_file, ...)
   }
   unlink(target_name)
+  dir.create(dirname(target_name), recursive = TRUE, showWarnings = FALSE)
   file.create(target_name)
   invisible()
 }

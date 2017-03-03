@@ -4,8 +4,8 @@ init_timestamps = function(targetnames, remakefile){
   zip = system.file("timestamp.zip", package = "parallelRemake", mustWork = TRUE)
   unzip(zip, setTimes = TRUE)
   current = targetnames[remake::is_current(targetnames, remake_file = remakefile)]
-  # Side effect!
   current_timestamps = timestamp(current)
+  lapply(unique(dirname(current_timestamps)), dir.create, recursive = TRUE, showWarnings = FALSE)
   lapply(current_timestamps, file.copy, from = ".timestamp", copy.date = TRUE)
   unlink(".timestamp")
   invisible()
@@ -16,12 +16,6 @@ timestampdir = ".makefile"
 timestamp = function(x){
   dirs = dirname(x)
   dirs = unique(dirs[dirs != "."])
-  lapply(
-    dirs,
-    function(dir) {
-      dir.create(file.path(timestampdir, dir), showWarnings = FALSE, recursive = TRUE)
-    }
-  )
   file.path(timestampdir, x)
 }
 
