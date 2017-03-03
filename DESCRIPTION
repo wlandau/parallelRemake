@@ -27,4 +27,5 @@ VignetteBuilder: knitr
 URL: http://will-landau.com/parallelRemake
 BugReports: https://github.com/wlandau/parallelRemake/issues
 Remotes: richfitz/remake
+Encoding: UTF-8
 RoxygenNote: 5.0.1
