@@ -1,6 +1,5 @@
 # library(testthat); devtools::load_all(); 
 context("remake_args")
-source("utils.R")
 
 test_that("Function remake_args behaves correctly.", {
   testwd("remake_args-ok")

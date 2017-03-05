@@ -1,6 +1,5 @@
 # library(testthat); devtools::load_all(); 
 context("Example stages")
-source("utils.R")
 files = c("code.R", "remake.yml", "Makefile")
 
 test_that("Stages in basic example happen correctly.", {

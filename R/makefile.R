@@ -13,22 +13,35 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
   make_these = unique(make_these)
   for(name in names(targets)){
     if(name == "all"){
-      cat("all:", timestamp(make_these), "\n\n")
+      cat(paste0("all: ", timestamp(make_these)), sep = "\n")
+      cat("\n")
       next()
     }
-    cat(timestamp(name), ": ", sep = "")
     target = targets[[name]]
-    dep = unique(c(unlist(target$depends), parse_command(target$command)$depends))
+    dep = target$depends
     dep = dep[dep != "target_name"] # "target_name" is a keyword in remake.
-    cat(timestamp(dep), "\n")
+    if (length(dep) > 0) {
+      cat(paste0(timestamp(name), ": ", timestamp(dep)), sep = "\n")
+    }
     if("command" %in% names(target) | !is.null(target$knitr)){
-      cat("\tRscript -e \'if (!remake::is_current(\"",
-          name, "\", remake_file = \"", remakefile, "\")) remake::make(\"", name, "\", remake_file = \"",
-          remakefile, "\"", add_args, "); unlink(\"", 
-          timestamp(name), "\"); invisible(file.create(\"", timestamp(name), "\"))\'\n", sep = "")
+      cat(timestamp(name), ":\n", sep = "")
+      cat("\t${PARALLEL_REMAKE_RUNNER} Rscript -e \'parallelRemake:::process(",
+          "\"$@\", remake_file = \"", remakefile, "\"", add_args, ")\'\n",
+          sep = "")
     }
     cat("\n")
   }
+}
+
+process = function(target_name, remake_file, ...) {
+  name <- un_timestamp(target_name)
+  if (!remake::is_current(name, remake_file = remake_file)) {
+    remake::make(name, remake_file = remake_file, ...)
+  }
+  unlink(target_name)
+  dir.create(dirname(target_name), recursive = TRUE, showWarnings = FALSE)
+  file.create(target_name)
+  invisible()
 }
 
 #' @title Function \code{makefile}
@@ -64,6 +77,22 @@ makefile = function(targets = "all", remakefiles = "remake.yml",
   remakefile = collate_remakefiles(remakefiles)
   remake_data = yaml_read(remakefile)
   targets = remake_data$targets
+  targets = lapply(
+    targets,
+    function(target) {
+      target$depends = setdiff(
+        unique(c(
+          unlist(target$depends),
+          parse_command(target$command)$depends
+        )),
+        "target_name"
+      )
+      target
+    }
+  )
+  implicit_targets = setdiff(unlist(lapply(targets, "[[", "depends")), names(targets))
+  implicit_targets = stats::setNames(rep(list(NULL), length(implicit_targets)), implicit_targets)
+  targets <- c(targets, implicit_targets)
   stopifnot(all(make_these %in% names(targets)))
 
   sink("Makefile")
