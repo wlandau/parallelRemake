@@ -36,7 +36,7 @@ makefile_rules = function(remakefile, make_these, targets, add_args){
 process = function(target_name, remake_file, ...) {
   name <- un_timestamp(target_name)
   if (!remake::is_current(name, remake_file = remake_file)) {
-    remake::make(name, remake_file = remake_file, ...)
+    remake::update(name, remake_file = remake_file, ...)
   }
   unlink(target_name)
   dir.create(dirname(target_name), recursive = TRUE, showWarnings = FALSE)
