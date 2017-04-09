@@ -14,16 +14,18 @@ init_timestamps = function(targetnames, remakefile){
 timestampdir = ".makefile"
 
 timestamp = function(x){
+  if(!length(x)) return(character(0))
   dirs = dirname(x)
   dirs = unique(dirs[dirs != "."])
-  x = base64url::base64_urlencode(x)
+  x = paste0("t", base64url::base64_urlencode(x)) # must begin with alphanumeric
   file.path(timestampdir, x)
 }
 
 un_timestamp = function(x){
   # Matches timestampdir at the beginning, plus one character (path separator)
   rx = utils::glob2rx(paste0(timestampdir, "?*"))
-  gsub(rx, "", x) %>% base64url::base64_urldecode()
+  gsub(rx, "", x) %>% gsub(pattern = "^t", replacement = "") %>%
+    base64url::base64_urldecode()
 }
 
 check_timestamps = function(){
