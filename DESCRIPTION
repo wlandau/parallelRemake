@@ -1,6 +1,6 @@
 Package: parallelRemake
 Title: Parallelize Remake-Style Workflows with Makefiles
-Version: 1.1.1
+Version: 1.1.1.9000
 Date: 2017-04-09
 Authors@R: c(
     person(given = c("William", "Michael"), family = "Landau",  
