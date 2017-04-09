@@ -16,13 +16,14 @@ timestampdir = ".makefile"
 timestamp = function(x){
   dirs = dirname(x)
   dirs = unique(dirs[dirs != "."])
+  x = base64url::base64_urlencode(x)
   file.path(timestampdir, x)
 }
 
 un_timestamp = function(x){
   # Matches timestampdir at the beginning, plus one character (path separator)
   rx = utils::glob2rx(paste0(timestampdir, "?*"))
-  gsub(rx, "", x)
+  gsub(rx, "", x) %>% base64url::base64_urldecode()
 }
 
 check_timestamps = function(){

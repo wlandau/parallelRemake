@@ -19,7 +19,7 @@ test_that("Stages in basic example happen correctly.", {
   file.copy("../../test-examples/code.R", "code.R", overwrite = TRUE)
   makefile(remake_args = list(verbose = F), run = F)
   x = system2("make", stdout = T)
-  expect_true(any(grepl("plot.pdf", x)))
+  expect_true(any(grepl(timestamp("plot.pdf"), x)))
   makefile(remake_args = list(verbose = F), run = F)
   x = system2("make", stdout = T)
   expect_equal(length(x), 1)
