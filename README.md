@@ -1,6 +1,6 @@
 # Drake, the successor to parallelRemake
 
-[Drake](https://github.com/wlandau-lilly/drake) is a newer, standalone, [CRAN-published](https://CRAN.R-project.org/package=drake) build system. It has the convenience of remakeGenerator, the reproducibility of remake, and several built-in forms of parallel computing, even ones not available in parallelRemake.
+[Drake](https://github.com/wlandau-lilly/drake) is a newer, standalone, [CRAN-published](https://CRAN.R-project.org/package=drake) [Make](https://www.gnu.org/software/make/)-like build system. It has the convenience of [remakeGenerator](https://github.com/wlandau/remakeGenerator), the reproducibility of [remake](https://github.com/richfitz/remake), and more extensive parallel computing than [parallelRemake](https://github.com/wlandau/parallelRemake).
 
 # parallelRemake
 
