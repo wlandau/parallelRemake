@@ -1,3 +1,7 @@
+# Drake, the successor to parallelRemake
+
+[Drake](https://github.com/wlandau-lilly/drake) is a newer, standalone, [CRAN-published](https://CRAN.R-project.org/package=drake) build system. It has the convenience of remakeGenerator, the reproducibility of remake, and several built-in forms of parallel computing, even ones not available in parallelRemake.
+
 # parallelRemake
 
 [![Travis-CI Build Status](https://travis-ci.org/wlandau/parallelRemake.svg?branch=master)](https://travis-ci.org/wlandau/parallelRemake)
@@ -6,10 +10,6 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/parallelRemake)](http://cran.r-project.org/package=parallelRemake)
 
 The `parallelRemake` package is a helper add-on for [`remake`](https://github.com/richfitz/remake), a [Makefile](https://www.gnu.org/software/make/)-like reproducible build system for R. If you haven't done so already, go learn [`remake`](https://github.com/richfitz/remake)! Also learn [GNU make](https://www.gnu.org/software/make/), and then recall that `make -j 4` runs a [Makefile](https://www.gnu.org/software/make/) while distributing the rules over four parallel processes. This mode of parallelism is the whole point of `parallelRemake`. With `parallelRemake`, you can write an overarching [Makefile](https://www.gnu.org/software/make/) for a [`remake`](https://github.com/richfitz/remake) project to run [`remake`](https://github.com/richfitz/remake) targets in parallel. This distributed parallelism is extremely helpful for large clusters that use the [Slurm job scheduler](http://slurm.schedmd.com/), for example, as explained in [this post](http://plindenbaum.blogspot.com/2014/09/parallelizing-gnu-make-4-in-slurm.html).
-
-# Drake
-
-[Drake](https://github.com/wlandau-lilly/drake) is a standalone reimplementation of the ideas that [remake](https://github.com/richfitz/remake) pioneered, plus some niceties. Like `parallelRemake`, [drake](https://github.com/wlandau-lilly/drake) supports parallel computing with [Makefiles](https://www.gnu.org/software/make/). [Drake](https://github.com/wlandau-lilly/drake) additionally offers  `parallel::mclapply()` and `parallel::parLapply()` as available parallel backends.
 
 # Installation
 
